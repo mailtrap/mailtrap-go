@@ -1,0 +1,45 @@
+LICENSE
+  s_ddc8c9d3507f20::t_ea1a0e9730d7e4 1,3
+  s_ddc8c9d3507f20::t_e3529dd6f0044d 2,4-21
+.github/workflows/ci.yml
+  s_ddc8c9d3507f20::t_4de8fd131f5bec 1-41
+.golangci.yml
+  s_ddc8c9d3507f20::t_9874a5a33cc116 1-39
+.gitignore
+  s_ddc8c9d3507f20::t_dec012b9a01978 1-17,20-29
+  s_ddc8c9d3507f20::t_afe589260cac23 18-19
+README.md
+  s_ddc8c9d3507f20::t_78cd46e7deeaab 46,50
+  s_ddc8c9d3507f20::t_11aeb35a2d5516 1-45,47-49,51-54
+go.mod
+  s_ddc8c9d3507f20::t_82487b3b8fd2e0 1-3
+CODE_OF_CONDUCT.md
+  s_ddc8c9d3507f20::t_98107084ef00bb 1-81
+.tool-versions
+  s_ddc8c9d3507f20::t_88304c27dc2b6b 1-2
+.github/pull_request_template.md
+  s_ddc8c9d3507f20::t_5cab03fc6db6a9 1-12
+mailtrap.go
+  s_ddc8c9d3507f20::t_b442a8f618e069 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "7d823d6560bc086dc27cb9dba21832629f88e518",
+  "prompts": {},
+  "humans": {
+    "h_10da74f4986c96": {
+      "author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_ddc8c9d3507f20": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "45f5d21c-9fa7-4de3-bd69-1ea9c23a67bf",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
