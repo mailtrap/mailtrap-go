@@ -1,0 +1,29 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binaries and coverage output
+*.test
+*.out
+coverage.txt
+coverage.html
+
+# Go workspace files
+go.work
+go.work.sum
+
+# Vendored dependencies
+vendor/
+
+# Local environment
+.env
+.env.local
+
+# OS and editor files
+.DS_Store
+*.swp
+.idea/
+.vscode/
