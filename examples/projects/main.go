@@ -34,7 +34,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("fetched project %d (%s)\n", project.ID, project.Name)
+	fmt.Printf("project %d has %d sandbox(es)\n", project.ID, len(project.Sandboxes))
 
 	_, _, err = client.Projects.Update(ctx, project.ID, "Renamed project")
 	if err != nil {

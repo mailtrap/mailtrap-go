@@ -30,10 +30,11 @@ type Project struct {
 	ID          int64        `json:"id"`
 	Name        string       `json:"name"`
 	ShareLinks  *ShareLinks  `json:"share_links,omitempty"`
+	Sandboxes   []*Sandbox   `json:"sandboxes,omitempty"`
 	Permissions *Permissions `json:"permissions,omitempty"`
 }
 
-// List returns all projects accessible to the token.
+// List returns all projects, with their sandboxes, accessible to the token.
 func (s *ProjectsService) List(ctx context.Context) ([]*Project, *Response, error) {
 	var projects []*Project
 	resp, err := s.client.do(ctx, HostGeneral, http.MethodGet, "/api/projects", nil, nil, &projects)

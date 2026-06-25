@@ -33,11 +33,38 @@ if err != nil {
 }
 ```
 
+### Sandbox vs Production (easy switching)
+
+Mailtrap lets you test safely in the Email Sandbox and then switch to Production sending with a single flag. In sandbox mode `Send` captures the email in a sandbox instead of delivering it to real recipients.
+
+Keep the sandbox ID configured and toggle `WithSandbox` from configuration — the ID is ignored outside sandbox mode, so the exact same code switches environments without touching any call site:
+
+```go
+isSandbox := os.Getenv("MAILTRAP_USE_SANDBOX") == "true"
+
+client, err := mailtrap.NewClient("your-api-token",
+	mailtrap.WithSandbox(isSandbox),
+	mailtrap.WithSandboxID(3000001), // ignored unless sandbox mode is on
+)
+if err != nil {
+	log.Fatal(err)
+}
+
+resp, _, err := client.Send(context.Background(), &mailtrap.SendRequest{
+	From:    mailtrap.Address{Email: "sender@example.com", Name: "Example"},
+	To:      []mailtrap.Address{{Email: "recipient@example.com"}},
+	Subject: "Hello from mailtrap-go",
+	Text:    "Captured by the sandbox when MAILTRAP_USE_SANDBOX=true.",
+})
+```
+
 ## Supported functionality & Examples
 
 Email Sandbox (Testing):
 
+- Sandbox sending — single & batch — [`examples/send`](examples/send)
 - Project management — [`examples/projects`](examples/projects)
+- Sandbox (inbox) management & actions — [`examples/sandboxes`](examples/sandboxes)
 
 ## Errors
 

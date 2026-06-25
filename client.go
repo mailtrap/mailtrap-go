@@ -51,8 +51,16 @@ type Client struct {
 	baseURLs   map[Host]string
 	userAgent  string
 
+	// Sending configuration. sandbox and bulk are mutually exclusive; sandbox
+	// sends require sandboxID.
+	sandbox   bool
+	bulk      bool
+	sandboxID int64
+
 	// Projects manages sandbox projects.
 	Projects *ProjectsService
+	// Sandboxes manages sandboxes (testing inboxes) and their actions.
+	Sandboxes *SandboxesService
 }
 
 // Option configures a Client in NewClient.
@@ -76,6 +84,10 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 		}
 	}
 
+	if err := c.validateSendConfig(); err != nil {
+		return nil, err
+	}
+
 	// Wrap the HTTP client's transport so every request carries auth + UA,
 	// without mutating a client the caller may have passed in.
 	hc := &http.Client{}
@@ -90,8 +102,23 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 	c.httpClient = hc
 
 	c.Projects = &ProjectsService{client: c}
+	c.Sandboxes = &SandboxesService{client: c}
 
 	return c, nil
+}
+
+// validateSendConfig enforces the two real send-mode invariants. A stray
+// sandboxID outside sandbox mode is ignored, so callers can toggle WithSandbox
+// from configuration without also clearing the ID.
+func (c *Client) validateSendConfig() error {
+	switch {
+	case c.bulk && c.sandbox:
+		return errors.New("mailtrap: bulk and sandbox modes are mutually exclusive")
+	case c.sandbox && c.sandboxID == 0:
+		return errors.New("mailtrap: WithSandboxID is required in sandbox mode")
+	default:
+		return nil
+	}
 }
 
 func cloneBaseURLs() map[Host]string {
@@ -121,6 +148,37 @@ func WithUserAgent(userAgent string) Option {
 			return errors.New("mailtrap: user agent must not be empty")
 		}
 		c.userAgent = userAgent
+		return nil
+	}
+}
+
+// WithSandbox routes Send/SendBatch to the sandbox host. Pair it with
+// WithSandboxID. Toggle it from configuration to switch environments without
+// changing call sites, e.g. WithSandbox(env != "production").
+func WithSandbox(enabled bool) Option {
+	return func(c *Client) error {
+		c.sandbox = enabled
+		return nil
+	}
+}
+
+// WithBulk routes Send/SendBatch to the bulk host. Mutually exclusive with
+// WithSandbox.
+func WithBulk(enabled bool) Option {
+	return func(c *Client) error {
+		c.bulk = enabled
+		return nil
+	}
+}
+
+// WithSandboxID sets the sandbox that Send/SendBatch deliver to. Required in
+// sandbox mode and ignored otherwise.
+func WithSandboxID(sandboxID int64) Option {
+	return func(c *Client) error {
+		if sandboxID <= 0 {
+			return fmt.Errorf("mailtrap: sandbox ID must be valid, got %d", sandboxID)
+		}
+		c.sandboxID = sandboxID
 		return nil
 	}
 }
