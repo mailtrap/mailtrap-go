@@ -1,10 +1,62 @@
 package mailtrap_test
 
 import (
+	"context"
+	"encoding/json"
+	"errors"
+	"net/http"
+	"net/http/httptest"
+	"reflect"
 	"testing"
 
 	"github.com/mailtrap/mailtrap-go"
 )
+
+// setup starts a test server routing through a ServeMux and returns the mux and
+// a client pointed at it. Tests register the exact route they expect, e.g.
+// mux.HandleFunc("GET /api/accounts/123/projects", ...), so a wrong method or
+// path fails the request naturally.
+func setup(t *testing.T, opts ...mailtrap.Option) (*http.ServeMux, *mailtrap.Client) {
+	t.Helper()
+	mux := http.NewServeMux()
+	srv := httptest.NewServer(mux)
+	t.Cleanup(srv.Close)
+
+	base := []mailtrap.Option{
+		mailtrap.WithBaseURL(mailtrap.HostGeneral, srv.URL),
+		mailtrap.WithBaseURL(mailtrap.HostSandbox, srv.URL),
+		mailtrap.WithBaseURL(mailtrap.HostSend, srv.URL),
+		mailtrap.WithBaseURL(mailtrap.HostBulk, srv.URL),
+	}
+	client, err := mailtrap.NewClient("test-token", append(base, opts...)...)
+	if err != nil {
+		t.Fatalf("NewClient: %v", err)
+	}
+	return mux, client
+}
+
+// wantHeader fails the test unless request header key equals want.
+func wantHeader(t *testing.T, r *http.Request, key, want string) {
+	t.Helper()
+	if got := r.Header.Get(key); got != want {
+		t.Errorf("header %s = %q, want %q", key, got, want)
+	}
+}
+
+// wantJSONBody fails the test unless r's body matches want structurally.
+func wantJSONBody(t *testing.T, r *http.Request, want string) {
+	t.Helper()
+	var got, exp any
+	if err := json.NewDecoder(r.Body).Decode(&got); err != nil {
+		t.Fatalf("decode request body: %v", err)
+	}
+	if err := json.Unmarshal([]byte(want), &exp); err != nil {
+		t.Fatalf("bad want JSON %q: %v", want, err)
+	}
+	if !reflect.DeepEqual(got, exp) {
+		t.Errorf("request body = %v, want %v", got, exp)
+	}
+}
 
 func TestNewClient_validation(t *testing.T) {
 	tests := []struct {
@@ -17,6 +69,7 @@ func TestNewClient_validation(t *testing.T) {
 		{name: "token only", token: "tok"},
 		{name: "nil HTTP client", token: "tok", opts: []mailtrap.Option{mailtrap.WithHTTPClient(nil)}, wantErr: true},
 		{name: "empty user agent", token: "tok", opts: []mailtrap.Option{mailtrap.WithUserAgent("")}, wantErr: true},
+		{name: "negative account id", token: "tok", opts: []mailtrap.Option{mailtrap.WithAccountID(-1)}, wantErr: true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -25,5 +78,29 @@ func TestNewClient_validation(t *testing.T) {
 				t.Fatalf("NewClient err = %v, wantErr = %v", err, tt.wantErr)
 			}
 		})
+	}
+}
+
+func TestClient_authAndUserAgent(t *testing.T) {
+	mux, client := setup(t, mailtrap.WithAccountID(123))
+	mux.HandleFunc("GET /api/accounts/123/projects", func(w http.ResponseWriter, r *http.Request) {
+		wantHeader(t, r, "Authorization", "Bearer test-token")
+		if r.Header.Get("User-Agent") == "" {
+			t.Error("User-Agent header not set")
+		}
+		_, _ = w.Write([]byte("[]"))
+	})
+
+	if _, _, err := client.Projects.List(context.Background()); err != nil {
+		t.Fatalf("List: %v", err)
+	}
+}
+
+func TestClient_missingAccountID(t *testing.T) {
+	_, client := setup(t)
+
+	_, _, err := client.Projects.List(context.Background())
+	if !errors.Is(err, mailtrap.ErrNoAccountID) {
+		t.Fatalf("err = %v, want ErrNoAccountID", err)
 	}
 }
