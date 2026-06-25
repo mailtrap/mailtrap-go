@@ -1,0 +1,36 @@
+client.go
+  s_96f0a82fda0742::t_fd4269d3513ed9 174-175
+  s_96f0a82fda0742::t_db1a4e679f30fc 5-6,8,12,16-17,19-20,22-24,29-54,58,60-65,78-82,102-103,107-114,137-173,176-213
+examples/projects/main.go
+  s_96f0a82fda0742::t_055a8d3cd13c2f 40
+  s_96f0a82fda0742::t_d22477ffb20e1a 37-39
+  s_96f0a82fda0742::t_9bdd2ed0dfce3d 41-43
+projects_test.go
+  s_96f0a82fda0742::t_03e88876759f52 14
+  s_96f0a82fda0742::t_4393815b8d30b4 11-13
+  s_96f0a82fda0742::t_eaa12202fa702f 15-17
+projects.go
+  s_96f0a82fda0742::t_a9bfec6b432bc7 35
+  s_96f0a82fda0742::t_fcc5a677b4ae3e 32-34
+  s_96f0a82fda0742::t_c788cf4deafbcc 36-38
+client_test.go
+  s_96f0a82fda0742::t_70af5199ed34e2 4-9,15-60,72,83-106
+README.md
+  s_96f0a82fda0742::t_77601baabcc3ac 27,29-32,38-58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.1",
+  "base_commit_sha": "417ec25cee2641248e680d69ae8663c2b7968681",
+  "prompts": {},
+  "sessions": {
+    "s_96f0a82fda0742": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b8fd6bd9-8f29-4020-9d14-167a016fc94f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
