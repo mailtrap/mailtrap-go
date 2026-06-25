@@ -1,0 +1,85 @@
+projects.go
+  s_96f0a82fda0742::t_b6f0d53e218ddb 1-89
+client_test.go
+  s_96f0a82fda0742::t_83376f3f983b1a 1-4,7-8,10-14,20,23-33,58-86,95-101,103-104,106-108
+  s_96f0a82fda0742::t_a9e9de92ea6f79 105
+  s_96f0a82fda0742::t_1f42be950309c6 6
+  s_96f0a82fda0742::t_c1560573a3d2df 5,9,15-19,21-22,34-57,87-94,102
+errors_test.go
+  s_96f0a82fda0742::t_0a6458b8a5b982 7
+  s_96f0a82fda0742::t_685b4a291eb0c0 120
+  s_96f0a82fda0742::t_9349cd14ec5846 1-6,8-119,121-126
+attachments_test.go
+  s_96f0a82fda0742::t_42d85cdd3b7d2d 1-42
+client.go
+  s_96f0a82fda0742::t_988cf19ca98e28 17-23,25-247,249-250,257-278,280-282,284,286,290-295,300-302,304
+  s_96f0a82fda0742::t_373535341e6a4a 24
+  s_96f0a82fda0742::t_6a05d1ec69d1f2 1-13
+  s_96f0a82fda0742::t_9bbe730f430865 14-16
+  s_96f0a82fda0742::t_c40df16f74492c 296,298-299,303
+  s_96f0a82fda0742::t_1540de90e1db6d 279,283,285,287-289
+  s_96f0a82fda0742::t_118f243e944262 248,251-256
+  s_96f0a82fda0742::t_96421fd142ec3c 297
+internal/transport/transport_test.go
+  s_96f0a82fda0742::t_0627ad1f753bae 1-70
+messages_test.go
+  s_96f0a82fda0742::t_85bf165ac60e43 1-162
+examples/sandboxes/main.go
+  s_96f0a82fda0742::t_e1506f30a79e24 37-42
+  s_96f0a82fda0742::t_53b783ee075305 43-44,48-49,53-54,58-59
+  s_96f0a82fda0742::t_02103cf6e7198a 1-36,45-47,50-52,55-57,60-63
+projects_test.go
+  s_96f0a82fda0742::t_0c3c51d353dd8f 1-85
+examples/messages/main.go
+  s_96f0a82fda0742::t_9cc492a6e5d3b4 26-32
+  s_96f0a82fda0742::t_9eedccd512e7d1 43-48,67-71
+  s_96f0a82fda0742::t_2ba5f17caa8344 1-24,34-42,49-66,72-75
+  s_96f0a82fda0742::t_1215bc431c5efe 25,33
+sandboxes_test.go
+  s_96f0a82fda0742::t_de13915aaa4564 1-98
+errors.go
+  s_96f0a82fda0742::t_db83c4f9c326ad 1-6,8-114,128-152
+  s_96f0a82fda0742::t_2d23b48e797a41 7
+  s_96f0a82fda0742::t_8ceba0a7c33eb3 115-127
+examples/projects/main.go
+  s_96f0a82fda0742::t_b1cb4b6a93e054 13
+  s_96f0a82fda0742::t_20ca94d365801f 42-43,47-48
+  s_96f0a82fda0742::t_a332c90f757510 1-12,14-35,44-46,49-52
+  s_96f0a82fda0742::t_af581e200425d6 36-41
+examples/attachments/main.go
+  s_96f0a82fda0742::t_489c8723b53919 1-39
+send_test.go
+  s_96f0a82fda0742::t_ebc2b42de56b8b 1-93
+README.md
+  s_96f0a82fda0742::t_9114f51c3d579e 27-28,30-34,39,42,45,49-50,52-56,58,70-87
+  s_96f0a82fda0742::t_38b27ede57a1f5 36,38,40,43-44,46-47,57
+  s_96f0a82fda0742::t_b1fd0b5db88e87 63-69
+internal/transport/transport.go
+  s_96f0a82fda0742::t_f45f65fd1727c4 1-105
+attachments.go
+  s_96f0a82fda0742::t_625fc4509c8fbd 1-60
+examples/send/main.go
+  s_96f0a82fda0742::t_48cd4b2cd7ab07 1-53
+send.go
+  s_96f0a82fda0742::t_82b7caabb21ab5 1-112
+messages.go
+  s_96f0a82fda0742::t_b9f6e58eb464b5 1-290
+sandboxes.go
+  s_96f0a82fda0742::t_64d37538f774e4 1-141
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "c64957ae067560aa4ac978ba6af511a2831da46b",
+  "prompts": {},
+  "sessions": {
+    "s_96f0a82fda0742": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b8fd6bd9-8f29-4020-9d14-167a016fc94f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
