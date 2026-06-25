@@ -65,6 +65,8 @@ Email Sandbox (Testing):
 - Sandbox sending — single & batch — [`examples/send`](examples/send)
 - Project management — [`examples/projects`](examples/projects)
 - Sandbox (inbox) management & actions — [`examples/sandboxes`](examples/sandboxes)
+- Message management & inspection — spam report, HTML analysis, headers, raw bodies — [`examples/messages`](examples/messages)
+- Attachment operations — [`examples/attachments`](examples/attachments)
 
 ## Errors
 

@@ -61,6 +61,10 @@ type Client struct {
 	Projects *ProjectsService
 	// Sandboxes manages sandboxes (testing inboxes) and their actions.
 	Sandboxes *SandboxesService
+	// SandboxMessages manages messages captured by a sandbox.
+	SandboxMessages *SandboxMessagesService
+	// SandboxAttachments reads attachments of sandbox messages.
+	SandboxAttachments *SandboxAttachmentsService
 }
 
 // Option configures a Client in NewClient.
@@ -103,6 +107,8 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 
 	c.Projects = &ProjectsService{client: c}
 	c.Sandboxes = &SandboxesService{client: c}
+	c.SandboxMessages = &SandboxMessagesService{client: c}
+	c.SandboxAttachments = &SandboxAttachmentsService{client: c}
 
 	return c, nil
 }
@@ -234,4 +240,30 @@ func (c *Client) do(ctx context.Context, host Host, method, path string, query u
 		}
 	}
 	return resp, nil
+}
+
+// doRaw sends a GET to the general host and returns the undecoded response
+// body. Used by the sandbox message body getters, which return text or binary
+// rather than JSON.
+func (c *Client) doRaw(ctx context.Context, path string) ([]byte, *Response, error) {
+	req, err := transport.BuildRequest(ctx, http.MethodGet, c.baseURLs[HostGeneral], path, nil, nil)
+	if err != nil {
+		return nil, nil, fmt.Errorf("mailtrap: %w", err)
+	}
+
+	httpResp, err := c.httpClient.Do(req)
+	if err != nil {
+		return nil, nil, fmt.Errorf("mailtrap: %w", err)
+	}
+	defer httpResp.Body.Close()
+
+	data, err := io.ReadAll(httpResp.Body)
+	resp := &Response{Response: httpResp}
+	if err != nil {
+		return nil, resp, fmt.Errorf("mailtrap: read response: %w", err)
+	}
+	if httpResp.StatusCode >= http.StatusBadRequest {
+		return nil, resp, parseError(httpResp, data)
+	}
+	return data, resp, nil
 }
