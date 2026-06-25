@@ -1,0 +1,21 @@
+client.go
+  s_96f0a82fda0742::t_719290b7e173e3 1-80
+client_test.go
+  s_96f0a82fda0742::t_bfed978c45cfbe 1-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "837f18b83d0a6004f291f809bcb1111a1a699e0a",
+  "prompts": {},
+  "sessions": {
+    "s_96f0a82fda0742": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b8fd6bd9-8f29-4020-9d14-167a016fc94f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
