@@ -1,0 +1,37 @@
+messages.go
+  s_96f0a82fda0742::t_86d8f168c34e80 289
+  s_96f0a82fda0742::t_a0978e835ab5a9 286-288
+  s_96f0a82fda0742::t_d2e02f240f2a6e 290
+client.go
+  s_96f0a82fda0742::t_1ab7626fdf3c40 72-75
+  s_96f0a82fda0742::t_b79fab802c0ca9 118-119
+  s_96f0a82fda0742::t_e3cccd4b0f819a 262-287
+README.md
+  s_96f0a82fda0742::t_9f0c049d8b22a4 68-69
+attachments.go
+  s_96f0a82fda0742::t_e3bc559eb4ead7 1-60
+attachments_test.go
+  s_96f0a82fda0742::t_d0ef53a318ae87 1-42
+examples/attachments/main.go
+  s_96f0a82fda0742::t_345b1e88655079 1-39
+examples/messages/main.go
+  s_96f0a82fda0742::t_96304f6e610e6e 1-75
+messages_test.go
+  s_96f0a82fda0742::t_2bb288e2f522cf 1-177
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.1",
+  "base_commit_sha": "2f004650b2a229afa377934320654b1498522114",
+  "prompts": {},
+  "sessions": {
+    "s_96f0a82fda0742": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b8fd6bd9-8f29-4020-9d14-167a016fc94f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
