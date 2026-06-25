@@ -58,6 +58,9 @@ type Client struct {
 
 	// accountID scopes the management resources (projects, sandboxes, ...).
 	accountID int64
+
+	// Projects manages sandbox projects.
+	Projects *ProjectsService
 }
 
 // Option configures a Client in NewClient.
@@ -93,6 +96,8 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 		Base:      hc.Transport,
 	}
 	c.httpClient = hc
+
+	c.Projects = &ProjectsService{client: c}
 
 	return c, nil
 }

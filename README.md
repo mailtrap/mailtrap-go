@@ -24,26 +24,38 @@ Requires Go 1.23 or newer.
 
 ## Usage
 
+Create a client with your API token. Account-scoped resources (projects, sandboxes, messages, attachments) also need an account ID:
+
 ```go
-package main
-
-import (
-	"log"
-
-	"github.com/mailtrap/mailtrap-go"
-)
-
-func main() {
-	client, err := mailtrap.NewClient("your-api-token")
-	if err != nil {
-		log.Fatal(err)
-	}
+client, err := mailtrap.NewClient("your-api-token", mailtrap.WithAccountID(1000001))
+if err != nil {
+	log.Fatal(err)
 }
 ```
 
 ## Supported functionality & Examples
 
-This SDK is under active development. Documentation and runnable examples are added to this section as each part of the API is implemented.
+Email Sandbox (Testing):
+
+- Project management — [`examples/projects`](examples/projects)
+
+## Errors
+
+Non-2xx responses decode into typed errors that work with `errors.As`:
+
+```go
+_, _, err := client.Projects.List(ctx)
+
+var ve *mailtrap.ValidationError
+if errors.As(err, &ve) {
+	fmt.Println(ve.Fields) // field -> messages
+}
+
+var rle *mailtrap.RateLimitError
+if errors.As(err, &rle) {
+	time.Sleep(rle.RetryAfter)
+}
+```
 
 ## Contributing
 
