@@ -1,0 +1,38 @@
+client.go
+  s_96f0a82fda0742::t_719290b7e173e3 1-13,16,19,23-26,53-55,57,64-75,81-99,102-104,113-134
+  s_96f0a82fda0742::t_db1a4e679f30fc 14-15,17-18,20-22,27-52,56,58-60,76-80,105-112,135-209
+  s_96f0a82fda0742::t_a7fdfd90a401a8 61-63
+  s_96f0a82fda0742::t_f2c1f86691f344 100-101
+client_test.go
+  s_96f0a82fda0742::t_bfed978c45cfbe 1-3,10-14,53-63,66-75
+  s_96f0a82fda0742::t_70af5199ed34e2 64
+  s_96f0a82fda0742::t_0e1680cbb032c5 65
+  s_96f0a82fda0742::t_23eb8f48213ea1 4-9,15-52,76-84
+pipeline_test.go
+  s_96f0a82fda0742::t_2a74585216ad10 43-44,50-52
+  s_96f0a82fda0742::t_279721b0a6757f 1-42,45-49,53-93,95-97,101-104,106-108,112-206
+projects.go
+  s_96f0a82fda0742::t_7fa649c77368f2 1-88
+projects_test.go
+  s_96f0a82fda0742::t_5edabd2522ecc9 1-82
+examples/projects/main.go
+  s_96f0a82fda0742::t_b423df736ffc13 1-52
+README.md
+  s_96f0a82fda0742::t_146e02b3648fd2 27,29-32,38-58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "ff78b49d3b0cfbe30ecf6eb752de8e09b8f3bf2c",
+  "prompts": {},
+  "sessions": {
+    "s_96f0a82fda0742": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b8fd6bd9-8f29-4020-9d14-167a016fc94f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
