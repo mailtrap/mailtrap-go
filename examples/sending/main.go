@@ -19,8 +19,7 @@ func main() {
 
 	ctx := context.Background()
 
-	// Transactional send with the full mail model: text + HTML bodies, a reply-to,
-	// CC, a category, custom variables, custom headers and an attachment.
+	// Transactional send.
 	resp, _, err := client.Send(ctx, &mailtrap.SendRequest{
 		From:            mailtrap.Address{Email: "sender@example.com", Name: "Example"},
 		To:              []mailtrap.Address{{Email: "recipient@example.com"}},

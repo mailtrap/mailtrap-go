@@ -62,7 +62,7 @@ resp, _, err := client.Send(context.Background(), &mailtrap.SendRequest{
 
 Email API (sending):
 
-- Transactional, bulk & batch sending — full mail model with text/HTML, templates, attachments, categories, custom variables & headers — [`examples/sending`](examples/sending)
+- Transactional, bulk & batch sending — text/HTML, templates, attachments, categories, custom variables & headers — [`examples/sending`](examples/sending)
 
 Email Sandbox (Testing):
 
