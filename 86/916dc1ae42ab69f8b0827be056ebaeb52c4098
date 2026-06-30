@@ -1,6 +1,7 @@
 client_test.go
   s_96f0a82fda0742::t_13a195491cb81b 63-66
   s_96f0a82fda0742::t_841c66ccf0b642 67
+  s_96f0a82fda0742::t_f5744e54d9f5e6 17,23,28-29
 sandboxes_test.go
   s_96f0a82fda0742::t_743dec3f28a062 29
   s_96f0a82fda0742::t_c9dbd13a04c330 1-11,14-26,30-42,46-61,64-100,103-110
@@ -10,10 +11,12 @@ examples/projects/main.go
 projects_test.go
   s_96f0a82fda0742::t_fff27bf22c13a8 22-23
   s_96f0a82fda0742::t_5edabd2522ecc9 24
+  s_96f0a82fda0742::t_34aa5ec5a4b7c9 12
 send.go
   s_96f0a82fda0742::t_3d41d856392d89 1-112
 projects.go
   s_96f0a82fda0742::t_733fa548d299b8 37
+  s_96f0a82fda0742::t_140c69c3473d0f 33
 examples/send/main.go
   s_96f0a82fda0742::t_5226699e9adf3c 1-53
 client.go
@@ -26,6 +29,7 @@ client.go
   s_96f0a82fda0742::t_59ead96d6a5e6a 179
 examples/sandboxes/main.go
   s_96f0a82fda0742::t_16dae64b67f386 1-12,13-16,18-62
+  s_96f0a82fda0742::t_96f3223ea75b6c 17
 README.md
   s_96f0a82fda0742::t_17890e5ed63a77 36-60,65,67
 send_test.go
@@ -35,6 +39,7 @@ sandboxes.go
   s_96f0a82fda0742::t_de423085956a8d 1-4,6-8,10-51,52,54-58,60-66,69-75,78-84,86-117,119-122
   s_96f0a82fda0742::t_e5ddeb045286fa 68
   s_96f0a82fda0742::t_fa6d67aca47e2e 77
+  s_96f0a82fda0742::t_4470ecc39edc61 5,53,59,67,76,85,118
 ---
 {
   "schema_version": "authorship/3.0.0",
