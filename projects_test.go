@@ -4,13 +4,11 @@ import (
 	"context"
 	"net/http"
 	"testing"
-
-	"github.com/mailtrap/mailtrap-go"
 )
 
 func TestProjects_List(t *testing.T) {
-	mux, client := setup(t, mailtrap.WithAccountID(123))
-	mux.HandleFunc("GET /api/accounts/123/projects", func(w http.ResponseWriter, _ *http.Request) {
+	mux, client := setup(t)
+	mux.HandleFunc("GET /api/projects", func(w http.ResponseWriter, _ *http.Request) {
 		_, _ = w.Write([]byte(`[{"id":1,"name":"Demo"}]`))
 	})
 
@@ -24,8 +22,8 @@ func TestProjects_List(t *testing.T) {
 }
 
 func TestProjects_Get(t *testing.T) {
-	mux, client := setup(t, mailtrap.WithAccountID(123))
-	mux.HandleFunc("GET /api/accounts/123/projects/5", func(w http.ResponseWriter, _ *http.Request) {
+	mux, client := setup(t)
+	mux.HandleFunc("GET /api/projects/5", func(w http.ResponseWriter, _ *http.Request) {
 		_, _ = w.Write([]byte(`{"id":5,"name":"Five"}`))
 	})
 
@@ -39,8 +37,8 @@ func TestProjects_Get(t *testing.T) {
 }
 
 func TestProjects_Create(t *testing.T) {
-	mux, client := setup(t, mailtrap.WithAccountID(123))
-	mux.HandleFunc("POST /api/accounts/123/projects", func(w http.ResponseWriter, r *http.Request) {
+	mux, client := setup(t)
+	mux.HandleFunc("POST /api/projects", func(w http.ResponseWriter, r *http.Request) {
 		wantJSONBody(t, r, `{"project":{"name":"New"}}`)
 		_, _ = w.Write([]byte(`{"id":9,"name":"New"}`))
 	})
@@ -55,8 +53,8 @@ func TestProjects_Create(t *testing.T) {
 }
 
 func TestProjects_Update(t *testing.T) {
-	mux, client := setup(t, mailtrap.WithAccountID(123))
-	mux.HandleFunc("PATCH /api/accounts/123/projects/9", func(w http.ResponseWriter, r *http.Request) {
+	mux, client := setup(t)
+	mux.HandleFunc("PATCH /api/projects/9", func(w http.ResponseWriter, r *http.Request) {
 		wantJSONBody(t, r, `{"project":{"name":"Renamed"}}`)
 		_, _ = w.Write([]byte(`{"id":9,"name":"Renamed"}`))
 	})
@@ -71,8 +69,8 @@ func TestProjects_Update(t *testing.T) {
 }
 
 func TestProjects_Delete(t *testing.T) {
-	mux, client := setup(t, mailtrap.WithAccountID(123))
-	mux.HandleFunc("DELETE /api/accounts/123/projects/9", func(w http.ResponseWriter, _ *http.Request) {
+	mux, client := setup(t)
+	mux.HandleFunc("DELETE /api/projects/9", func(w http.ResponseWriter, _ *http.Request) {
 		_, _ = w.Write([]byte(`{"id":9}`))
 	})
 

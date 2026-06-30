@@ -2,6 +2,7 @@ package mailtrap
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 )
 
@@ -34,21 +35,14 @@ type Project struct {
 
 // List returns all projects accessible to the token.
 func (s *ProjectsService) List(ctx context.Context) ([]*Project, *Response, error) {
-	path, err := s.client.accountPath("/projects")
-	if err != nil {
-		return nil, nil, err
-	}
 	var projects []*Project
-	resp, err := s.client.do(ctx, HostGeneral, http.MethodGet, path, nil, nil, &projects)
+	resp, err := s.client.do(ctx, HostGeneral, http.MethodGet, "/api/projects", nil, nil, &projects)
 	return projects, resp, err
 }
 
 // Get returns a project by ID.
 func (s *ProjectsService) Get(ctx context.Context, projectID int64) (*Project, *Response, error) {
-	path, err := s.client.accountPath("/projects/%d", projectID)
-	if err != nil {
-		return nil, nil, err
-	}
+	path := fmt.Sprintf("/api/projects/%d", projectID)
 	project := new(Project)
 	resp, err := s.client.do(ctx, HostGeneral, http.MethodGet, path, nil, nil, project)
 	return project, resp, err
@@ -56,22 +50,15 @@ func (s *ProjectsService) Get(ctx context.Context, projectID int64) (*Project, *
 
 // Create creates a project with the given name.
 func (s *ProjectsService) Create(ctx context.Context, name string) (*Project, *Response, error) {
-	path, err := s.client.accountPath("/projects")
-	if err != nil {
-		return nil, nil, err
-	}
 	body := map[string]any{"project": map[string]string{"name": name}}
 	project := new(Project)
-	resp, err := s.client.do(ctx, HostGeneral, http.MethodPost, path, nil, body, project)
+	resp, err := s.client.do(ctx, HostGeneral, http.MethodPost, "/api/projects", nil, body, project)
 	return project, resp, err
 }
 
 // Update renames a project.
 func (s *ProjectsService) Update(ctx context.Context, projectID int64, name string) (*Project, *Response, error) {
-	path, err := s.client.accountPath("/projects/%d", projectID)
-	if err != nil {
-		return nil, nil, err
-	}
+	path := fmt.Sprintf("/api/projects/%d", projectID)
 	body := map[string]any{"project": map[string]string{"name": name}}
 	project := new(Project)
 	resp, err := s.client.do(ctx, HostGeneral, http.MethodPatch, path, nil, body, project)
@@ -80,9 +67,6 @@ func (s *ProjectsService) Update(ctx context.Context, projectID int64, name stri
 
 // Delete removes a project by ID.
 func (s *ProjectsService) Delete(ctx context.Context, projectID int64) (*Response, error) {
-	path, err := s.client.accountPath("/projects/%d", projectID)
-	if err != nil {
-		return nil, err
-	}
+	path := fmt.Sprintf("/api/projects/%d", projectID)
 	return s.client.do(ctx, HostGeneral, http.MethodDelete, path, nil, nil, nil)
 }

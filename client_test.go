@@ -1,9 +1,7 @@
 package mailtrap_test
 
 import (
-	"context"
 	"encoding/json"
-	"errors"
 	"net/http"
 	"net/http/httptest"
 	"reflect"
@@ -14,21 +12,20 @@ import (
 
 // setup starts a test server routing through a ServeMux and returns the mux and
 // a client pointed at it. Tests register the exact route they expect, e.g.
-// mux.HandleFunc("GET /api/accounts/123/projects", ...), so a wrong method or
-// path fails the request naturally.
-func setup(t *testing.T, opts ...mailtrap.Option) (*http.ServeMux, *mailtrap.Client) {
+// mux.HandleFunc("GET /api/projects", ...), so a wrong method or path fails the
+// request naturally.
+func setup(t *testing.T) (*http.ServeMux, *mailtrap.Client) {
 	t.Helper()
 	mux := http.NewServeMux()
 	srv := httptest.NewServer(mux)
 	t.Cleanup(srv.Close)
 
-	base := []mailtrap.Option{
+	client, err := mailtrap.NewClient("test-token",
 		mailtrap.WithBaseURL(mailtrap.HostGeneral, srv.URL),
 		mailtrap.WithBaseURL(mailtrap.HostSandbox, srv.URL),
 		mailtrap.WithBaseURL(mailtrap.HostSend, srv.URL),
 		mailtrap.WithBaseURL(mailtrap.HostBulk, srv.URL),
-	}
-	client, err := mailtrap.NewClient("test-token", append(base, opts...)...)
+	)
 	if err != nil {
 		t.Fatalf("NewClient: %v", err)
 	}
@@ -61,7 +58,6 @@ func TestNewClient_validation(t *testing.T) {
 		{name: "token only", token: "tok"},
 		{name: "nil HTTP client", token: "tok", opts: []mailtrap.Option{mailtrap.WithHTTPClient(nil)}, wantErr: true},
 		{name: "empty user agent", token: "tok", opts: []mailtrap.Option{mailtrap.WithUserAgent("")}, wantErr: true},
-		{name: "negative account id", token: "tok", opts: []mailtrap.Option{mailtrap.WithAccountID(-1)}, wantErr: true},
 		{name: "empty base url", token: "tok", opts: []mailtrap.Option{mailtrap.WithBaseURL(mailtrap.HostGeneral, "")}, wantErr: true},
 	}
 	for _, tt := range tests {
@@ -71,14 +67,5 @@ func TestNewClient_validation(t *testing.T) {
 				t.Fatalf("NewClient err = %v, wantErr = %v", err, tt.wantErr)
 			}
 		})
-	}
-}
-
-func TestClient_missingAccountID(t *testing.T) {
-	_, client := setup(t)
-
-	_, _, err := client.Projects.List(context.Background())
-	if !errors.Is(err, mailtrap.ErrNoAccountID) {
-		t.Fatalf("err = %v, want ErrNoAccountID", err)
 	}
 }

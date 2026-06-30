@@ -24,10 +24,10 @@ Requires Go 1.23 or newer.
 
 ## Usage
 
-Create a client with your API token. Account-scoped resources (projects, sandboxes, messages, attachments) also need an account ID:
+Create a client with your API token:
 
 ```go
-client, err := mailtrap.NewClient("your-api-token", mailtrap.WithAccountID(1000001))
+client, err := mailtrap.NewClient("your-api-token")
 if err != nil {
 	log.Fatal(err)
 }

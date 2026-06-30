@@ -8,13 +8,10 @@ import (
 	"github.com/mailtrap/mailtrap-go"
 )
 
-const (
-	apiToken  = "your-api-token"
-	accountID = 1000001
-)
+const apiToken = "your-api-token"
 
 func main() {
-	client, err := mailtrap.NewClient(apiToken, mailtrap.WithAccountID(accountID))
+	client, err := mailtrap.NewClient(apiToken)
 	if err != nil {
 		log.Fatal(err)
 	}
