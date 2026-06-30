@@ -17,6 +17,8 @@ func TestNewClient_validation(t *testing.T) {
 		{name: "token only", token: "tok"},
 		{name: "nil HTTP client", token: "tok", opts: []mailtrap.Option{mailtrap.WithHTTPClient(nil)}, wantErr: true},
 		{name: "empty user agent", token: "tok", opts: []mailtrap.Option{mailtrap.WithUserAgent("")}, wantErr: true},
+		{name: "negative account id", token: "tok", opts: []mailtrap.Option{mailtrap.WithAccountID(-1)}, wantErr: true},
+		{name: "empty base url", token: "tok", opts: []mailtrap.Option{mailtrap.WithBaseURL(mailtrap.HostGeneral, "")}, wantErr: true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
