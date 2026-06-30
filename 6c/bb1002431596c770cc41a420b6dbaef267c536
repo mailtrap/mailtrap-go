@@ -1,0 +1,21 @@
+examples/sending/main.go
+  s_0324c5f9a55869::t_abefccf4331fad 22
+README.md
+  s_0324c5f9a55869::t_3b3c543485c83e 65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "6cbb1002431596c770cc41a420b6dbaef267c536",
+  "prompts": {},
+  "sessions": {
+    "s_0324c5f9a55869": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "931935e1-b3ff-46c7-b1b9-320609b2eecf",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
