@@ -66,7 +66,7 @@ Email API (sending):
 
 Email Sandbox (Testing):
 
-- Sandbox sending — single & batch — [`examples/send`](examples/send)
+- Sandbox sending — single & batch — [`examples/sandbox-sending`](examples/sandbox-sending)
 - Project management — [`examples/projects`](examples/projects)
 - Sandbox (inbox) management & actions — [`examples/sandboxes`](examples/sandboxes)
 - Message management & inspection — spam report, HTML analysis, headers, raw bodies — [`examples/messages`](examples/messages)
