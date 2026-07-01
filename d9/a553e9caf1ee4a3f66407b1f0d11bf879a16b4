@@ -1,0 +1,19 @@
+README.md
+  s_0324c5f9a55869::t_d4fdf34d75c958 69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "d9a553e9caf1ee4a3f66407b1f0d11bf879a16b4",
+  "prompts": {},
+  "sessions": {
+    "s_0324c5f9a55869": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "931935e1-b3ff-46c7-b1b9-320609b2eecf",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
