@@ -1,10 +1,51 @@
 package mailtrap_test
 
 import (
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"reflect"
 	"testing"
 
 	"github.com/mailtrap/mailtrap-go"
 )
+
+// setup starts a test server routing through a ServeMux and returns the mux and
+// a client pointed at it. Tests register the exact route they expect, e.g.
+// mux.HandleFunc("GET /api/projects", ...), so a wrong method or path fails the
+// request naturally.
+func setup(t *testing.T) (*http.ServeMux, *mailtrap.Client) {
+	t.Helper()
+	mux := http.NewServeMux()
+	srv := httptest.NewServer(mux)
+	t.Cleanup(srv.Close)
+
+	client, err := mailtrap.NewClient("test-token",
+		mailtrap.WithBaseURL(mailtrap.HostGeneral, srv.URL),
+		mailtrap.WithBaseURL(mailtrap.HostSandbox, srv.URL),
+		mailtrap.WithBaseURL(mailtrap.HostSend, srv.URL),
+		mailtrap.WithBaseURL(mailtrap.HostBulk, srv.URL),
+	)
+	if err != nil {
+		t.Fatalf("NewClient: %v", err)
+	}
+	return mux, client
+}
+
+// wantJSONBody fails the test unless r's body matches want structurally.
+func wantJSONBody(t *testing.T, r *http.Request, want string) {
+	t.Helper()
+	var got, exp any
+	if err := json.NewDecoder(r.Body).Decode(&got); err != nil {
+		t.Fatalf("decode request body: %v", err)
+	}
+	if err := json.Unmarshal([]byte(want), &exp); err != nil {
+		t.Fatalf("bad want JSON %q: %v", want, err)
+	}
+	if !reflect.DeepEqual(got, exp) {
+		t.Errorf("request body = %v, want %v", got, exp)
+	}
+}
 
 func TestNewClient_validation(t *testing.T) {
 	tests := []struct {
@@ -17,7 +58,6 @@ func TestNewClient_validation(t *testing.T) {
 		{name: "token only", token: "tok"},
 		{name: "nil HTTP client", token: "tok", opts: []mailtrap.Option{mailtrap.WithHTTPClient(nil)}, wantErr: true},
 		{name: "empty user agent", token: "tok", opts: []mailtrap.Option{mailtrap.WithUserAgent("")}, wantErr: true},
-		{name: "negative account id", token: "tok", opts: []mailtrap.Option{mailtrap.WithAccountID(-1)}, wantErr: true},
 		{name: "empty base url", token: "tok", opts: []mailtrap.Option{mailtrap.WithBaseURL(mailtrap.HostGeneral, "")}, wantErr: true},
 	}
 	for _, tt := range tests {

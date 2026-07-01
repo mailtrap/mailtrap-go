@@ -18,7 +18,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"strconv"
 	"strings"
 
 	"github.com/mailtrap/mailtrap-go/internal/transport"
@@ -46,18 +45,14 @@ var defaultBaseURLs = map[Host]string{
 	HostSandbox: "https://sandbox.api.mailtrap.io",
 }
 
-// ErrNoAccountID is returned by account-scoped methods when the client was
-// created without an account ID. Set one with WithAccountID.
-var ErrNoAccountID = errors.New("mailtrap: account ID is required; set it with WithAccountID")
-
 // Client manages communication with the Mailtrap API.
 type Client struct {
 	httpClient *http.Client
 	baseURLs   map[Host]string
 	userAgent  string
 
-	// accountID scopes the management resources (projects, sandboxes, ...).
-	accountID int64
+	// Projects manages sandbox projects.
+	Projects *ProjectsService
 }
 
 // Option configures a Client in NewClient.
@@ -94,6 +89,8 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 	}
 	c.httpClient = hc
 
+	c.Projects = &ProjectsService{client: c}
+
 	return c, nil
 }
 
@@ -124,18 +121,6 @@ func WithUserAgent(userAgent string) Option {
 			return errors.New("mailtrap: user agent must not be empty")
 		}
 		c.userAgent = userAgent
-		return nil
-	}
-}
-
-// WithAccountID sets the account ID used by management resources (projects,
-// sandboxes, messages, attachments).
-func WithAccountID(accountID int64) Option {
-	return func(c *Client) error {
-		if accountID <= 0 {
-			return fmt.Errorf("mailtrap: account ID must be positive, got %d", accountID)
-		}
-		c.accountID = accountID
 		return nil
 	}
 }
@@ -191,14 +176,4 @@ func (c *Client) do(ctx context.Context, host Host, method, path string, query u
 		}
 	}
 	return resp, nil
-}
-
-// accountPath builds an account-scoped request path from a printf-style format,
-// returning ErrNoAccountID when no account ID is configured, e.g.
-// accountPath("/inboxes/%d/messages/%d", sandboxID, messageID).
-func (c *Client) accountPath(format string, args ...any) (string, error) {
-	if c.accountID <= 0 {
-		return "", ErrNoAccountID
-	}
-	return "/api/accounts/" + strconv.FormatInt(c.accountID, 10) + fmt.Sprintf(format, args...), nil
 }

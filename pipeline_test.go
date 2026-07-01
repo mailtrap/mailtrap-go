@@ -11,8 +11,8 @@ import (
 )
 
 // newTestClient is a white-box harness: it points the client at an httptest
-// server so the unexported request pipeline (do, accountPath) can be exercised
-// directly, before any resource exists to call it.
+// server so the unexported request pipeline (do) can be exercised directly,
+// before any resource exists to call it.
 func newTestClient(t *testing.T, handler http.Handler) *Client {
 	t.Helper()
 	srv := httptest.NewServer(handler)
@@ -21,7 +21,6 @@ func newTestClient(t *testing.T, handler http.Handler) *Client {
 	c, err := NewClient("test-token",
 		WithBaseURL(HostGeneral, srv.URL),
 		WithBaseURL(HostSandbox, srv.URL),
-		WithAccountID(123),
 	)
 	if err != nil {
 		t.Fatalf("NewClient: %v", err)
@@ -180,27 +179,5 @@ func TestDo_errorDecoding(t *testing.T) {
 			}
 			tt.check(t, err)
 		})
-	}
-}
-
-func TestAccountPath(t *testing.T) {
-	c, err := NewClient("tok", WithAccountID(123))
-	if err != nil {
-		t.Fatalf("NewClient: %v", err)
-	}
-	got, err := c.accountPath("/inboxes/%d/messages/%d", 7, 9)
-	if err != nil {
-		t.Fatalf("accountPath: %v", err)
-	}
-	if want := "/api/accounts/123/inboxes/7/messages/9"; got != want {
-		t.Errorf("accountPath = %q, want %q", got, want)
-	}
-
-	noAccount, err := NewClient("tok")
-	if err != nil {
-		t.Fatalf("NewClient: %v", err)
-	}
-	if _, err := noAccount.accountPath("/projects"); !errors.Is(err, ErrNoAccountID) {
-		t.Errorf("err = %v, want ErrNoAccountID", err)
 	}
 }
