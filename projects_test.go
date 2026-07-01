@@ -9,7 +9,7 @@ import (
 func TestProjects_List(t *testing.T) {
 	mux, client := setup(t)
 	mux.HandleFunc("GET /api/projects", func(w http.ResponseWriter, _ *http.Request) {
-		_, _ = w.Write([]byte(`[{"id":1,"name":"Demo"}]`))
+		_, _ = w.Write([]byte(`[{"id":1,"name":"Demo","sandboxes":[{"id":7,"name":"Inbox"}]}]`))
 	})
 
 	projects, _, err := client.Projects.List(context.Background())
@@ -18,6 +18,9 @@ func TestProjects_List(t *testing.T) {
 	}
 	if len(projects) != 1 || projects[0].ID != 1 || projects[0].Name != "Demo" {
 		t.Fatalf("projects = %+v", projects)
+	}
+	if len(projects[0].Sandboxes) != 1 || projects[0].Sandboxes[0].ID != 7 {
+		t.Errorf("nested sandboxes = %+v", projects[0].Sandboxes)
 	}
 }
 
