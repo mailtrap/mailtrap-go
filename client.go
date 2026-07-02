@@ -74,6 +74,8 @@ type Client struct {
 	Stats *StatsService
 	// EmailLogs reads the account's email logs and delivery events.
 	EmailLogs *EmailLogsService
+	// Webhooks manages account webhooks.
+	Webhooks *WebhooksService
 }
 
 // Ptr returns a pointer to v, for setting optional pointer request fields such
@@ -126,6 +128,7 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 	c.Suppressions = &SuppressionsService{client: c}
 	c.Stats = &StatsService{client: c}
 	c.EmailLogs = &EmailLogsService{client: c}
+	c.Webhooks = &WebhooksService{client: c}
 
 	return c, nil
 }
