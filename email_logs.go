@@ -149,8 +149,8 @@ func (s *EmailLogsService) List(ctx context.Context, opts *EmailLogsListOptions)
 	return list, resp, err
 }
 
-// All iterates every email log matching opts, following the cursor across pages
-// (Go 1.23 range-over-func). Iteration stops at the first error, yielded once.
+// All iterates every email log matching opts, following the cursor across pages.
+// Iteration stops at the first error, yielded once.
 func (s *EmailLogsService) All(ctx context.Context, opts *EmailLogsListOptions) iter.Seq2[*EmailLogMessage, error] {
 	return func(yield func(*EmailLogMessage, error) bool) {
 		o := EmailLogsListOptions{}
