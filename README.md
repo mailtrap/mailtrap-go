@@ -67,6 +67,7 @@ Email API (sending):
 Email API (management):
 
 - Sending domain management — DNS setup instructions & company info — [`examples/sending-domains`](examples/sending-domains)
+- Suppression management — the do-not-send list of bounces, complaints & unsubscribes — [`examples/suppressions`](examples/suppressions)
 
 Email Sandbox (Testing):
 
