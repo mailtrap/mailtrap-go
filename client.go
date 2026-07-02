@@ -72,6 +72,8 @@ type Client struct {
 	Suppressions *SuppressionsService
 	// Stats reads aggregated email sending statistics.
 	Stats *StatsService
+	// EmailLogs reads the account's email logs and delivery events.
+	EmailLogs *EmailLogsService
 }
 
 // Ptr returns a pointer to v, for setting optional pointer request fields such
@@ -123,6 +125,7 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 	c.SendingDomains = &SendingDomainsService{client: c}
 	c.Suppressions = &SuppressionsService{client: c}
 	c.Stats = &StatsService{client: c}
+	c.EmailLogs = &EmailLogsService{client: c}
 
 	return c, nil
 }
