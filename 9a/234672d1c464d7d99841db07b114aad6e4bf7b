@@ -1,0 +1,37 @@
+webhooks_test.go
+  s_df9407b2047e1c::t_e96906e2f88b13 1-94
+README.md
+  s_df9407b2047e1c::t_c4ec2f2c74fcd9 73
+  s_df9407b2047e1c::t_7f1600aa36d160 74
+examples/webhooks/main.go
+  s_df9407b2047e1c::t_64b1e60db7e7c1 1-49
+client.go
+  s_df9407b2047e1c::t_80db1aa42fdc80 77-78
+  s_df9407b2047e1c::t_c681febe80e901 133
+  s_df9407b2047e1c::t_68e82db494f06d 134
+  s_df9407b2047e1c::t_d21a7b904cc2db 79-80
+webhooks.go
+  s_df9407b2047e1c::t_247d1bc56ee1cd 1-67,69-70,73-74,76-81,83-87,89-90,94-99
+email_templates.go
+  s_df9407b2047e1c::t_bb3630551f38ab 1-74
+examples/email-templates/main.go
+  s_df9407b2047e1c::t_c3e100b41458cc 1-50
+email_templates_test.go
+  s_df9407b2047e1c::t_397b891ab131bc 1-87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "9a234672d1c464d7d99841db07b114aad6e4bf7b",
+  "prompts": {},
+  "sessions": {
+    "s_df9407b2047e1c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a164c7a8-11b4-49c9-be85-ab57e431d6ee",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
