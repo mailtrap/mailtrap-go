@@ -1,0 +1,20 @@
+.github/workflows/draft-release.yml
+  s_df9407b2047e1c::t_60a0787f5a64f7 1-35,37-83
+  s_df9407b2047e1c::t_c7b57b2221992f 36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "401375055f85510a4739a9f1fff452910803b8e5",
+  "prompts": {},
+  "sessions": {
+    "s_df9407b2047e1c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a164c7a8-11b4-49c9-be85-ab57e431d6ee",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
