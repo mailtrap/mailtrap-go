@@ -1,0 +1,22 @@
+examples/sending-domains/main.go
+  s_611afcf9509c2d::t_5a710b7d85386d 56
+  s_611afcf9509c2d::t_539e5c43c541dd 7,13
+sending_domains.go
+  s_611afcf9509c2d::t_72ad12ee49fc66 90-95
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "dd6b4c9c1940620883e727422448e2213caa7656",
+  "prompts": {},
+  "sessions": {
+    "s_611afcf9509c2d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "49c2f7da-078f-464e-9d7e-d988e6b1d4fb",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
