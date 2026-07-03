@@ -1,0 +1,21 @@
+suppressions.go
+  s_611afcf9509c2d::t_53d1ec00869bca 39-53
+examples/suppressions/main.go
+  s_611afcf9509c2d::t_c2451d0327319c 7-8,14-16,26-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "52fd794995ca6ae8e86c93f6eec414bdcbd47df1",
+  "prompts": {},
+  "sessions": {
+    "s_611afcf9509c2d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "49c2f7da-078f-464e-9d7e-d988e6b1d4fb",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
