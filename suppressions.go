@@ -36,6 +36,21 @@ type Suppression struct {
 	MessageSubject         string `json:"message_subject"`
 }
 
+// Suppression reasons for Suppression.Type.
+const (
+	SuppressionTypeHardBounce     = "hard bounce"
+	SuppressionTypeUnsubscription = "unsubscription"
+	SuppressionTypeSpamComplaint  = "spam complaint"
+	SuppressionTypeManualImport   = "manual import"
+)
+
+// Sending streams. Create accepts transactional or bulk; "any" is response-only.
+const (
+	SendingStreamTransactional = "transactional"
+	SendingStreamBulk          = "bulk"
+	SendingStreamAny           = "any"
+)
+
 // SuppressionListOptions filters a suppression listing. The endpoint returns up
 // to 1000 suppressions per request; page through larger lists by passing the
 // last returned suppression's ID as LastID.

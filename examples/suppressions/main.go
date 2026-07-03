@@ -4,13 +4,16 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
+	"strconv"
 
 	"github.com/mailtrap/mailtrap-go"
 )
 
-const apiToken = "your-api-token"
-
 func main() {
+	apiToken := os.Getenv("MAILTRAP_API_TOKEN")
+	domainID, _ := strconv.ParseInt(os.Getenv("MAILTRAP_DOMAIN_ID"), 10, 64)
+
 	client, err := mailtrap.NewClient(apiToken)
 	if err != nil {
 		log.Fatal(err)
@@ -20,8 +23,8 @@ func main() {
 
 	suppression, _, err := client.Suppressions.Create(ctx, &mailtrap.CreateSuppressionRequest{
 		Email:         "bounced@example.com",
-		DomainID:      12345,
-		SendingStream: "transactional",
+		DomainID:      domainID,
+		SendingStream: mailtrap.SendingStreamTransactional,
 	})
 	if err != nil {
 		log.Fatal(err)
