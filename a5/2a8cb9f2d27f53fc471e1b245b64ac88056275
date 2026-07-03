@@ -1,0 +1,24 @@
+examples/sending/main.go
+  s_611afcf9509c2d::t_597e4a172f713d 8,14-15
+send.go
+  s_611afcf9509c2d::t_efee09ce599281 30-34
+  s_611afcf9509c2d::t_0d2516bb89dd6e 35
+examples/sandbox-sending/main.go
+  s_611afcf9509c2d::t_80bcb040346506 7-8,14-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "a52a8cb9f2d27f53fc471e1b245b64ac88056275",
+  "prompts": {},
+  "sessions": {
+    "s_611afcf9509c2d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "49c2f7da-078f-464e-9d7e-d988e6b1d4fb",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
