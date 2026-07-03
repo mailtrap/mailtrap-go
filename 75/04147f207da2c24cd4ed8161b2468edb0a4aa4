@@ -1,0 +1,22 @@
+webhooks.go
+  s_611afcf9509c2d::t_6a5c75c6766640 33-60
+examples/webhooks/main.go
+  s_611afcf9509c2d::t_acb65689bd562f 7,13
+  s_611afcf9509c2d::t_1e0141066696ed 22-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "7504147f207da2c24cd4ed8161b2468edb0a4aa4",
+  "prompts": {},
+  "sessions": {
+    "s_611afcf9509c2d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "49c2f7da-078f-464e-9d7e-d988e6b1d4fb",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
