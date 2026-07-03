@@ -5,13 +5,14 @@ import (
 	"encoding/base64"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/mailtrap/mailtrap-go"
 )
 
-const apiToken = "your-api-token"
-
 func main() {
+	apiToken := os.Getenv("MAILTRAP_API_TOKEN")
+
 	client, err := mailtrap.NewClient(apiToken)
 	if err != nil {
 		log.Fatal(err)
