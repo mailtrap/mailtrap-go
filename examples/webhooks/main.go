@@ -4,14 +4,13 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/mailtrap/mailtrap-go"
 )
 
-const apiToken = "your-api-token"
-
 func main() {
-	client, err := mailtrap.NewClient(apiToken)
+	client, err := mailtrap.NewClient(os.Getenv("MAILTRAP_API_TOKEN"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -20,8 +19,8 @@ func main() {
 
 	webhook, _, err := client.Webhooks.Create(ctx, &mailtrap.CreateWebhookRequest{
 		URL:         "https://example.com/mailtrap/webhooks",
-		WebhookType: "email_sending",
-		EventTypes:  []string{"delivery", "bounce", "open"},
+		WebhookType: mailtrap.WebhookTypeEmailSending,
+		EventTypes:  []string{mailtrap.WebhookEventDelivery, mailtrap.WebhookEventBounce, mailtrap.WebhookEventOpen},
 	})
 	if err != nil {
 		log.Fatal(err)

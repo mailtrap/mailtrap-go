@@ -30,6 +30,34 @@ type Webhook struct {
 	SigningSecret string `json:"signing_secret,omitempty"`
 }
 
+// Webhook types for CreateWebhookRequest.WebhookType.
+const (
+	WebhookTypeEmailSending     = "email_sending"
+	WebhookTypeCampaigns        = "campaigns"
+	WebhookTypeAuditLog         = "audit_log"
+	WebhookTypeInboundReceiving = "inbound_receiving"
+)
+
+// Webhook payload formats for CreateWebhookRequest.PayloadFormat.
+const (
+	PayloadFormatJSON      = "json"
+	PayloadFormatJSONLines = "jsonlines"
+)
+
+// Webhook event types for CreateWebhookRequest.EventTypes (email_sending and
+// campaigns webhooks).
+const (
+	WebhookEventDelivery      = "delivery"
+	WebhookEventSoftBounce    = "soft_bounce"
+	WebhookEventBounce        = "bounce"
+	WebhookEventSuspension    = "suspension"
+	WebhookEventUnsubscribe   = "unsubscribe"
+	WebhookEventOpen          = "open"
+	WebhookEventSpamComplaint = "spam_complaint"
+	WebhookEventClick         = "click"
+	WebhookEventReject        = "reject"
+)
+
 // CreateWebhookRequest is the payload for creating a webhook. URL and
 // WebhookType are required; the rest are optional (Active defaults to true).
 type CreateWebhookRequest struct {
