@@ -87,6 +87,12 @@ type CompanyInfoRequest struct {
 	InfoLevel string `json:"info_level,omitempty"`
 }
 
+// Company info levels for CompanyInfo.InfoLevel and CompanyInfoRequest.InfoLevel.
+const (
+	InfoLevelBusiness   = "business"
+	InfoLevelIndividual = "individual"
+)
+
 // List returns all sending domains and their verification status.
 func (s *SendingDomainsService) List(ctx context.Context) ([]*SendingDomain, *Response, error) {
 	var wrapper struct {
