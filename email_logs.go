@@ -39,6 +39,14 @@ type EmailLogMessage struct {
 	Events []MessageEvent `json:"events,omitempty"`
 }
 
+// Email log message statuses for EmailLogMessage.Status.
+const (
+	EmailLogStatusDelivered    = "delivered"
+	EmailLogStatusNotDelivered = "not_delivered"
+	EmailLogStatusEnqueued     = "enqueued"
+	EmailLogStatusOptedOut     = "opted_out"
+)
+
 // MessageEvent is one delivery-lifecycle event. Which Details fields are
 // populated depends on EventType (delivery, open, click, soft_bounce, bounce,
 // spam, unsubscribe, suspension, reject).
@@ -47,6 +55,19 @@ type MessageEvent struct {
 	CreatedAt string              `json:"created_at"`
 	Details   MessageEventDetails `json:"details"`
 }
+
+// Message event types for MessageEvent.EventType.
+const (
+	MessageEventTypeDelivery    = "delivery"
+	MessageEventTypeOpen        = "open"
+	MessageEventTypeClick       = "click"
+	MessageEventTypeSoftBounce  = "soft_bounce"
+	MessageEventTypeBounce      = "bounce"
+	MessageEventTypeSpam        = "spam"
+	MessageEventTypeUnsubscribe = "unsubscribe"
+	MessageEventTypeSuspension  = "suspension"
+	MessageEventTypeReject      = "reject"
+)
 
 // MessageEventDetails is the union of every event's detail fields; only those
 // relevant to the event type are set.

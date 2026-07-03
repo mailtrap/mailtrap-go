@@ -4,14 +4,13 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/mailtrap/mailtrap-go"
 )
 
-const apiToken = "your-api-token"
-
 func main() {
-	client, err := mailtrap.NewClient(apiToken)
+	client, err := mailtrap.NewClient(os.Getenv("MAILTRAP_API_TOKEN"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -21,7 +20,7 @@ func main() {
 		SentAfter:  "2025-01-01T00:00:00Z",
 		SentBefore: "2025-01-31T23:59:59Z",
 		Filters: map[string]mailtrap.LogFilter{
-			"status": {Operator: "equal", Values: []string{"delivered"}},
+			"status": {Operator: "equal", Values: []string{mailtrap.EmailLogStatusDelivered}},
 			"to":     {Operator: "ci_contain", Values: []string{"@example.com"}},
 		},
 	}
