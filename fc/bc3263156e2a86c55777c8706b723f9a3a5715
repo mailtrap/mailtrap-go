@@ -1,0 +1,19 @@
+examples/stats/main.go
+  s_611afcf9509c2d::t_f924cc9ee9eabd 7,13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "fcbc3263156e2a86c55777c8706b723f9a3a5715",
+  "prompts": {},
+  "sessions": {
+    "s_611afcf9509c2d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "49c2f7da-078f-464e-9d7e-d988e6b1d4fb",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
