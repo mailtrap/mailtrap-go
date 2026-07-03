@@ -1,0 +1,23 @@
+email_logs.go
+  s_611afcf9509c2d::t_bfaebf9426f2b5 59-71
+  s_611afcf9509c2d::t_3135c7c0b04c35 42-49
+examples/email-logs/main.go
+  s_611afcf9509c2d::t_81ca2dac565414 23
+  s_611afcf9509c2d::t_c0040ade029c53 7,13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "c3363c163a769ddf981686a90b1835ff42807a9c",
+  "prompts": {},
+  "sessions": {
+    "s_611afcf9509c2d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "49c2f7da-078f-464e-9d7e-d988e6b1d4fb",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
