@@ -60,9 +60,13 @@ resp, _, err := client.Send(context.Background(), &mailtrap.SendRequest{
 
 ## Supported functionality & Examples
 
+Email API (sending):
+
+- Transactional, bulk & batch sending — text/HTML, templates, attachments, categories, custom variables & headers — [`examples/sending`](examples/sending)
+
 Email Sandbox (Testing):
 
-- Sandbox sending — single & batch — [`examples/send`](examples/send)
+- Sandbox sending — single & batch — [`examples/sandbox-sending`](examples/sandbox-sending)
 - Project management — [`examples/projects`](examples/projects)
 - Sandbox (inbox) management & actions — [`examples/sandboxes`](examples/sandboxes)
 - Message management & inspection — spam report, HTML analysis, headers, raw bodies — [`examples/messages`](examples/messages)

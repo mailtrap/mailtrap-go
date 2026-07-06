@@ -27,6 +27,12 @@ type Attachment struct {
 	ContentID string `json:"content_id,omitempty"`
 }
 
+// Attachment disposition values for Attachment.Disposition.
+const (
+	DispositionAttachment = "attachment"
+	DispositionInline     = "inline"
+)
+
 // SendRequest is an email to send. Provide Text, HTML, or both, or set
 // TemplateUUID with TemplateVariables to send from a template.
 type SendRequest struct {
