@@ -30,14 +30,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
           ref: main
 
-      # Go has no version manifest; the version is the git tag.
-      - name: Read current version from latest tag
+      # Go has no version manifest; the version is the latest release tag.
+      - name: Read current version from latest release
         id: read
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          version=$(git tag --list 'v*' --sort=-v:refname | head -n1 | sed 's/^v//')
+          version=$(gh release view --json tagName --jq .tagName 2>/dev/null | sed 's/^v//')
           echo "version=${version:-0.0.0}" >> "$GITHUB_OUTPUT"
 
       - name: Compute next version
