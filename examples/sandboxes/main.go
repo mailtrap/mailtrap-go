@@ -4,16 +4,16 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
+	"strconv"
 
 	"github.com/mailtrap/mailtrap-go"
 )
 
-const (
-	apiToken  = "your-api-token"
-	projectID = 2000001
-)
-
 func main() {
+	apiToken := os.Getenv("MAILTRAP_API_TOKEN")
+	projectID, _ := strconv.ParseInt(os.Getenv("MAILTRAP_PROJECT_ID"), 10, 64)
+
 	client, err := mailtrap.NewClient(apiToken)
 	if err != nil {
 		log.Fatal(err)
