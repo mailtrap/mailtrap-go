@@ -1,0 +1,84 @@
+# Drafts a new mailtrap-go release: computes the next version from the latest
+# git tag, regenerates the changelog from merged PRs, and opens a release PR
+# against main. The tag is created only when the drafted release is published.
+name: Draft Go Release
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: "Semver bump type"
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+        default: patch
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  draft-release:
+    name: Draft mailtrap-go Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      # Go has no version manifest; the version is the latest release tag.
+      - name: Read current version from latest release
+        id: read
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(gh release view --json tagName --jq .tagName 2>/dev/null | sed 's/^v//')
+          echo "version=${version:-0.0.0}" >> "$GITHUB_OUTPUT"
+
+      - name: Compute next version
+        id: bump
+        uses: railsware/github-actions/compute-next-semver@master
+        with:
+          current: ${{ steps.read.outputs.version }}
+          bump-type: ${{ inputs.bump_type }}
+
+      - name: Abort if tag already exists
+        uses: railsware/github-actions/abort-if-tag-exists@master
+        with:
+          tag: ${{ steps.bump.outputs.tag }}
+
+      - name: Generate release notes
+        id: notes
+        uses: railsware/github-actions/generate-release-notes@master
+        with:
+          tag: ${{ steps.bump.outputs.tag }}
+
+      - name: Prepend new section to CHANGELOG.md
+        if: steps.notes.outputs.release_notes != ''
+        uses: railsware/github-actions/prepend-changelog@master
+        with:
+          version: ${{ steps.bump.outputs.next }}
+          release-notes: ${{ steps.notes.outputs.release_notes }}
+
+      - name: Commit, push, open release PR
+        if: steps.notes.outputs.release_notes != ''
+        uses: railsware/github-actions/open-sdk-release-pr@master
+        with:
+          tag: ${{ steps.bump.outputs.tag }}
+          current: ${{ steps.read.outputs.version }}
+          next: ${{ steps.bump.outputs.next }}
+          bump-type: ${{ inputs.bump_type }}
+          release-notes: ${{ steps.notes.outputs.release_notes }}
+
+      - name: Create draft GitHub release
+        if: steps.notes.outputs.release_notes != ''
+        uses: railsware/github-actions/create-draft-github-release@master
+        with:
+          tag: ${{ steps.bump.outputs.tag }}
+          release-notes: ${{ steps.notes.outputs.release_notes }}
