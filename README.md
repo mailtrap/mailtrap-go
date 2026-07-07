@@ -70,6 +70,7 @@ Email API (management):
 - Suppression management — the do-not-send list of bounces, complaints & unsubscribes — [`examples/suppressions`](examples/suppressions)
 - Sending stats — aggregated, or grouped by domain, category, ESP & date — [`examples/stats`](examples/stats)
 - Email logs — filter & cursor-paginate sent messages, inspect delivery events — [`examples/email-logs`](examples/email-logs)
+- Webhook management — create, list, update & delete event webhooks — [`examples/webhooks`](examples/webhooks)
 
 Email Sandbox (Testing):
 
