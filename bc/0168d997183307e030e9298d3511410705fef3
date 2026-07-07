@@ -29,6 +29,22 @@ client_test.go
         "model": "claude-opus-4-8"
       },
       "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    },
+    "s_611afcf9509c2d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "49c2f7da-078f-464e-9d7e-d988e6b1d4fb",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    },
+    "s_df9407b2047e1c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a164c7a8-11b4-49c9-be85-ab57e431d6ee",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": null
     }
   }
 }
