@@ -1,0 +1,32 @@
+examples/general/main.go
+  s_2131232b2ac2f4::t_0209d9f64dc3a9 50-74
+client.go
+  s_2131232b2ac2f4::t_db2cc83725cbe6 88-91
+  s_2131232b2ac2f4::t_b3aeb8507becbd 149-150
+README.md
+  s_2131232b2ac2f4::t_e06939fbc87815 87-88
+api_tokens.go
+  s_2131232b2ac2f4::t_380bbe2b6915bc 1-84
+api_tokens_test.go
+  s_2131232b2ac2f4::t_5f17e16e6edc05 1-93
+billing.go
+  s_2131232b2ac2f4::t_4d38a5a37440f1 1-58
+billing_test.go
+  s_2131232b2ac2f4::t_a2ac864241419b 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "51957f4fb16711f71d94ac155df5ee69e95631b3",
+  "prompts": {},
+  "sessions": {
+    "s_2131232b2ac2f4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b2fea6ea-cb33-4ce4-a82a-cb0f2d8130cb",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
