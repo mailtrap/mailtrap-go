@@ -138,8 +138,8 @@ func (s *SandboxMessagesService) List(ctx context.Context, sandboxID int64, opts
 	return messages, resp, nil
 }
 
-// All iterates every message in a sandbox, fetching pages on demand (Go 1.23
-// range-over-func). Iteration stops at the first error, which is yielded once.
+// All iterates every message in a sandbox, fetching pages on demand. Iteration
+// stops at the first error, which is yielded once.
 func (s *SandboxMessagesService) All(ctx context.Context, sandboxID int64, opts *MessageListOptions) iter.Seq2[*SandboxMessage, error] {
 	return func(yield func(*SandboxMessage, error) bool) {
 		o := MessageListOptions{}

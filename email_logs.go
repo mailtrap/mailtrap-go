@@ -18,7 +18,7 @@ type EmailLogsService struct {
 // also fills RawMessageURL and Events.
 type EmailLogMessage struct {
 	MessageID string `json:"message_id"`
-	// Status is "delivered", "not_delivered", "enqueued", or "opted_out".
+	// Status is the delivery status of the message.
 	Status            string         `json:"status"`
 	Subject           string         `json:"subject"`
 	From              string         `json:"from"`
@@ -48,8 +48,7 @@ const (
 )
 
 // MessageEvent is one delivery-lifecycle event. Which Details fields are
-// populated depends on EventType (delivery, open, click, soft_bounce, bounce,
-// spam, unsubscribe, suspension, reject).
+// populated depends on EventType.
 type MessageEvent struct {
 	EventType string              `json:"event_type"`
 	CreatedAt string              `json:"created_at"`
@@ -149,8 +148,8 @@ func (s *EmailLogsService) List(ctx context.Context, opts *EmailLogsListOptions)
 	return list, resp, err
 }
 
-// All iterates every email log matching opts, following the cursor across pages
-// (Go 1.23 range-over-func). Iteration stops at the first error, yielded once.
+// All iterates every email log matching opts, following the cursor across pages.
+// Iteration stops at the first error, yielded once.
 func (s *EmailLogsService) All(ctx context.Context, opts *EmailLogsListOptions) iter.Seq2[*EmailLogMessage, error] {
 	return func(yield func(*EmailLogMessage, error) bool) {
 		o := EmailLogsListOptions{}

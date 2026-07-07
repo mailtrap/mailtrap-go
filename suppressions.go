@@ -16,12 +16,11 @@ type SuppressionsService struct {
 // Suppression is a single suppressed recipient and the message that caused it.
 type Suppression struct {
 	ID string `json:"id"`
-	// Type is the reason: "hard bounce", "unsubscription", "spam complaint",
-	// or "manual import".
+	// Type is the reason for the suppression.
 	Type      string `json:"type"`
 	CreatedAt string `json:"created_at"`
 	Email     string `json:"email"`
-	// SendingStream is "transactional", "bulk", or "any".
+	// SendingStream is the stream the suppression applies to.
 	SendingStream          string `json:"sending_stream"`
 	DomainName             string `json:"domain_name"`
 	MessageBounceCategory  string `json:"message_bounce_category"`
