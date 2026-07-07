@@ -70,6 +70,8 @@ type Client struct {
 	SendingDomains *SendingDomainsService
 	// Suppressions manages the account's do-not-send list.
 	Suppressions *SuppressionsService
+	// Stats reads aggregated email sending statistics.
+	Stats *StatsService
 }
 
 // Ptr returns a pointer to v, for setting optional pointer request fields such
@@ -120,6 +122,7 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 	c.SandboxAttachments = &SandboxAttachmentsService{client: c}
 	c.SendingDomains = &SendingDomainsService{client: c}
 	c.Suppressions = &SuppressionsService{client: c}
+	c.Stats = &StatsService{client: c}
 
 	return c, nil
 }
