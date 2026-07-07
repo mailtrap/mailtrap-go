@@ -16,11 +16,11 @@ type Webhook struct {
 	ID     int64  `json:"id"`
 	URL    string `json:"url"`
 	Active bool   `json:"active"`
-	// WebhookType is "email_sending", "campaigns", "audit_log", or "inbound_receiving".
+	// WebhookType is the kind of webhook.
 	WebhookType string `json:"webhook_type"`
-	// PayloadFormat is "json" or "jsonlines".
+	// PayloadFormat is the encoding of delivered payloads.
 	PayloadFormat string `json:"payload_format"`
-	// SendingStream is "transactional" or "bulk" (email_sending webhooks only).
+	// SendingStream is the stream the webhook applies to (email_sending only).
 	SendingStream  string   `json:"sending_stream,omitempty"`
 	DomainID       *int64   `json:"domain_id,omitempty"`
 	InboundInboxID *int64   `json:"inbound_inbox_id,omitempty"`
