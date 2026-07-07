@@ -81,6 +81,12 @@ Email Sandbox (Testing):
 - Message management & inspection — spam report, HTML analysis, headers, raw bodies — [`examples/messages`](examples/messages)
 - Attachment operations — [`examples/attachments`](examples/attachments)
 
+Account & organization management:
+
+- Accounts — list the accounts a token can access — [`examples/accounts`](examples/accounts)
+- Account accesses — list & remove user/invite/token access — [`examples/account-accesses`](examples/account-accesses)
+- Permissions — list resources & bulk-update access permissions — [`examples/permissions`](examples/permissions)
+
 ## Errors
 
 Non-2xx responses decode into typed errors that work with `errors.As`:

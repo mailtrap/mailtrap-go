@@ -78,6 +78,13 @@ type Client struct {
 	Webhooks *WebhooksService
 	// EmailTemplates manages the account's email templates.
 	EmailTemplates *EmailTemplatesService
+
+	// Accounts lists the accounts the token can access.
+	Accounts *AccountsService
+	// AccountAccesses lists and removes user, invite, and token accesses.
+	AccountAccesses *AccountAccessesService
+	// Permissions lists account resources and bulk-updates access permissions.
+	Permissions *PermissionsService
 }
 
 // Ptr returns a pointer to v, for setting optional pointer request fields such
@@ -132,6 +139,9 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 	c.EmailLogs = &EmailLogsService{client: c}
 	c.Webhooks = &WebhooksService{client: c}
 	c.EmailTemplates = &EmailTemplatesService{client: c}
+	c.Accounts = &AccountsService{client: c}
+	c.AccountAccesses = &AccountAccessesService{client: c}
+	c.Permissions = &PermissionsService{client: c}
 
 	return c, nil
 }
