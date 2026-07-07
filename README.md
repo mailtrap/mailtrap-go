@@ -64,6 +64,10 @@ Email API (sending):
 
 - Transactional, bulk & batch sending — text/HTML, templates, attachments, categories, custom variables & headers — [`examples/sending`](examples/sending)
 
+Email API (management):
+
+- Sending domain management — DNS setup instructions & company info — [`examples/sending-domains`](examples/sending-domains)
+
 Email Sandbox (Testing):
 
 - Sandbox sending — single & batch — [`examples/sandbox-sending`](examples/sandbox-sending)

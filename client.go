@@ -65,7 +65,14 @@ type Client struct {
 	SandboxMessages *SandboxMessagesService
 	// SandboxAttachments reads attachments of sandbox messages.
 	SandboxAttachments *SandboxAttachmentsService
+
+	// SendingDomains manages sending domains and their compliance settings.
+	SendingDomains *SendingDomainsService
 }
+
+// Ptr returns a pointer to v, for setting optional pointer request fields such
+// as UpdateDomainRequest.OpenTrackingEnabled: mailtrap.Ptr(false).
+func Ptr[T any](v T) *T { return &v }
 
 // Option configures a Client in NewClient.
 type Option func(*Client) error
@@ -109,6 +116,7 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 	c.Sandboxes = &SandboxesService{client: c}
 	c.SandboxMessages = &SandboxMessagesService{client: c}
 	c.SandboxAttachments = &SandboxAttachmentsService{client: c}
+	c.SendingDomains = &SendingDomainsService{client: c}
 
 	return c, nil
 }
