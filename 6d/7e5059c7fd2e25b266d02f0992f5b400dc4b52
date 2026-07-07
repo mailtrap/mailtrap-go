@@ -1,0 +1,25 @@
+email_logs.go
+  s_2131232b2ac2f4::t_3f0357e59b225c 51
+  s_2131232b2ac2f4::t_b793dd8f3e0ac3 21
+suppressions.go
+  s_2131232b2ac2f4::t_9455620ab7d440 19
+  s_2131232b2ac2f4::t_72b47e7a23ac80 23
+webhooks.go
+  s_2131232b2ac2f4::t_58ae8efcf3baa7 19,21,23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6d7e5059c7fd2e25b266d02f0992f5b400dc4b52",
+  "prompts": {},
+  "sessions": {
+    "s_2131232b2ac2f4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b2fea6ea-cb33-4ce4-a82a-cb0f2d8130cb",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
