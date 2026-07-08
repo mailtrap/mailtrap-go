@@ -1,0 +1,35 @@
+client.go
+  s_2131232b2ac2f4::t_77f9a909d48f27 149-150
+  s_2131232b2ac2f4::t_7096ccae1a4971 88-91
+examples/billing/main.go
+  s_2131232b2ac2f4::t_5f1f5b2fe516ff 1-31
+examples/api-tokens/main.go
+  s_2131232b2ac2f4::t_036326dd141418 8,14-17,33
+  s_2131232b2ac2f4::t_3b2569c5c83a3d 1-7,9-13,18-32,34-56
+README.md
+  s_2131232b2ac2f4::t_522c06f3f53f49 89-90
+api_tokens.go
+  s_2131232b2ac2f4::t_49b2f024a279e1 1-84
+api_tokens_test.go
+  s_2131232b2ac2f4::t_9d30878a2b42fc 1-93
+billing.go
+  s_2131232b2ac2f4::t_65668dfa7c3cfb 1-58
+billing_test.go
+  s_2131232b2ac2f4::t_5b628b49c21e4e 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "d86d430162e99bfc2469c5af3e13becb6b56defc",
+  "prompts": {},
+  "sessions": {
+    "s_2131232b2ac2f4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b2fea6ea-cb33-4ce4-a82a-cb0f2d8130cb",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
