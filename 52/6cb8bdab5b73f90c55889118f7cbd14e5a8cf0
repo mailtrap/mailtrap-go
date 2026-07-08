@@ -1,0 +1,34 @@
+contact_events_test.go
+  s_2131232b2ac2f4::t_89ac9e737fab99 1-29
+contacts_test.go
+  s_2131232b2ac2f4::t_254bdf808fe364 1-96
+client.go
+  s_2131232b2ac2f4::t_db0181d605b05b 140-141
+  s_2131232b2ac2f4::t_54b14fc96217ff 81-85
+contacts.go
+  s_2131232b2ac2f4::t_2017af18f7ee68 1-98
+contact_events.go
+  s_2131232b2ac2f4::t_cfc7c4b0d88a35 1-35
+examples/contacts/main.go
+  s_2131232b2ac2f4::t_50791fd309bebf 1-52
+README.md
+  s_2131232b2ac2f4::t_2c0fe4f4f3f0ac 84-88
+examples/contact-events/main.go
+  s_2131232b2ac2f4::t_389f7a5c1ec3ae 1-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "526cb8bdab5b73f90c55889118f7cbd14e5a8cf0",
+  "prompts": {},
+  "sessions": {
+    "s_2131232b2ac2f4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b2fea6ea-cb33-4ce4-a82a-cb0f2d8130cb",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
