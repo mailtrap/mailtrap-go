@@ -85,6 +85,10 @@ type Client struct {
 	AccountAccesses *AccountAccessesService
 	// Permissions lists account resources and bulk-updates access permissions.
 	Permissions *PermissionsService
+	// APITokens manages the account's API tokens.
+	APITokens *APITokensService
+	// Billing reads current billing-cycle usage.
+	Billing *BillingService
 
 	// Contacts manages email marketing contacts.
 	Contacts *ContactsService
@@ -155,6 +159,8 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 	c.Accounts = &AccountsService{client: c}
 	c.AccountAccesses = &AccountAccessesService{client: c}
 	c.Permissions = &PermissionsService{client: c}
+	c.APITokens = &APITokensService{client: c}
+	c.Billing = &BillingService{client: c}
 	c.Contacts = &ContactsService{client: c}
 	c.ContactEvents = &ContactEventsService{client: c}
 	c.ContactLists = &ContactListsService{client: c}

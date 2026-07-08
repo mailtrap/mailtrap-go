@@ -86,6 +86,8 @@ Account & organization management:
 - Accounts — list the accounts a token can access — [`examples/accounts`](examples/accounts)
 - Account accesses — list & remove user/invite/token access — [`examples/account-accesses`](examples/account-accesses)
 - Permissions — list resources & bulk-update access permissions — [`examples/permissions`](examples/permissions)
+- API token management — list, create, get, reset & delete — [`examples/api-tokens`](examples/api-tokens)
+- Billing — current billing-cycle usage across Sandbox, Sending & Marketing — [`examples/billing`](examples/billing)
 
 Contact management:
 
