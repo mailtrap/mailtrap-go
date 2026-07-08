@@ -85,6 +85,11 @@ type Client struct {
 	AccountAccesses *AccountAccessesService
 	// Permissions lists account resources and bulk-updates access permissions.
 	Permissions *PermissionsService
+
+	// Contacts manages email marketing contacts.
+	Contacts *ContactsService
+	// ContactEvents records custom events for contacts.
+	ContactEvents *ContactEventsService
 }
 
 // Ptr returns a pointer to v, for setting optional pointer request fields such
@@ -142,6 +147,8 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 	c.Accounts = &AccountsService{client: c}
 	c.AccountAccesses = &AccountAccessesService{client: c}
 	c.Permissions = &PermissionsService{client: c}
+	c.Contacts = &ContactsService{client: c}
+	c.ContactEvents = &ContactEventsService{client: c}
 
 	return c, nil
 }
