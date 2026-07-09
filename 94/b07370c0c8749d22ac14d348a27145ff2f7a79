@@ -1,0 +1,32 @@
+errors.go
+  s_1f95e09e2ffd7f::t_afa787cb15c5d1 108-109
+  s_1f95e09e2ffd7f::t_5f84e33952961d 13-14
+  s_1f95e09e2ffd7f::t_c9b94b6e4f06ab 49-56
+pipeline_test.go
+  s_1f95e09e2ffd7f::t_46e821b6ae3f9d 115-124
+  s_2131232b2ac2f4::t_500a29c2aefafa 114
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "94b07370c0c8749d22ac14d348a27145ff2f7a79",
+  "prompts": {},
+  "sessions": {
+    "s_1f95e09e2ffd7f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b1e7b992-dfbd-4a0b-8c8e-da39873df54d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    },
+    "s_2131232b2ac2f4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b2fea6ea-cb33-4ce4-a82a-cb0f2d8130cb",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
