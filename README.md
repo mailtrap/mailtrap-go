@@ -91,6 +91,8 @@ Contact management:
 
 - Contacts — create, get, update (upsert) & delete by ID or email — [`examples/contacts`](examples/contacts)
 - Contact events — record custom events for a contact — [`examples/contact-events`](examples/contact-events)
+- Contact lists — create, list, get, rename & delete — [`examples/contact-lists`](examples/contact-lists)
+- Contact fields — manage custom fields (text, number, boolean, date) — [`examples/contact-fields`](examples/contact-fields)
 
 ## Errors
 
