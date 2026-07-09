@@ -94,6 +94,10 @@ type Client struct {
 	ContactLists *ContactListsService
 	// ContactFields manages custom contact fields.
 	ContactFields *ContactFieldsService
+	// ContactImports bulk-imports contacts via asynchronous jobs.
+	ContactImports *ContactImportsService
+	// ContactExports exports contacts via asynchronous jobs.
+	ContactExports *ContactExportsService
 }
 
 // Ptr returns a pointer to v, for setting optional pointer request fields such
@@ -155,6 +159,8 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 	c.ContactEvents = &ContactEventsService{client: c}
 	c.ContactLists = &ContactListsService{client: c}
 	c.ContactFields = &ContactFieldsService{client: c}
+	c.ContactImports = &ContactImportsService{client: c}
+	c.ContactExports = &ContactExportsService{client: c}
 
 	return c, nil
 }

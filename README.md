@@ -93,6 +93,8 @@ Contact management:
 - Contact events — record custom events for a contact — [`examples/contact-events`](examples/contact-events)
 - Contact lists — create, list, get, rename & delete — [`examples/contact-lists`](examples/contact-lists)
 - Contact fields — manage custom fields (text, number, boolean, date) — [`examples/contact-fields`](examples/contact-fields)
+- Contact imports — bulk-import contacts (async job) — [`examples/contact-imports`](examples/contact-imports)
+- Contact exports — export contacts with filters (async job) — [`examples/contact-exports`](examples/contact-exports)
 
 ## Errors
 
