@@ -10,9 +10,8 @@ import (
 	"time"
 )
 
-// Error is the base Mailtrap API error returned for non-2xx responses. The more
-// specific UnauthorizedError, ForbiddenError, RateLimitError, and
-// ValidationError wrap it.
+// Error is the base Mailtrap API error for non-2xx responses. Status-specific
+// wrappers embed it (e.g. RateLimitError, ValidationError); match with errors.As.
 type Error struct {
 	// StatusCode is the HTTP status code.
 	StatusCode int
@@ -46,6 +45,14 @@ func (e *ForbiddenError) Error() string { return e.Err.Error() }
 
 // Unwrap exposes the base *Error to errors.As/Is.
 func (e *ForbiddenError) Unwrap() error { return e.Err }
+
+// NotFoundError indicates the requested resource does not exist (404).
+type NotFoundError struct{ Err *Error }
+
+func (e *NotFoundError) Error() string { return e.Err.Error() }
+
+// Unwrap exposes the base *Error to errors.As/Is.
+func (e *NotFoundError) Unwrap() error { return e.Err }
 
 // RateLimitError indicates the API rate limit was exceeded (429).
 type RateLimitError struct {
@@ -98,6 +105,8 @@ func parseError(resp *http.Response, body []byte) error {
 		return &UnauthorizedError{Err: base}
 	case resp.StatusCode == http.StatusForbidden:
 		return &ForbiddenError{Err: base}
+	case resp.StatusCode == http.StatusNotFound:
+		return &NotFoundError{Err: base}
 	case resp.StatusCode == http.StatusUnprocessableEntity, fields != nil:
 		if fields == nil {
 			fields = map[string][]string{}
