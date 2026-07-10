@@ -5,6 +5,8 @@ client.go
   s_2131232b2ac2f4::t_3d31df9d78dff6 164-166,164-168
   s_2131232b2ac2f4::t_db2cc83725cbe6 91-94
   s_2131232b2ac2f4::t_b3aeb8507becbd 167-168
+  s_2131232b2ac2f4::t_eb613ef6cf0e0c 169
+  s_2131232b2ac2f4::t_6b244d11b16b30 95-96
 examples/billing/main.go
   s_2131232b2ac2f4::t_5f1f5b2fe516ff 1-31
 examples/api-tokens/main.go
