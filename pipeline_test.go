@@ -112,6 +112,17 @@ func TestDo_errorDecoding(t *testing.T) {
 			},
 		},
 		{
+			name:   "404 -> NotFoundError",
+			status: http.StatusNotFound,
+			body:   `{"error":"Not Found"}`,
+			check: func(t *testing.T, err error) {
+				var nfe *NotFoundError
+				if !errors.As(err, &nfe) {
+					t.Fatalf("errors.As(*NotFoundError) = false for %T", err)
+				}
+			},
+		},
+		{
 			name:   "422 validation object",
 			status: http.StatusUnprocessableEntity,
 			body:   `{"errors":{"email":["can't be blank"],"base":["invalid record"]}}`,
