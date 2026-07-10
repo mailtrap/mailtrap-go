@@ -1,3 +1,17 @@
+## [0.2.0] - 2026-07-10
+
+## What's Changed
+* MT-22693: Add NotFoundError for 404 responses by @Lorenc326 in https://github.com/mailtrap/mailtrap-go/pull/24
+* MT-22692: Accounts, access & permissions by @Lorenc326 in https://github.com/mailtrap/mailtrap-go/pull/17
+* MT-22691: Contacts & events by @Lorenc326 in https://github.com/mailtrap/mailtrap-go/pull/21
+* MT-22691: Contact lists & fields by @Lorenc326 in https://github.com/mailtrap/mailtrap-go/pull/22
+* MT-22691: Contact imports & exports by @Lorenc326 in https://github.com/mailtrap/mailtrap-go/pull/23
+* MT-22692: API tokens & billing by @Lorenc326 in https://github.com/mailtrap/mailtrap-go/pull/19
+* MT-22692: Organization sub-accounts by @Lorenc326 in https://github.com/mailtrap/mailtrap-go/pull/18
+
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-go/compare/v0.1.0...v0.2.0
+
 ## [0.1.0] - 2026-07-07
 
 ## What's Changed
