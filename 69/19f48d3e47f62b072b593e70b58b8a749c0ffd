@@ -1,0 +1,75 @@
+client.go
+  s_2131232b2ac2f4::t_77f9a909d48f27 167-168
+  s_2131232b2ac2f4::t_7096ccae1a4971 91-94
+  s_2131232b2ac2f4::t_4818554105c526 84-90,84-94
+  s_2131232b2ac2f4::t_3d31df9d78dff6 164-166,164-168
+  s_2131232b2ac2f4::t_db2cc83725cbe6 91-94
+  s_2131232b2ac2f4::t_b3aeb8507becbd 167-168
+examples/billing/main.go
+  s_2131232b2ac2f4::t_5f1f5b2fe516ff 1-31
+examples/api-tokens/main.go
+  s_2131232b2ac2f4::t_036326dd141418 8,14-17,33
+  s_2131232b2ac2f4::t_3b2569c5c83a3d 1-7,9-13,18-32,34-56
+README.md
+  s_2131232b2ac2f4::t_522c06f3f53f49 89-90
+  s_2131232b2ac2f4::t_4ad0838b898eab 84-85,92
+api_tokens.go
+  s_2131232b2ac2f4::t_49b2f024a279e1 1-84
+  s_2131232b2ac2f4::t_380bbe2b6915bc 1-84
+  s_2131232b2ac2f4::t_3a10a06fcd9a61 1-84
+api_tokens_test.go
+  s_2131232b2ac2f4::t_9d30878a2b42fc 1-93
+  s_2131232b2ac2f4::t_5f17e16e6edc05 1-93
+  s_2131232b2ac2f4::t_a3602ad4fee849 1-93
+billing.go
+  s_2131232b2ac2f4::t_65668dfa7c3cfb 1-58
+  s_2131232b2ac2f4::t_4d38a5a37440f1 1-58
+  s_2131232b2ac2f4::t_2922425e645e8c 1-58
+billing_test.go
+  s_2131232b2ac2f4::t_5b628b49c21e4e 1-31
+  s_2131232b2ac2f4::t_a2ac864241419b 1-31
+  s_2131232b2ac2f4::t_272f1e54a2310f 1-31
+account_accesses.go
+  s_2131232b2ac2f4::t_83574344a4dcb0 9,17-33,46-47
+  s_bdfdfefbca7a9d::t_6f15b691045380 1-8,10-16,34-37,39-45,48-60,64-114
+  s_2131232b2ac2f4::t_b1f7067cce3957 38
+  s_2131232b2ac2f4::t_65bcbeaeb30159 61-63
+permissions_test.go
+  s_2131232b2ac2f4::t_8305928d4cf191 1-43
+account_accesses_test.go
+  s_2131232b2ac2f4::t_3577c39369d2b5 1-73
+accounts.go
+  s_2131232b2ac2f4::t_95562e58ed069e 17
+  s_bdfdfefbca7a9d::t_8510f3f3123cee 1-16,18-27
+accounts_test.go
+  s_2131232b2ac2f4::t_38d925e4080d20 1-25
+permissions.go
+  s_2131232b2ac2f4::t_ea88dadf740b84 7,15-34
+  s_2131232b2ac2f4::t_4a9f4c72d00bb7 52-54
+  s_2131232b2ac2f4::t_21e73535d8dadf 40-42
+  s_bdfdfefbca7a9d::t_e7c0fe0647a3a2 1-6,8-14,35-39,43-51,55-74
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6919f48d3e47f62b072b593e70b58b8a749c0ffd",
+  "prompts": {},
+  "sessions": {
+    "s_2131232b2ac2f4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b2fea6ea-cb33-4ce4-a82a-cb0f2d8130cb",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    },
+    "s_bdfdfefbca7a9d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fea83cc1-d13c-40c6-b4d7-20b2cfd0fdbc",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Lorenc326 <iLorenc326@gmail.com>"
+    }
+  }
+}
