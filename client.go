@@ -57,6 +57,9 @@ type Client struct {
 	bulk      bool
 	sandboxID int64
 
+	// organizationID scopes SubAccounts operations; set via WithOrganizationID.
+	organizationID int64
+
 	// Projects manages sandbox projects.
 	Projects *ProjectsService
 	// Sandboxes manages sandboxes (testing inboxes) and their actions.
@@ -89,6 +92,8 @@ type Client struct {
 	APITokens *APITokensService
 	// Billing reads current billing-cycle usage.
 	Billing *BillingService
+	// SubAccounts lists and creates sub-accounts within an organization.
+	SubAccounts *SubAccountsService
 
 	// Contacts manages email marketing contacts.
 	Contacts *ContactsService
@@ -161,6 +166,7 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 	c.Permissions = &PermissionsService{client: c}
 	c.APITokens = &APITokensService{client: c}
 	c.Billing = &BillingService{client: c}
+	c.SubAccounts = &SubAccountsService{client: c}
 	c.Contacts = &ContactsService{client: c}
 	c.ContactEvents = &ContactEventsService{client: c}
 	c.ContactLists = &ContactListsService{client: c}
@@ -243,6 +249,19 @@ func WithSandboxID(sandboxID int64) Option {
 			return fmt.Errorf("mailtrap: sandbox ID must be valid, got %d", sandboxID)
 		}
 		c.sandboxID = sandboxID
+		return nil
+	}
+}
+
+// WithOrganizationID sets the organization that SubAccounts operations target.
+// A token can access a single organization, so it is configured once here
+// rather than passed to every call. Required before using client.SubAccounts.
+func WithOrganizationID(organizationID int64) Option {
+	return func(c *Client) error {
+		if organizationID <= 0 {
+			return fmt.Errorf("mailtrap: organization ID must be valid, got %d", organizationID)
+		}
+		c.organizationID = organizationID
 		return nil
 	}
 }

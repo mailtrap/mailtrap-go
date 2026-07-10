@@ -65,6 +65,8 @@ func TestNewClient_validation(t *testing.T) {
 		{name: "bulk and sandbox conflict", token: "tok", opts: []mailtrap.Option{mailtrap.WithSandbox(true), mailtrap.WithSandboxID(1), mailtrap.WithBulk(true)}, wantErr: true},
 		{name: "stray sandbox id ignored without sandbox", token: "tok", opts: []mailtrap.Option{mailtrap.WithSandboxID(1)}},
 		{name: "negative sandbox id", token: "tok", opts: []mailtrap.Option{mailtrap.WithSandboxID(-1)}, wantErr: true},
+		{name: "valid organization id", token: "tok", opts: []mailtrap.Option{mailtrap.WithOrganizationID(1001)}},
+		{name: "invalid organization id", token: "tok", opts: []mailtrap.Option{mailtrap.WithOrganizationID(0)}, wantErr: true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
