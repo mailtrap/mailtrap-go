@@ -5,6 +5,7 @@ contacts_test.go
 client.go
   s_2131232b2ac2f4::t_db0181d605b05b 150-151
   s_2131232b2ac2f4::t_54b14fc96217ff 81,89-92
+  s_2131232b2ac2f4::t_ed5e010660fc02 88
 examples/contact-events/main.go
   s_2131232b2ac2f4::t_389f7a5c1ec3ae 1-36
 examples/contacts/main.go
