@@ -1,0 +1,50 @@
+contact_events_test.go
+  s_2131232b2ac2f4::t_89ac9e737fab99 1-29
+contacts_test.go
+  s_2131232b2ac2f4::t_254bdf808fe364 1-96
+client.go
+  s_2131232b2ac2f4::t_db0181d605b05b 154-155
+  s_2131232b2ac2f4::t_54b14fc96217ff 81,89-92
+  s_2131232b2ac2f4::t_7906034be1a9de 156-157
+  s_2131232b2ac2f4::t_085f1b473d73c5 93-96
+examples/contact-events/main.go
+  s_2131232b2ac2f4::t_389f7a5c1ec3ae 1-36
+examples/contacts/main.go
+  s_2131232b2ac2f4::t_50791fd309bebf 1-52
+contact_events.go
+  s_2131232b2ac2f4::t_cfc7c4b0d88a35 1-35
+contacts.go
+  s_2131232b2ac2f4::t_2017af18f7ee68 1-98
+README.md
+  s_2131232b2ac2f4::t_6109fa291e0c84 90
+  s_2131232b2ac2f4::t_2c0fe4f4f3f0ac 91-93,96
+  s_2131232b2ac2f4::t_0dd75b8fe3eca7 94-95
+contact_fields.go
+  s_2131232b2ac2f4::t_02467a7a87ee57 1-82
+examples/contact-fields/main.go
+  s_2131232b2ac2f4::t_12f8f7a8cb26ae 1-48
+contact_lists.go
+  s_2131232b2ac2f4::t_98a7604b9e7073 1-56
+examples/contact-lists/main.go
+  s_2131232b2ac2f4::t_e913fb83a98cf8 1-40
+contact_fields_test.go
+  s_2131232b2ac2f4::t_c99194b20927fb 1-94
+contact_lists_test.go
+  s_2131232b2ac2f4::t_b2aaa7a4a38707 1-84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6146f648b54f4214cb24601bd14f7b7df3f7a52a",
+  "prompts": {},
+  "sessions": {
+    "s_2131232b2ac2f4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b2fea6ea-cb33-4ce4-a82a-cb0f2d8130cb",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": null
+    }
+  }
+}
