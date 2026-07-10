@@ -28,7 +28,7 @@ linters:
       - legacy
       - std-error-handling
     paths:
-      - examples$
+      - examples/
 
 formatters:
   enable:
@@ -36,4 +36,4 @@ formatters:
     - goimports
   exclusions:
     paths:
-      - examples$
+      - examples/
