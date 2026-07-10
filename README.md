@@ -87,6 +87,11 @@ Account & organization management:
 - Account accesses — list & remove user/invite/token access — [`examples/account-accesses`](examples/account-accesses)
 - Permissions — list resources & bulk-update access permissions — [`examples/permissions`](examples/permissions)
 
+Contact management:
+
+- Contacts — create, get, update (upsert) & delete by ID or email — [`examples/contacts`](examples/contacts)
+- Contact events — record custom events for a contact — [`examples/contact-events`](examples/contact-events)
+
 ## Errors
 
 Non-2xx responses decode into typed errors that work with `errors.As`:
