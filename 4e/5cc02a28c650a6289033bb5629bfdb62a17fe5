@@ -1,0 +1,30 @@
+contact_lists.go
+  s_b4eba797076413::t_ec3c2f14866c43 23
+  s_b4eba797076413::t_286b428db8595a 7
+  s_b4eba797076413::t_628aeb29c8c582 21-22,24-39,41
+examples/contact-lists/main.go
+  s_b4eba797076413::t_2b220ed3228b99 32
+  s_b4eba797076413::t_d107ae1f13730e 26,33-37
+  s_b4eba797076413::t_0c09b5aaf5d1ad 38
+contact_lists_test.go
+  s_b4eba797076413::t_196750745872e8 7-8
+  s_b4eba797076413::t_3eeb7ad8a4f780 17,26-39,41
+  s_b4eba797076413::t_592892012cdbe6 40
+  s_b4eba797076413::t_aa6d17f5d48817 42-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "4e5cc02a28c650a6289033bb5629bfdb62a17fe5",
+  "prompts": {},
+  "sessions": {
+    "s_b4eba797076413": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae19c384-1629-4dd6-bb05-80a2485204d6",
+        "model": "claude-fable-5"
+      },
+      "human_author": null
+    }
+  }
+}
