@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"net/url"
 )
 
 // ContactListsService manages contact lists.
@@ -17,10 +18,27 @@ type ContactList struct {
 	Name string `json:"name"`
 }
 
-// List returns all contact lists.
-func (s *ContactListsService) List(ctx context.Context) ([]*ContactList, *Response, error) {
+// ContactListListOptions filters a contact list listing.
+type ContactListListOptions struct {
+	// Search filters lists by name.
+	Search string
+}
+
+func (o *ContactListListOptions) values() url.Values {
+	v := url.Values{}
+	if o == nil {
+		return v
+	}
+	if o.Search != "" {
+		v.Set("search", o.Search)
+	}
+	return v
+}
+
+// List returns contact lists matching opts (pass nil for no filters).
+func (s *ContactListsService) List(ctx context.Context, opts *ContactListListOptions) ([]*ContactList, *Response, error) {
 	var lists []*ContactList
-	resp, err := s.client.do(ctx, HostGeneral, http.MethodGet, "/api/contacts/lists", nil, nil, &lists)
+	resp, err := s.client.do(ctx, HostGeneral, http.MethodGet, "/api/contacts/lists", opts.values(), nil, &lists)
 	return lists, resp, err
 }
 
