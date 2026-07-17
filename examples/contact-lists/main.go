@@ -23,11 +23,18 @@ func main() {
 	}
 	fmt.Printf("created list %d (%s)\n", list.ID, list.Name)
 
-	lists, _, err := client.ContactLists.List(ctx)
+	lists, _, err := client.ContactLists.List(ctx, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("account has %d list(s)\n", len(lists))
+
+	// Filter lists by name.
+	filtered, _, err := client.ContactLists.List(ctx, &mailtrap.ContactListListOptions{Search: "cust"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%d list(s) match %q\n", len(filtered), "cust")
 
 	if _, _, err = client.ContactLists.Update(ctx, list.ID, "Former Customers"); err != nil {
 		log.Fatal(err)

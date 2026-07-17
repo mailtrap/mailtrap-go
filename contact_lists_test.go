@@ -4,6 +4,8 @@ import (
 	"context"
 	"net/http"
 	"testing"
+
+	"github.com/mailtrap/mailtrap-go"
 )
 
 func TestContactLists_List(t *testing.T) {
@@ -12,11 +14,29 @@ func TestContactLists_List(t *testing.T) {
 		_, _ = w.Write([]byte(`[{"id":26730,"name":"Customers"},{"id":26731,"name":"Old Contacts"}]`))
 	})
 
-	lists, _, err := client.ContactLists.List(context.Background())
+	lists, _, err := client.ContactLists.List(context.Background(), nil)
 	if err != nil {
 		t.Fatalf("List: %v", err)
 	}
 	if len(lists) != 2 || lists[0].ID != 26730 || lists[0].Name != "Customers" {
+		t.Fatalf("lists = %+v", lists)
+	}
+}
+
+func TestContactLists_ListSearch(t *testing.T) {
+	mux, client := setup(t)
+	mux.HandleFunc("GET /api/contacts/lists", func(w http.ResponseWriter, r *http.Request) {
+		if got := r.URL.Query().Get("search"); got != "news" {
+			t.Errorf("search = %q, want news", got)
+		}
+		_, _ = w.Write([]byte(`[{"id":26732,"name":"Newsletter"}]`))
+	})
+
+	lists, _, err := client.ContactLists.List(context.Background(), &mailtrap.ContactListListOptions{Search: "news"})
+	if err != nil {
+		t.Fatalf("List: %v", err)
+	}
+	if len(lists) != 1 || lists[0].Name != "Newsletter" {
 		t.Fatalf("lists = %+v", lists)
 	}
 }
