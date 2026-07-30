@@ -99,6 +99,10 @@ Contact management:
 - Contact imports — bulk-import contacts (async job) — [`examples/contact-imports`](examples/contact-imports)
 - Contact exports — export contacts with filters (async job) — [`examples/contact-exports`](examples/contact-exports)
 
+Email marketing:
+
+- Email campaigns — create, list, update & delete campaigns, schedule/start lifecycle & stats — [`examples/email-campaigns`](examples/email-campaigns)
+
 ## Errors
 
 Non-2xx responses decode into typed errors that work with `errors.As`:
