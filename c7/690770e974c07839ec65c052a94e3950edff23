@@ -1,0 +1,27 @@
+email_campaigns_test.go
+  s_1d139e47a09853::t_196412a5e46317 206-207,215,226-237
+  s_1d139e47a09853::t_dbc1516fe6a153 137-140,238
+  s_1d139e47a09853::t_48cabdf09be68e 239-240
+examples/email-campaigns/main.go
+  s_1d139e47a09853::t_9f6c92b93bcb17 45
+  s_1d139e47a09853::t_675a84c92fb58e 8-9,15-16
+  s_1d139e47a09853::t_688ae855c0691e 54-57
+email_campaigns.go
+  s_1d139e47a09853::t_8ac3e2ea960033 179-185
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.19",
+  "base_commit_sha": "c7690770e974c07839ec65c052a94e3950edff23",
+  "prompts": {},
+  "sessions": {
+    "s_1d139e47a09853": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3943c4ee-a6f3-493c-aa4d-bc291df8727e",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
