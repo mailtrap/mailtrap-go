@@ -169,10 +169,13 @@ type UpdateEmailCampaignRequest struct {
 	DeliveryMode    string                        `json:"delivery_mode,omitempty"`
 	DeliveryOptions *EmailCampaignDeliveryOptions `json:"delivery_options,omitempty"`
 	// ContactListIDs is the full set of contact lists to send to; lists not
-	// listed are removed.
-	ContactListIDs []int64 `json:"contact_list_ids,omitempty"`
-	// ContactSegmentIDs is the full set of contact segments to send to.
-	ContactSegmentIDs []int64 `json:"contact_segment_ids,omitempty"`
+	// listed are removed. Nil leaves the lists unchanged; a pointer to an
+	// empty slice removes them all.
+	ContactListIDs *[]int64 `json:"contact_list_ids,omitempty"`
+	// ContactSegmentIDs is the full set of contact segments to send to. Nil
+	// leaves the segments unchanged; a pointer to an empty slice removes them
+	// all.
+	ContactSegmentIDs *[]int64 `json:"contact_segment_ids,omitempty"`
 }
 
 // EmailCampaignListOptions paginates and filters a campaign listing.

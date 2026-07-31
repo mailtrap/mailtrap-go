@@ -6,11 +6,13 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/mailtrap/mailtrap-go"
 )
 
 func main() {
+	contactListID, _ := strconv.ParseInt(os.Getenv("MAILTRAP_CONTACT_LIST_ID"), 10, 64)
 	domainID, _ := strconv.ParseInt(os.Getenv("MAILTRAP_DOMAIN_ID"), 10, 64)
 
 	client, err := mailtrap.NewClient(os.Getenv("MAILTRAP_API_TOKEN"))
@@ -26,11 +28,6 @@ func main() {
 		DomainID:        domainID,
 		FromDisplayName: "Acme Marketing",
 		FromLocalPart:   "news",
-		ReplyTo: &mailtrap.EmailCampaignReplyTo{
-			DisplayName: "Acme Support",
-			LocalPart:   "support",
-			Domain:      "acme.com",
-		},
 		TemplateAttributes: &mailtrap.EmailCampaignTemplateAttributes{
 			Subject: "Spring is here — 30% off",
 		},
@@ -46,7 +43,7 @@ func main() {
 			BodyHTML:  `<html><body><h1>Hi {{first_name}}!</h1><p><a href="__unsubscribe_url__">Unsubscribe</a></p></body></html>`,
 			MergeTags: []string{"first_name"},
 		},
-		ContactListIDs:  []int64{55, 56},
+		ContactListIDs:  &[]int64{contactListID},
 		DeliveryMode:    mailtrap.EmailCampaignDeliveryModeGradual,
 		DeliveryOptions: &mailtrap.EmailCampaignDeliveryOptions{EmailsPerHour: mailtrap.Ptr(1000)},
 	})
@@ -55,8 +52,10 @@ func main() {
 	}
 	fmt.Printf("updated design + audience; subject %q\n", campaign.Template.Subject)
 
-	// Schedule the campaign, then change plans and cancel it back to draft.
-	campaign, _, err = client.EmailCampaigns.Schedule(ctx, campaign.ID, "2026-06-01T09:00:00.000Z")
+	// Schedule the campaign for tomorrow (the time must be in the future and
+	// at most one month ahead), then change plans and cancel it back to draft.
+	datetime := time.Now().UTC().Add(24 * time.Hour).Format("2006-01-02T15:04:05.000Z")
+	campaign, _, err = client.EmailCampaigns.Schedule(ctx, campaign.ID, datetime)
 	if err != nil {
 		log.Fatal(err)
 	}

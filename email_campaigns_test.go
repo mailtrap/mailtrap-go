@@ -133,7 +133,10 @@ func TestEmailCampaigns_Get(t *testing.T) {
 	if c.ReplyTo == nil || c.ReplyTo.LocalPart != "support" {
 		t.Errorf("ReplyTo = %+v", c.ReplyTo)
 	}
-	if c.Template == nil || c.Template.ID != 789 || c.Template.BodyHTML == nil || *c.Template.BodyHTML != "<html></html>" {
+	if c.Template == nil {
+		t.Fatalf("Template = nil")
+	}
+	if c.Template.ID != 789 || c.Template.BodyHTML == nil || *c.Template.BodyHTML != "<html></html>" {
 		t.Errorf("Template = %+v", c.Template)
 	}
 	if c.Template.BodyText != nil {
@@ -199,7 +202,8 @@ func TestEmailCampaigns_Update(t *testing.T) {
 		// Partial update: only the set fields are sent.
 		wantJSONBody(t, r, `{
 			"name": "Spring Sale (updated)",
-			"template_attributes": {"subject": "New subject"}
+			"template_attributes": {"subject": "New subject"},
+			"contact_list_ids": [55]
 		}`)
 		_, _ = w.Write([]byte(`{"data": ` + campaignJSON + `}`))
 	})
@@ -207,6 +211,7 @@ func TestEmailCampaigns_Update(t *testing.T) {
 	req := &mailtrap.UpdateEmailCampaignRequest{
 		Name:               "Spring Sale (updated)",
 		TemplateAttributes: &mailtrap.EmailCampaignTemplateAttributes{Subject: "New subject"},
+		ContactListIDs:     &[]int64{55},
 	}
 	c, _, err := client.EmailCampaigns.Update(context.Background(), 4567, req)
 	if err != nil {
@@ -214,6 +219,21 @@ func TestEmailCampaigns_Update(t *testing.T) {
 	}
 	if c.ID != 4567 {
 		t.Errorf("campaign = %+v", c)
+	}
+}
+
+func TestEmailCampaigns_UpdateClearAudience(t *testing.T) {
+	mux, client := setup(t)
+	mux.HandleFunc("PATCH /api/email_campaigns/4567", func(w http.ResponseWriter, r *http.Request) {
+		// An explicit empty slice must be serialized to clear all lists, while
+		// the nil ContactSegmentIDs must be omitted to leave segments unchanged.
+		wantJSONBody(t, r, `{"contact_list_ids": []}`)
+		_, _ = w.Write([]byte(`{"data": ` + campaignJSON + `}`))
+	})
+
+	req := &mailtrap.UpdateEmailCampaignRequest{ContactListIDs: &[]int64{}}
+	if _, _, err := client.EmailCampaigns.Update(context.Background(), 4567, req); err != nil {
+		t.Fatalf("Update: %v", err)
 	}
 }
 
