@@ -2,6 +2,7 @@ package mailtrap
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -37,10 +38,42 @@ type APITokenPermission struct {
 	AccessLevel int `json:"access_level"`
 }
 
+// TokenExpiration is an optional token expiration as an RFC 3339 date-time.
+// Leave the request field nil for the server default (a 1-year default is
+// being rolled out). Use NeverExpires for a token that never expires. Past or
+// more-than-5-years-ahead values are rejected with 422.
+type TokenExpiration struct {
+	value string
+	never bool
+}
+
+// ExpiresAt returns a token expiration at the given RFC 3339 date-time, e.g.
+// "2027-06-01T00:00:00Z".
+func ExpiresAt(rfc3339 string) *TokenExpiration {
+	return &TokenExpiration{value: rfc3339}
+}
+
+// NeverExpires returns a token expiration for a token that never expires. It
+// serializes as an explicit "expires_at": null.
+func NeverExpires() *TokenExpiration {
+	return &TokenExpiration{never: true}
+}
+
+// MarshalJSON encodes the RFC 3339 date-time, or null for NeverExpires.
+func (e TokenExpiration) MarshalJSON() ([]byte, error) {
+	if e.never {
+		return []byte("null"), nil
+	}
+	return json.Marshal(e.value)
+}
+
 // CreateAPITokenRequest is the payload for creating an API token. Name is
 // required.
 type CreateAPITokenRequest struct {
-	Name      string                `json:"name"`
+	Name string `json:"name"`
+	// ExpiresAt is the optional token expiration. Nil omits the field and
+	// applies the server default; see TokenExpiration.
+	ExpiresAt *TokenExpiration      `json:"expires_at,omitempty"`
 	Resources []*APITokenPermission `json:"resources,omitempty"`
 }
 
