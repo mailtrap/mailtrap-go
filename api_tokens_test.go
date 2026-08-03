@@ -68,7 +68,7 @@ func TestAPITokens_Reset(t *testing.T) {
 		_, _ = w.Write([]byte(`{"id":12345,"name":"My API Token","token":"newtoken123"}`))
 	})
 
-	token, _, err := client.APITokens.Reset(context.Background(), 12345)
+	token, _, err := client.APITokens.Reset(context.Background(), 12345, nil)
 	if err != nil {
 		t.Fatalf("Reset: %v", err)
 	}

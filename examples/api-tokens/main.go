@@ -44,7 +44,7 @@ func main() {
 	}
 
 	// Reset expires the token and issues a replacement with the same permissions.
-	token, _, err = client.APITokens.Reset(ctx, token.ID)
+	token, _, err = client.APITokens.Reset(ctx, token.ID, nil)
 	if err != nil {
 		log.Fatal(err)
 	}

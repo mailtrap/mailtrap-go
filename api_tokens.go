@@ -77,6 +77,13 @@ type CreateAPITokenRequest struct {
 	Resources []*APITokenPermission `json:"resources,omitempty"`
 }
 
+// ResetAPITokenRequest is the optional payload for resetting an API token.
+type ResetAPITokenRequest struct {
+	// ExpiresAt is the optional expiration of the replacement token. Nil omits
+	// the field and applies the server default; see TokenExpiration.
+	ExpiresAt *TokenExpiration `json:"expires_at,omitempty"`
+}
+
 // List returns all API tokens visible to the current token.
 func (s *APITokensService) List(ctx context.Context) ([]*APIToken, *Response, error) {
 	var tokens []*APIToken
@@ -103,10 +110,18 @@ func (s *APITokensService) Create(ctx context.Context, req *CreateAPITokenReques
 
 // Reset expires the token and issues a replacement with the same permissions.
 // The returned token's Token field holds the new value; store it securely.
-func (s *APITokensService) Reset(ctx context.Context, tokenID int64) (*APIToken, *Response, error) {
+// req is optional: pass nil to send no request body and apply the server
+// default expiration.
+func (s *APITokensService) Reset(ctx context.Context, tokenID int64, req *ResetAPITokenRequest) (*APIToken, *Response, error) {
 	path := fmt.Sprintf("/api/api_tokens/%d/reset", tokenID)
+	// Assign req to any only when non-nil: a typed nil pointer would encode as
+	// a literal null body instead of sending no body at all.
+	var body any
+	if req != nil {
+		body = req
+	}
 	token := new(APIToken)
-	resp, err := s.client.do(ctx, HostGeneral, http.MethodPost, path, nil, nil, token)
+	resp, err := s.client.do(ctx, HostGeneral, http.MethodPost, path, nil, body, token)
 	return token, resp, err
 }
 
