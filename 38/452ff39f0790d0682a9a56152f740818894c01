@@ -1,0 +1,14 @@
+account_accesses.go
+  h_68ae9308e52348 47,55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "38452ff39f0790d0682a9a56152f740818894c01",
+  "prompts": {},
+  "humans": {
+    "h_68ae9308e52348": {
+      "author": "Alex Shchyhol <oleksandr.shchyhol@railsware.com>"
+    }
+  }
+}
