@@ -29,6 +29,9 @@ func main() {
 
 	token, _, err := client.APITokens.Create(ctx, &mailtrap.CreateAPITokenRequest{
 		Name: "CI token",
+		// Omit ExpiresAt for the server default expiration, or pass
+		// mailtrap.NeverExpires() for a token that never expires.
+		ExpiresAt: mailtrap.ExpiresAt("2027-06-01T00:00:00Z"),
 		Resources: []*mailtrap.APITokenPermission{
 			{ResourceType: mailtrap.ResourceTypeAccount, ResourceID: accountID, AccessLevel: mailtrap.AccessLevelViewer},
 		},
@@ -37,14 +40,17 @@ func main() {
 		log.Fatal(err)
 	}
 	// The full token value is only returned by Create and Reset — store it securely.
-	fmt.Printf("created token %d: %s\n", token.ID, token.Token)
+	fmt.Printf("created token %d (expires %s): %s\n", token.ID, token.ExpiresAt, token.Token)
 
 	if _, _, err = client.APITokens.Get(ctx, token.ID); err != nil {
 		log.Fatal(err)
 	}
 
 	// Reset expires the token and issues a replacement with the same permissions.
-	token, _, err = client.APITokens.Reset(ctx, token.ID, nil)
+	// Pass nil instead of a request to apply the server default expiration.
+	token, _, err = client.APITokens.Reset(ctx, token.ID, &mailtrap.ResetAPITokenRequest{
+		ExpiresAt: mailtrap.NeverExpires(),
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
