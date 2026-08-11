@@ -208,20 +208,8 @@ func (o *EmailCampaignListOptions) values() url.Values {
 
 // EmailCampaignsList is a page of email campaigns with pagination metadata.
 type EmailCampaignsList struct {
-	Data       []*EmailCampaign         `json:"data"`
-	Pagination EmailCampaignsPagination `json:"pagination"`
-}
-
-// EmailCampaignsPagination is page-token pagination metadata. PrevToken and
-// NextToken are nil on the first and last page respectively.
-type EmailCampaignsPagination struct {
-	Token      int     `json:"token"`
-	PrevToken  *int    `json:"prev_token"`
-	NextToken  *int    `json:"next_token"`
-	FirstURL   string  `json:"first_url"`
-	PrevURL    *string `json:"prev_url"`
-	CurrentURL string  `json:"current_url"`
-	NextURL    *string `json:"next_url"`
+	Data       []*EmailCampaign `json:"data"`
+	Pagination Pagination       `json:"pagination"`
 }
 
 // List returns a page of email campaigns matching opts (pass nil for the

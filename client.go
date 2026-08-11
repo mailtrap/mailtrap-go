@@ -283,6 +283,19 @@ func WithBaseURL(host Host, rawURL string) Option {
 	}
 }
 
+// Pagination is page-token pagination metadata returned with a paginated list
+// response. PrevToken and NextToken are nil on the first and last page
+// respectively.
+type Pagination struct {
+	Token      int     `json:"token"`
+	PrevToken  *int    `json:"prev_token"`
+	NextToken  *int    `json:"next_token"`
+	FirstURL   string  `json:"first_url"`
+	PrevURL    *string `json:"prev_url"`
+	CurrentURL string  `json:"current_url"`
+	NextURL    *string `json:"next_url"`
+}
+
 // Response wraps the HTTP response with pagination metadata.
 type Response struct {
 	*http.Response
