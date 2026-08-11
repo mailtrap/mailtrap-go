@@ -1,0 +1,14 @@
+examples/api-tokens/main.go
+  h_68ae9308e52348 32-34,43,50-53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "068360d85d599d4dbd31f6d917c85d4b3a86f925",
+  "prompts": {},
+  "humans": {
+    "h_68ae9308e52348": {
+      "author": "Alex Shchyhol <oleksandr.shchyhol@railsware.com>"
+    }
+  }
+}
