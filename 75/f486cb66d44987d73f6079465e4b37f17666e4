@@ -1,0 +1,45 @@
+email_campaigns.go
+  s_1d139e47a09853::t_3b15c9369bbde1 1-22,31-71,72-134,138-139,143-160,164-171,179-210,213-354,355-372
+  s_1d139e47a09853::t_8ac3e2ea960033 172-178
+  s_44ea77dabd4ee4::t_7a0b3bbf99ad72 211-212
+client.go
+  s_1d139e47a09853::t_56c5359a66d84b 110-112
+  s_1d139e47a09853::t_fa83bf4f03c35c 179
+  s_44ea77dabd4ee4::t_4aeb9716f933da 286-298
+examples/email-campaigns/main.go
+  s_1d139e47a09853::t_a5b62aba8868ec 1-7,10-14,18-26,31-45,47-54,59-113
+  s_1d139e47a09853::t_9f6c92b93bcb17 46
+  s_1d139e47a09853::t_675a84c92fb58e 8-9,15,17
+  s_1d139e47a09853::t_688ae855c0691e 55-58
+email_campaigns_test.go
+  s_1d139e47a09853::t_3eb149e87e18e0 1-12,15-67,69-70,73-129,131-135,140-152,154-167,172-204,207-213,215-224,240-363,364-377,379-384
+  s_1d139e47a09853::t_196412a5e46317 205-206,214,225-236
+  s_1d139e47a09853::t_dbc1516fe6a153 136-139,237
+  s_1d139e47a09853::t_48cabdf09be68e 238-239
+README.md
+  s_1d139e47a09853::t_8e2b6918089ece 102-105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.18",
+  "base_commit_sha": "75f486cb66d44987d73f6079465e4b37f17666e4",
+  "prompts": {},
+  "sessions": {
+    "s_1d139e47a09853": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3943c4ee-a6f3-493c-aa4d-bc291df8727e",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    },
+    "s_44ea77dabd4ee4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a7ac95f6-68c7-4e3b-bf74-eb68a723c929",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
