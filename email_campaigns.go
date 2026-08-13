@@ -266,8 +266,8 @@ func (s *EmailCampaignsService) Update(ctx context.Context, campaignID int64, re
 	return s.doCampaign(ctx, http.MethodPatch, path, req)
 }
 
-// Delete removes an email campaign by ID. The campaign must not be in a
-// sending state.
+// Delete removes an email campaign by ID. Only a campaign in the draft state
+// can be deleted.
 func (s *EmailCampaignsService) Delete(ctx context.Context, campaignID int64) (*Response, error) {
 	path := fmt.Sprintf("/api/email_campaigns/%d", campaignID)
 	return s.client.do(ctx, HostGeneral, http.MethodDelete, path, nil, nil, nil)

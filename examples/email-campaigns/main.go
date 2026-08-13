@@ -105,8 +105,20 @@ func main() {
 	fmt.Printf("sent %d, delivered %d (%.2f%%), opened %d\n",
 		stats.SentCount, stats.DeliveryCount, stats.DeliveryRate*100, stats.OpenCount)
 
-	// Delete the campaign (204 No Content).
-	if _, err := client.EmailCampaigns.Delete(ctx, campaign.ID); err != nil {
+	// Only a campaign in the draft state can be deleted, and a started campaign
+	// never returns to draft - so delete a fresh draft (204 No Content).
+	throwaway, _, err := client.EmailCampaigns.Create(ctx, &mailtrap.CreateEmailCampaignRequest{
+		Name:          "Draft to delete",
+		DomainID:      domainID,
+		FromLocalPart: "news",
+		TemplateAttributes: &mailtrap.EmailCampaignTemplateAttributes{
+			Subject: "Draft to delete",
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if _, err := client.EmailCampaigns.Delete(ctx, throwaway.ID); err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("campaign deleted")
