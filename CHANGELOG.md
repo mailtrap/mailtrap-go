@@ -1,3 +1,14 @@
+## [0.3.0] - 2026-08-14
+
+## What's Changed
+* MT-22678: add search option to ContactLists.List by @Rabsztok in https://github.com/mailtrap/mailtrap-go/pull/26
+* MT-22401: Add email campaigns API by @Rabsztok in https://github.com/mailtrap/mailtrap-go/pull/27
+
+## New Contributors
+* @Rabsztok made their first contribution in https://github.com/mailtrap/mailtrap-go/pull/26
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-go/compare/v0.2.0...v0.3.0
+
 ## [0.2.0] - 2026-07-10
 
 ## What's Changed
