@@ -107,6 +107,9 @@ type Client struct {
 	ContactImports *ContactImportsService
 	// ContactExports exports contacts via asynchronous jobs.
 	ContactExports *ContactExportsService
+
+	// EmailCampaigns manages email marketing campaigns and their statistics.
+	EmailCampaigns *EmailCampaignsService
 }
 
 // Ptr returns a pointer to v, for setting optional pointer request fields such
@@ -173,6 +176,7 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 	c.ContactFields = &ContactFieldsService{client: c}
 	c.ContactImports = &ContactImportsService{client: c}
 	c.ContactExports = &ContactExportsService{client: c}
+	c.EmailCampaigns = &EmailCampaignsService{client: c}
 
 	return c, nil
 }
@@ -277,6 +281,19 @@ func WithBaseURL(host Host, rawURL string) Option {
 		c.baseURLs[host] = u
 		return nil
 	}
+}
+
+// Pagination is page-token pagination metadata returned with a paginated list
+// response. PrevToken and NextToken are nil on the first and last page
+// respectively.
+type Pagination struct {
+	Token      int     `json:"token"`
+	PrevToken  *int    `json:"prev_token"`
+	NextToken  *int    `json:"next_token"`
+	FirstURL   string  `json:"first_url"`
+	PrevURL    *string `json:"prev_url"`
+	CurrentURL string  `json:"current_url"`
+	NextURL    *string `json:"next_url"`
 }
 
 // Response wraps the HTTP response with pagination metadata.
