@@ -121,7 +121,8 @@ func TestAPITokens_Create_expirationRejected(t *testing.T) {
 	mux, client := setup(t)
 	mux.HandleFunc("POST /api/api_tokens", func(w http.ResponseWriter, _ *http.Request) {
 		w.WriteHeader(http.StatusUnprocessableEntity)
-		_, _ = w.Write([]byte(`{"errors":{"expires_at":["must be in the future"]}}`))
+		// Expiration failures are record-level, so the API reports them under "base".
+		_, _ = w.Write([]byte(`{"errors":{"base":["Expiration date must be in the future"]}}`))
 	})
 
 	_, _, err := client.APITokens.Create(context.Background(), &mailtrap.CreateAPITokenRequest{
@@ -132,8 +133,8 @@ func TestAPITokens_Create_expirationRejected(t *testing.T) {
 	if !errors.As(err, &ve) {
 		t.Fatalf("errors.As(*ValidationError) = false for %T", err)
 	}
-	if got := ve.Fields["expires_at"]; len(got) != 1 || got[0] != "must be in the future" {
-		t.Errorf("Fields[expires_at] = %v", got)
+	if got := ve.Fields["base"]; len(got) != 1 || got[0] != "Expiration date must be in the future" {
+		t.Errorf("Fields[base] = %v", got)
 	}
 }
 
