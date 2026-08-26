@@ -1,0 +1,19 @@
+examples/api-tokens/main.go
+  s_2a081af338fd48::t_a44e5e85b5629f 9,35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "6e6ca62ed4c31a3fc163007534abbd59b17c4276",
+  "prompts": {},
+  "sessions": {
+    "s_2a081af338fd48": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ac08a353-2db9-4311-bf0b-ea1d15baccb2",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Alex Shchyhol <oleksandr.shchyhol@railsware.com>"
+    }
+  }
+}
