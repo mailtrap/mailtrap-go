@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/mailtrap/mailtrap-go"
 )
@@ -31,7 +32,7 @@ func main() {
 		Name: "CI token",
 		// Omit ExpiresAt for the server default expiration, or pass
 		// mailtrap.NeverExpires() for a token that never expires.
-		ExpiresAt: mailtrap.ExpiresAt("2027-06-01T00:00:00Z"),
+		ExpiresAt: mailtrap.ExpiresAt(time.Now().AddDate(0, 0, 30).Format(time.RFC3339)),
 		Resources: []*mailtrap.APITokenPermission{
 			{ResourceType: mailtrap.ResourceTypeAccount, ResourceID: accountID, AccessLevel: mailtrap.AccessLevelViewer},
 		},
