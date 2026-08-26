@@ -1,0 +1,21 @@
+email_campaigns.go
+  s_44ea77dabd4ee4::t_7d120dae81e23c 269-270
+examples/email-campaigns/main.go
+  s_44ea77dabd4ee4::t_fa05035a2eb4a1 108-121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "32755a7913e419731db60b1965673203be9f69d1",
+  "prompts": {},
+  "sessions": {
+    "s_44ea77dabd4ee4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a7ac95f6-68c7-4e3b-bf74-eb68a723c929",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
