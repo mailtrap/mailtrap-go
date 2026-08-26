@@ -41,14 +41,16 @@ type APITokenPermission struct {
 // TokenExpiration is an optional token expiration as an RFC 3339 date-time.
 // Leave the request field nil for the server default (a 1-year default is
 // being rolled out). Use NeverExpires for a token that never expires. Past or
-// more-than-5-years-ahead values are rejected with 422.
+// more-than-5-years-ahead values are rejected with 422. It is a request-only
+// type: responses report the expiry as the plain APIToken.ExpiresAt string.
 type TokenExpiration struct {
 	value string
 	never bool
 }
 
 // ExpiresAt returns a token expiration at the given RFC 3339 date-time, e.g.
-// "2027-06-01T00:00:00Z".
+// "2027-06-01T00:00:00Z". An empty string is sent as "" and rejected by the
+// server; leave the request field nil to omit the expiration instead.
 func ExpiresAt(rfc3339 string) *TokenExpiration {
 	return &TokenExpiration{value: rfc3339}
 }
@@ -111,7 +113,8 @@ func (s *APITokensService) Create(ctx context.Context, req *CreateAPITokenReques
 // Reset expires the token and issues a replacement with the same permissions.
 // The returned token's Token field holds the new value; store it securely.
 // req is optional: pass nil to send no request body and apply the server
-// default expiration.
+// default expiration. Resetting a token that has already expired is rejected
+// with 422.
 func (s *APITokensService) Reset(ctx context.Context, tokenID int64, req *ResetAPITokenRequest) (*APIToken, *Response, error) {
 	path := fmt.Sprintf("/api/api_tokens/%d/reset", tokenID)
 	// Assign req to any only when non-nil: a typed nil pointer would encode as
