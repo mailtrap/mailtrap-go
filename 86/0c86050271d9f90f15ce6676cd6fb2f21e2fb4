@@ -1,0 +1,18 @@
+account_accesses.go
+  h_68ae9308e52348 47
+account_accesses_test.go
+  h_68ae9308e52348 15,22,32-35
+examples/api-tokens/main.go
+  h_68ae9308e52348 51-52,59-60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "860c86050271d9f90f15ce6676cd6fb2f21e2fb4",
+  "prompts": {},
+  "humans": {
+    "h_68ae9308e52348": {
+      "author": "Alex Shchyhol <oleksandr.shchyhol@railsware.com>"
+    }
+  }
+}
