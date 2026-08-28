@@ -44,7 +44,7 @@ type AccountAccess struct {
 
 // AccountAccessSpecifier describes the entity that holds the access. Which
 // fields are set depends on the specifier type: users and invites carry Email,
-// while API tokens carry AuthorName, Token, MaskedToken, and ExpiresAt.
+// while API tokens carry AuthorName, MaskedToken, and ExpiresAt.
 type AccountAccessSpecifier struct {
 	ID                             int64  `json:"id"`
 	Email                          string `json:"email,omitempty"`

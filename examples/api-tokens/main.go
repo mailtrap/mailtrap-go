@@ -48,13 +48,16 @@ func main() {
 	}
 
 	// Reset expires the token and issues a replacement with the same permissions.
-	// Pass nil instead of a request to apply the server default expiration.
+	// Here the replacement never expires; pass nil instead of a request to apply
+	// the server default expiration.
 	token, _, err = client.APITokens.Reset(ctx, token.ID, &mailtrap.ResetAPITokenRequest{
 		ExpiresAt: mailtrap.NeverExpires(),
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
+	// ExpiresAt is empty for a token that never expires.
+	fmt.Printf("reset token %d (expires %q): %s\n", token.ID, token.ExpiresAt, token.Token)
 
 	if _, err = client.APITokens.Delete(ctx, token.ID); err != nil {
 		log.Fatal(err)
