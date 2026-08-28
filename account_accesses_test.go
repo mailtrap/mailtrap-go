@@ -12,14 +12,14 @@ import (
 func TestAccountAccesses_List(t *testing.T) {
 	mux, client := setup(t)
 	mux.HandleFunc("GET /api/account_accesses", func(w http.ResponseWriter, _ *http.Request) {
-		_, _ = w.Write([]byte(`[{"id":42,"specifier_type":"User","specifier":{"id":1,"email":"a@b.co"},"resources":[{"resource_id":10,"resource_type":"account","access_level":100}],"permissions":{"can_read":true,"can_destroy":true}}]`))
+		_, _ = w.Write([]byte(`[{"id":42,"specifier_type":"User","specifier":{"id":1,"email":"a@b.co"},"resources":[{"resource_id":10,"resource_type":"account","access_level":100}],"permissions":{"can_read":true,"can_destroy":true}},{"id":43,"specifier_type":"ApiToken","specifier":{"id":7,"name":"CI token","author_name":"System","masked_token":"********e5f6","expires_at":"2027-06-01T00:00:00Z"},"resources":[],"permissions":{"can_read":true,"can_destroy":false}}]`))
 	})
 
 	accesses, _, err := client.AccountAccesses.List(context.Background(), nil)
 	if err != nil {
 		t.Fatalf("List: %v", err)
 	}
-	if len(accesses) != 1 {
+	if len(accesses) != 2 {
 		t.Fatalf("accesses = %+v", accesses)
 	}
 	a := accesses[0]
@@ -28,6 +28,10 @@ func TestAccountAccesses_List(t *testing.T) {
 	}
 	if a.Resources[0].AccessLevel != mailtrap.AccessLevelAdmin || !a.Permissions.CanDestroy {
 		t.Errorf("resources/permissions = %+v / %+v", a.Resources[0], a.Permissions)
+	}
+	tok := accesses[1]
+	if tok.SpecifierType != mailtrap.SpecifierTypeAPIToken || tok.Specifier.MaskedToken != "********e5f6" || tok.Specifier.ExpiresAt != "2027-06-01T00:00:00Z" {
+		t.Errorf("api token specifier = %+v", tok.Specifier)
 	}
 }
 
