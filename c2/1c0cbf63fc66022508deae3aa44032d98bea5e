@@ -1,0 +1,21 @@
+sub_accounts.go
+  s_84c25ad63d8c76::t_6a4683282ff5cf 50-63
+sub_accounts_test.go
+  s_84c25ad63d8c76::t_08300721f0f9ec 42-56,65-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "c21c0cbf63fc66022508deae3aa44032d98bea5e",
+  "prompts": {},
+  "sessions": {
+    "s_84c25ad63d8c76": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1fbe9c4a-85b3-45c0-922e-f12aed1c5674",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Alex Shchyhol <oleksandr.shchyhol@railsware.com>"
+    }
+  }
+}
