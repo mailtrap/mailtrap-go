@@ -36,4 +36,9 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Printf("organization has %d sub-account(s)\n", len(subAccounts))
+
+	if _, err = client.SubAccounts.Delete(ctx, subAccount.ID); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("deleted sub-account")
 }
