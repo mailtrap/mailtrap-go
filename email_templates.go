@@ -7,6 +7,8 @@ import (
 )
 
 // EmailTemplatesService manages the account's email templates.
+//
+// Deprecated: use Client.Templates, which serves the paginated /api/templates surface.
 type EmailTemplatesService struct {
 	client *Client
 }
@@ -36,6 +38,8 @@ type EmailTemplateRequest struct {
 }
 
 // List returns all email templates for the account.
+//
+// Deprecated: use Client.Templates, which serves the paginated /api/templates surface.
 func (s *EmailTemplatesService) List(ctx context.Context) ([]*EmailTemplate, *Response, error) {
 	var templates []*EmailTemplate
 	resp, err := s.client.do(ctx, HostGeneral, http.MethodGet, "/api/email_templates", nil, nil, &templates)
@@ -43,6 +47,8 @@ func (s *EmailTemplatesService) List(ctx context.Context) ([]*EmailTemplate, *Re
 }
 
 // Get returns an email template by ID.
+//
+// Deprecated: use Client.Templates, which serves the paginated /api/templates surface.
 func (s *EmailTemplatesService) Get(ctx context.Context, templateID int64) (*EmailTemplate, *Response, error) {
 	path := fmt.Sprintf("/api/email_templates/%d", templateID)
 	template := new(EmailTemplate)
@@ -51,6 +57,8 @@ func (s *EmailTemplatesService) Get(ctx context.Context, templateID int64) (*Ema
 }
 
 // Create adds an email template.
+//
+// Deprecated: use Client.Templates, which serves the paginated /api/templates surface.
 func (s *EmailTemplatesService) Create(ctx context.Context, req *EmailTemplateRequest) (*EmailTemplate, *Response, error) {
 	body := map[string]any{"email_template": req}
 	template := new(EmailTemplate)
@@ -59,6 +67,8 @@ func (s *EmailTemplatesService) Create(ctx context.Context, req *EmailTemplateRe
 }
 
 // Update changes the set fields of an email template.
+//
+// Deprecated: use Client.Templates, which serves the paginated /api/templates surface.
 func (s *EmailTemplatesService) Update(ctx context.Context, templateID int64, req *EmailTemplateRequest) (*EmailTemplate, *Response, error) {
 	path := fmt.Sprintf("/api/email_templates/%d", templateID)
 	body := map[string]any{"email_template": req}
@@ -68,6 +78,8 @@ func (s *EmailTemplatesService) Update(ctx context.Context, templateID int64, re
 }
 
 // Delete removes an email template by ID.
+//
+// Deprecated: use Client.Templates, which serves the paginated /api/templates surface.
 func (s *EmailTemplatesService) Delete(ctx context.Context, templateID int64) (*Response, error) {
 	path := fmt.Sprintf("/api/email_templates/%d", templateID)
 	return s.client.do(ctx, HostGeneral, http.MethodDelete, path, nil, nil, nil)

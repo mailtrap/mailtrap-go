@@ -80,7 +80,11 @@ type Client struct {
 	// Webhooks manages account webhooks.
 	Webhooks *WebhooksService
 	// EmailTemplates manages the account's email templates.
+	//
+	// Deprecated: use Client.Templates, which serves the paginated /api/templates surface.
 	EmailTemplates *EmailTemplatesService
+	// Templates manages the account's email templates with page-token pagination.
+	Templates *TemplatesService
 
 	// Accounts lists the accounts the token can access.
 	Accounts *AccountsService
@@ -164,6 +168,7 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 	c.EmailLogs = &EmailLogsService{client: c}
 	c.Webhooks = &WebhooksService{client: c}
 	c.EmailTemplates = &EmailTemplatesService{client: c}
+	c.Templates = &TemplatesService{client: c}
 	c.Accounts = &AccountsService{client: c}
 	c.AccountAccesses = &AccountAccessesService{client: c}
 	c.Permissions = &PermissionsService{client: c}
