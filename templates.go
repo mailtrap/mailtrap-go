@@ -40,13 +40,13 @@ type CreateTemplateRequest struct {
 }
 
 // UpdateTemplateRequest changes a template. All fields are optional; only the
-// set fields change.
+// set fields change. Set BodyText or BodyHTML to mailtrap.Ptr("") to clear it.
 type UpdateTemplateRequest struct {
-	Name     string `json:"name,omitempty"`
-	Category string `json:"category,omitempty"`
-	Subject  string `json:"subject,omitempty"`
-	BodyText string `json:"body_text,omitempty"`
-	BodyHTML string `json:"body_html,omitempty"`
+	Name     string  `json:"name,omitempty"`
+	Category string  `json:"category,omitempty"`
+	Subject  string  `json:"subject,omitempty"`
+	BodyText *string `json:"body_text,omitempty"`
+	BodyHTML *string `json:"body_html,omitempty"`
 }
 
 // TemplateListOptions paginates a template listing.
@@ -79,8 +79,8 @@ type TemplatesList struct {
 }
 
 // List returns a page of templates (pass nil opts for the first page with
-// defaults). Follow Pagination.NextToken with Token for the next page, or use
-// All to iterate every template.
+// defaults). Follow Pagination.NextToken with Token, and keep the same PerPage,
+// for the next page, or use All to iterate every template.
 func (s *TemplatesService) List(ctx context.Context, opts *TemplateListOptions) (*TemplatesList, *Response, error) {
 	list := new(TemplatesList)
 	resp, err := s.client.do(ctx, HostGeneral, http.MethodGet, "/api/templates", opts.values(), nil, list)

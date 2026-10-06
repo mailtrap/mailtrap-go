@@ -79,11 +79,12 @@ type Client struct {
 	EmailLogs *EmailLogsService
 	// Webhooks manages account webhooks.
 	Webhooks *WebhooksService
-	// EmailTemplates manages the account's email templates.
-	//
-	// Deprecated: use Client.Templates, which serves the paginated /api/templates surface.
+	// EmailTemplates manages the account's email templates. For the paginated
+	// /api/templates endpoints, see Templates.
 	EmailTemplates *EmailTemplatesService
-	// Templates manages the account's email templates with page-token pagination.
+	// Templates manages the account's email templates with page-token
+	// pagination. The endpoints are experimental: their request and response
+	// shapes may change before general availability.
 	Templates *TemplatesService
 
 	// Accounts lists the accounts the token can access.

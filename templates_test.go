@@ -81,6 +81,9 @@ func TestTemplates_ListDefaults(t *testing.T) {
 func TestTemplates_All(t *testing.T) {
 	mux, client := setup(t)
 	mux.HandleFunc("GET /api/templates", func(w http.ResponseWriter, r *http.Request) {
+		if got := r.URL.Query().Get("per_page"); got != "2" {
+			t.Errorf("per_page = %q, want 2 on every page", got)
+		}
 		if r.URL.Query().Get("token") == "" {
 			_, _ = w.Write([]byte(`{
 				"data": [{"id": 1, "name": "First"}, {"id": 2, "name": "Second"}],
@@ -98,7 +101,7 @@ func TestTemplates_All(t *testing.T) {
 	})
 
 	var ids []int64
-	for tpl, err := range client.Templates.All(context.Background(), nil) {
+	for tpl, err := range client.Templates.All(context.Background(), &mailtrap.TemplateListOptions{PerPage: 2}) {
 		if err != nil {
 			t.Fatalf("All: %v", err)
 		}
@@ -106,6 +109,36 @@ func TestTemplates_All(t *testing.T) {
 	}
 	if len(ids) != 3 || ids[0] != 1 || ids[1] != 2 || ids[2] != 3 {
 		t.Errorf("ids = %v", ids)
+	}
+}
+
+func TestTemplates_AllStopsAtError(t *testing.T) {
+	mux, client := setup(t)
+	mux.HandleFunc("GET /api/templates", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Query().Get("token") == "2" {
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		_, _ = w.Write([]byte(`{
+			"data": [{"id": 1, "name": "First"}],
+			"pagination": {"token": 1, "prev_token": null, "next_token": 2}
+		}`))
+	})
+
+	var ids []int64
+	var errs []error
+	for tpl, err := range client.Templates.All(context.Background(), nil) {
+		if err != nil {
+			errs = append(errs, err)
+			continue
+		}
+		ids = append(ids, tpl.ID)
+	}
+	if len(ids) != 1 || ids[0] != 1 {
+		t.Errorf("ids = %v, want [1]", ids)
+	}
+	if len(errs) != 1 {
+		t.Errorf("errors = %v, want exactly one", errs)
 	}
 }
 
@@ -171,6 +204,18 @@ func TestTemplates_Update(t *testing.T) {
 	}
 	if tpl.ID != 1234 {
 		t.Errorf("template = %+v", tpl)
+	}
+}
+
+func TestTemplates_UpdateClearsBody(t *testing.T) {
+	mux, client := setup(t)
+	mux.HandleFunc("PATCH /api/templates/1234", func(w http.ResponseWriter, r *http.Request) {
+		wantJSONBody(t, r, `{"body_text": ""}`)
+		_, _ = w.Write([]byte(`{"data": ` + templateJSON + `}`))
+	})
+
+	if _, _, err := client.Templates.Update(context.Background(), 1234, &mailtrap.UpdateTemplateRequest{BodyText: mailtrap.Ptr("")}); err != nil {
+		t.Fatalf("Update: %v", err)
 	}
 }
 
