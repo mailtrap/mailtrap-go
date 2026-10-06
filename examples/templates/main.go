@@ -34,7 +34,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("page has %d template(s); next token: %v\n", len(page.Data), page.Pagination.NextToken)
+	fmt.Printf("page has %d template(s)\n", len(page.Data))
+	if next := page.Pagination.NextToken; next != nil {
+		fmt.Printf("next token: %d\n", *next)
+	}
 
 	// Or iterate every template across pages.
 	for t, err := range client.Templates.All(ctx, nil) {

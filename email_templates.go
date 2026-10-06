@@ -14,6 +14,8 @@ type EmailTemplatesService struct {
 }
 
 // EmailTemplate is a reusable email template.
+//
+// Deprecated: use Template, which Client.Templates returns.
 type EmailTemplate struct {
 	ID        int64  `json:"id"`
 	UUID      string `json:"uuid"`
@@ -29,6 +31,8 @@ type EmailTemplate struct {
 // EmailTemplateRequest is the payload for creating or updating a template. On
 // create, Name, Subject, and Category are required; on update, only the set
 // fields are changed.
+//
+// Deprecated: use CreateTemplateRequest or UpdateTemplateRequest with Client.Templates.
 type EmailTemplateRequest struct {
 	Name     string `json:"name,omitempty"`
 	Category string `json:"category,omitempty"`

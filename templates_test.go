@@ -55,8 +55,8 @@ func TestTemplates_List(t *testing.T) {
 	if p.Token != 2 || p.PrevToken == nil || *p.PrevToken != 1 || p.NextToken == nil || *p.NextToken != 3 {
 		t.Errorf("Pagination = %+v", p)
 	}
-	if p.FirstURL == "" || p.CurrentURL == "" || p.NextURL == nil || p.PrevURL == nil {
-		t.Errorf("Pagination URLs = %+v", p)
+	if p.NextURL == nil || *p.NextURL != "https://mailtrap.io/api/templates?per_page=10&token=3" {
+		t.Errorf("Pagination.NextURL = %v", p.NextURL)
 	}
 }
 
@@ -119,7 +119,7 @@ func TestTemplates_Get(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Get: %v", err)
 	}
-	if tpl.ID != 1234 || tpl.UUID == "" || tpl.Category != "Onboarding" || tpl.BodyHTML != "<h1>Welcome!</h1>" {
+	if tpl.ID != 1234 || tpl.UUID != "1b5f0c2e-6f44-4f6a-9c0d-0a1b2c3d4e5f" || tpl.Category != "Onboarding" || tpl.BodyHTML != "<h1>Welcome!</h1>" {
 		t.Errorf("template = %+v", tpl)
 	}
 }

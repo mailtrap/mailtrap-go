@@ -71,8 +71,8 @@ Email API (management):
 - Sending stats — aggregated, or grouped by domain, category, ESP & date — [`examples/stats`](examples/stats)
 - Email logs — filter & cursor-paginate sent messages, inspect delivery events — [`examples/email-logs`](examples/email-logs)
 - Webhook management — create, list, update & delete event webhooks — [`examples/webhooks`](examples/webhooks)
-- Templates — paginated list, create, update & delete — [`examples/templates`](examples/templates)
-- Email template management (deprecated) — create, list, update & delete templates — [`examples/email-templates`](examples/email-templates)
+- Template management (experimental) — create, list (paginated), update & delete templates — [`examples/templates`](examples/templates)
+- Email template management (deprecated, use Templates) — create, list, update & delete templates — [`examples/email-templates`](examples/email-templates)
 
 Email Sandbox (Testing):
 

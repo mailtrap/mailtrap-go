@@ -10,7 +10,8 @@ import (
 )
 
 // TemplatesService manages the account's email templates through the
-// paginated /api/templates endpoints.
+// paginated /api/templates endpoints. The endpoints are experimental: their
+// request and response shapes may change before general availability.
 type TemplatesService struct {
 	client *Client
 }
@@ -32,8 +33,8 @@ type Template struct {
 // and Category are required; the bodies are optional.
 type CreateTemplateRequest struct {
 	Name     string `json:"name"`
-	Subject  string `json:"subject"`
 	Category string `json:"category"`
+	Subject  string `json:"subject"`
 	BodyText string `json:"body_text,omitempty"`
 	BodyHTML string `json:"body_html,omitempty"`
 }
@@ -42,8 +43,8 @@ type CreateTemplateRequest struct {
 // set fields change.
 type UpdateTemplateRequest struct {
 	Name     string `json:"name,omitempty"`
-	Subject  string `json:"subject,omitempty"`
 	Category string `json:"category,omitempty"`
+	Subject  string `json:"subject,omitempty"`
 	BodyText string `json:"body_text,omitempty"`
 	BodyHTML string `json:"body_html,omitempty"`
 }
