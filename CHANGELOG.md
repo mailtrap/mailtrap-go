@@ -1,3 +1,14 @@
+## [0.4.0] - 2026-10-07
+
+## What's Changed
+* Add TemplatesService for the paginated /api/templates endpoints by @izikaj in https://github.com/mailtrap/mailtrap-go/pull/31
+* add sub account deletion by @oshchyhol in https://github.com/mailtrap/mailtrap-go/pull/30
+
+## New Contributors
+* @izikaj made their first contribution in https://github.com/mailtrap/mailtrap-go/pull/31
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-go/compare/v0.3.0...v0.4.0
+
 ## [0.3.0] - 2026-08-14
 
 ## What's Changed
