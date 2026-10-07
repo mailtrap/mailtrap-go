@@ -4,6 +4,8 @@
 * Add TemplatesService for the paginated /api/templates endpoints by @izikaj in https://github.com/mailtrap/mailtrap-go/pull/31
 * add sub account deletion by @oshchyhol in https://github.com/mailtrap/mailtrap-go/pull/30
 
+v0.3.0 also included API token expiration support by @oshchyhol in https://github.com/mailtrap/mailtrap-go/pull/28, which its release notes did not list.
+
 ## New Contributors
 * @izikaj made their first contribution in https://github.com/mailtrap/mailtrap-go/pull/31
 
