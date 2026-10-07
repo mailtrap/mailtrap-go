@@ -6,7 +6,8 @@ import (
 	"net/http"
 )
 
-// EmailTemplatesService manages the account's email templates.
+// EmailTemplatesService manages the account's email templates. For the
+// paginated, experimental /api/templates endpoints, see Client.Templates.
 type EmailTemplatesService struct {
 	client *Client
 }
