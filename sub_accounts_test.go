@@ -39,6 +39,21 @@ func TestSubAccounts_Create(t *testing.T) {
 	}
 }
 
+func TestSubAccounts_Delete(t *testing.T) {
+	mux, client := setup(t, mailtrap.WithOrganizationID(1001))
+	mux.HandleFunc("DELETE /api/organizations/1001/sub_accounts/55", func(w http.ResponseWriter, _ *http.Request) {
+		w.WriteHeader(http.StatusNoContent)
+	})
+
+	resp, err := client.SubAccounts.Delete(context.Background(), 55)
+	if err != nil {
+		t.Fatalf("Delete: %v", err)
+	}
+	if resp.StatusCode != http.StatusNoContent {
+		t.Errorf("status = %d", resp.StatusCode)
+	}
+}
+
 func TestSubAccounts_requiresOrganizationID(t *testing.T) {
 	_, client := setup(t) // no WithOrganizationID
 	if _, _, err := client.SubAccounts.List(context.Background()); err == nil {
@@ -46,5 +61,8 @@ func TestSubAccounts_requiresOrganizationID(t *testing.T) {
 	}
 	if _, _, err := client.SubAccounts.Create(context.Background(), "x"); err == nil {
 		t.Error("Create without organization ID: want error, got nil")
+	}
+	if _, err := client.SubAccounts.Delete(context.Background(), 55); err == nil {
+		t.Error("Delete without organization ID: want error, got nil")
 	}
 }

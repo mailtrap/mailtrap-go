@@ -47,3 +47,17 @@ func (s *SubAccountsService) Create(ctx context.Context, name string) (*SubAccou
 	resp, err := s.client.do(ctx, HostGeneral, http.MethodPost, path, nil, body, subAccount)
 	return subAccount, resp, err
 }
+
+// Delete permanently removes a sub-account of the organization set with
+// WithOrganizationID. It requires sub-account management permissions for the
+// organization. The sub-account and all of its data are removed and cannot be
+// restored; deleting the organization's last sub-account also deletes the
+// organization. A repeated call for the same sub-account returns 404.
+// Rate limit: 10 requests per minute per organization.
+func (s *SubAccountsService) Delete(ctx context.Context, subAccountID int64) (*Response, error) {
+	if s.client.organizationID == 0 {
+		return nil, errNoOrganizationID
+	}
+	path := fmt.Sprintf("/api/organizations/%d/sub_accounts/%d", s.client.organizationID, subAccountID)
+	return s.client.do(ctx, HostGeneral, http.MethodDelete, path, nil, nil, nil)
+}
