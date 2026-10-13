@@ -103,6 +103,7 @@ Contact management:
 Email marketing:
 
 - Email campaigns — create, list, update & delete campaigns, schedule/start lifecycle & stats — [`examples/email-campaigns`](examples/email-campaigns)
+- Marketing stats — aggregated across campaigns & automations, filtered by sending domain, source & ESP — [`examples/marketing-stats`](examples/marketing-stats)
 
 ## Errors
 
