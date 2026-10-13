@@ -1,0 +1,21 @@
+stats_test.go
+  s_a98ec4b50c51de::t_be1e4894d90068 44-47,52-54
+stats.go
+  s_a98ec4b50c51de::t_749f6616715141 57-60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a02483008c21f1db314158b4e1e1fb49af9fda87",
+  "prompts": {},
+  "sessions": {
+    "s_a98ec4b50c51de": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4e0e4453-863a-41bd-bfb5-1b4e9f9e1bd1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
