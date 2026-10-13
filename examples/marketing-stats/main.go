@@ -17,7 +17,7 @@ func main() {
 	}
 
 	ctx := context.Background()
-	now := time.Now()
+	now := time.Now().UTC()
 	opts := &mailtrap.MarketingStatsOptions{
 		StartDate: now.AddDate(0, 0, -30).Format(time.DateOnly),
 		EndDate:   now.Format(time.DateOnly),
@@ -28,7 +28,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("all: delivered %d (%.0f%%), opened %d (%.0f%%)\n", stats.DeliveryCount, stats.DeliveryRate*100, stats.OpenCount, stats.OpenRate*100)
+	printStats("all", stats)
 
 	// Campaigns only.
 	opts.Sources = []string{mailtrap.MarketingStatsSourceCampaigns}
@@ -36,5 +36,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("campaigns: delivered %d (%.0f%%), opened %d (%.0f%%)\n", stats.DeliveryCount, stats.DeliveryRate*100, stats.OpenCount, stats.OpenRate*100)
+	printStats("campaigns", stats)
+}
+
+func printStats(label string, s *mailtrap.MarketingStats) {
+	fmt.Printf("%s: delivered %d (%.0f%%), opened %d (%.0f%%)\n", label, s.DeliveryCount, s.DeliveryRate*100, s.OpenCount, s.OpenRate*100)
 }

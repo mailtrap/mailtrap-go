@@ -12,18 +12,15 @@ import (
 func TestMarketingStats_Get(t *testing.T) {
 	mux, client := setup(t)
 	mux.HandleFunc("GET /api/marketing/stats", func(w http.ResponseWriter, r *http.Request) {
-		q := r.URL.Query()
-		if q.Get("start_date") != "2026-05-01" || q.Get("end_date") != "2026-05-31" {
-			t.Errorf("date query = %v", q)
+		want := map[string][]string{
+			"start_date":                {"2026-05-01"},
+			"end_date":                  {"2026-05-31"},
+			"sending_domain_ids[]":      {"3938", "3939"},
+			"sources[]":                 {"campaigns"},
+			"email_service_providers[]": {"Google", "Yahoo"},
 		}
-		if got := q["sending_domain_ids[]"]; !reflect.DeepEqual(got, []string{"3938", "3939"}) {
-			t.Errorf("sending_domain_ids[] = %v", got)
-		}
-		if got := q["sources[]"]; !reflect.DeepEqual(got, []string{"campaigns"}) {
-			t.Errorf("sources[] = %v", got)
-		}
-		if got := q["email_service_providers[]"]; !reflect.DeepEqual(got, []string{"Google", "Yahoo"}) {
-			t.Errorf("email_service_providers[] = %v", got)
+		if got := map[string][]string(r.URL.Query()); !reflect.DeepEqual(got, want) {
+			t.Errorf("query = %v, want %v", got, want)
 		}
 		_, _ = w.Write([]byte(`{"data": {
 			"delivery_count": 1450,
@@ -77,11 +74,14 @@ func TestMarketingStats_Get_DatesOnly(t *testing.T) {
 		_, _ = w.Write([]byte(`{"data": {}}`))
 	})
 
-	_, _, err := client.MarketingStats.Get(context.Background(), &mailtrap.MarketingStatsOptions{
+	stats, _, err := client.MarketingStats.Get(context.Background(), &mailtrap.MarketingStatsOptions{
 		StartDate: "2026-05-01",
 		EndDate:   "2026-05-31",
 	})
 	if err != nil {
 		t.Fatalf("Get: %v", err)
+	}
+	if !reflect.DeepEqual(stats, &mailtrap.MarketingStats{}) {
+		t.Errorf("stats = %+v, want zero value", stats)
 	}
 }
