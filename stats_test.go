@@ -16,8 +16,8 @@ func TestStats_Get(t *testing.T) {
 		if q.Get("start_date") != "2025-01-01" || q.Get("end_date") != "2025-12-31" {
 			t.Errorf("date query = %v", q)
 		}
-		if got := q["domain_ids[]"]; !reflect.DeepEqual(got, []string{"3938", "3939"}) {
-			t.Errorf("domain_ids[] = %v", got)
+		if got := q["sending_domain_ids[]"]; !reflect.DeepEqual(got, []string{"3938", "3939"}) {
+			t.Errorf("sending_domain_ids[] = %v", got)
 		}
 		if got := q["sending_streams[]"]; !reflect.DeepEqual(got, []string{"transactional"}) {
 			t.Errorf("sending_streams[] = %v", got)

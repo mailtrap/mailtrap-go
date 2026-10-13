@@ -74,7 +74,7 @@ func (o *StatsOptions) values() url.Values {
 		v.Set("end_date", o.EndDate)
 	}
 	for _, id := range o.SendingDomainIDs {
-		v.Add("domain_ids[]", strconv.FormatInt(id, 10))
+		v.Add("sending_domain_ids[]", strconv.FormatInt(id, 10))
 	}
 	for _, s := range o.SendingStreams {
 		v.Add("sending_streams[]", s)
