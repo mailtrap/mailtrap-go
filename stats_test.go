@@ -41,13 +41,17 @@ func TestStats_Get(t *testing.T) {
 
 func TestStats_ByDomain(t *testing.T) {
 	mux, client := setup(t)
-	mux.HandleFunc("GET /api/stats/domains", func(w http.ResponseWriter, _ *http.Request) {
+	mux.HandleFunc("GET /api/stats/domains", func(w http.ResponseWriter, r *http.Request) {
+		if got := r.URL.Query()["sending_domain_ids[]"]; !reflect.DeepEqual(got, []string{"3938"}) {
+			t.Errorf("sending_domain_ids[] = %v", got)
+		}
 		_, _ = w.Write([]byte(`[{"domain_id":3938,"stats":{"delivery_count":100}}]`))
 	})
 
 	byDomain, _, err := client.Stats.ByDomain(context.Background(), &mailtrap.StatsOptions{
-		StartDate: "2025-01-01",
-		EndDate:   "2025-12-31",
+		StartDate:        "2025-01-01",
+		EndDate:          "2025-12-31",
+		SendingDomainIDs: []int64{3938},
 	})
 	if err != nil {
 		t.Fatalf("ByDomain: %v", err)
