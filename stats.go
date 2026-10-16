@@ -54,8 +54,10 @@ type DateStats struct {
 // StatsOptions filters a stats query. StartDate and EndDate (YYYY-MM-DD) are
 // required; the remaining fields narrow the results and may be omitted.
 type StatsOptions struct {
-	StartDate             string
-	EndDate               string
+	StartDate string
+	EndDate   string
+	// SendingDomainIDs are sending domain IDs (SendingDomain.ID, DomainStats.DomainID).
+	// An ID that is unknown or not visible to the token makes the request fail with 400.
 	SendingDomainIDs      []int64
 	SendingStreams        []string
 	Categories            []string
@@ -74,7 +76,7 @@ func (o *StatsOptions) values() url.Values {
 		v.Set("end_date", o.EndDate)
 	}
 	for _, id := range o.SendingDomainIDs {
-		v.Add("domain_ids[]", strconv.FormatInt(id, 10))
+		v.Add("sending_domain_ids[]", strconv.FormatInt(id, 10))
 	}
 	for _, s := range o.SendingStreams {
 		v.Add("sending_streams[]", s)
