@@ -1,3 +1,12 @@
+## [0.5.0] - 2026-10-29
+
+## What's Changed
+* Send the Stats domain filter as sending_domain_ids[] by @Rabsztok in https://github.com/mailtrap/mailtrap-go/pull/35
+* Add MarketingStatsService for GET /api/marketing/stats by @Rabsztok in https://github.com/mailtrap/mailtrap-go/pull/36
+
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-go/compare/v0.4.0...v0.5.0
+
 ## [0.4.0] - 2026-10-07
 
 ## What's Changed
