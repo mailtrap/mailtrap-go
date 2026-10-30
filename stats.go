@@ -27,9 +27,10 @@ type SendingStats struct {
 	SpamRate      float64 `json:"spam_rate"`
 }
 
-// DomainStats holds sending stats for a single domain.
+// DomainStats holds sending stats for a single sending domain.
 type DomainStats struct {
-	DomainID int64        `json:"domain_id"`
+	// DomainID is the sending domain's ID (SendingDomain.ID).
+	DomainID int64        `json:"sending_domain_id"`
 	Stats    SendingStats `json:"stats"`
 }
 
