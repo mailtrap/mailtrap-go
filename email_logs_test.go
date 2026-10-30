@@ -25,7 +25,7 @@ func TestEmailLogs_List(t *testing.T) {
 		if got := q["filters[status][value][]"]; !reflect.DeepEqual(got, []string{"delivered", "enqueued"}) {
 			t.Errorf("status value (array) = %v", got)
 		}
-		_, _ = w.Write([]byte(`{"messages":[{"message_id":"a1","status":"delivered","to":"recipient@example.com","template_id":100}],"total_count":150,"next_page_cursor":"a1"}`))
+		_, _ = w.Write([]byte(`{"messages":[{"message_id":"a1","status":"delivered","to":"recipient@example.com","sending_domain_id":3938,"template_id":100}],"total_count":150,"next_page_cursor":"a1"}`))
 	})
 
 	list, _, err := client.EmailLogs.List(context.Background(), &mailtrap.EmailLogsListOptions{
@@ -43,6 +43,9 @@ func TestEmailLogs_List(t *testing.T) {
 	}
 	if list.Messages[0].TemplateID == nil || *list.Messages[0].TemplateID != 100 {
 		t.Errorf("template_id = %v", list.Messages[0].TemplateID)
+	}
+	if list.Messages[0].DomainID != 3938 {
+		t.Errorf("DomainID = %d", list.Messages[0].DomainID)
 	}
 }
 
@@ -74,7 +77,7 @@ func TestEmailLogs_All(t *testing.T) {
 func TestEmailLogs_Get(t *testing.T) {
 	mux, client := setup(t)
 	mux.HandleFunc("GET /api/email_logs/a1", func(w http.ResponseWriter, _ *http.Request) {
-		_, _ = w.Write([]byte(`{"message_id":"a1","status":"delivered","raw_message_url":"https://x/eml","events":[{"event_type":"click","created_at":"2025-01-15T10:35:00Z","details":{"click_url":"https://example.com/c"}}]}`))
+		_, _ = w.Write([]byte(`{"message_id":"a1","status":"delivered","sending_domain_id":3938,"raw_message_url":"https://x/eml","events":[{"event_type":"click","created_at":"2025-01-15T10:35:00Z","details":{"click_url":"https://example.com/c"}}]}`))
 	})
 
 	msg, _, err := client.EmailLogs.Get(context.Background(), "a1")
@@ -83,6 +86,9 @@ func TestEmailLogs_Get(t *testing.T) {
 	}
 	if msg.RawMessageURL != "https://x/eml" || len(msg.Events) != 1 {
 		t.Fatalf("msg = %+v", msg)
+	}
+	if msg.DomainID != 3938 {
+		t.Errorf("DomainID = %d", msg.DomainID)
 	}
 	if msg.Events[0].EventType != "click" || msg.Events[0].Details.ClickURL != "https://example.com/c" {
 		t.Errorf("event = %+v", msg.Events[0])
