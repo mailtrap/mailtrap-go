@@ -43,8 +43,10 @@ type MarketingStats struct {
 // (YYYY-MM-DD) are required; the remaining fields narrow the results and may
 // be omitted.
 type MarketingStatsOptions struct {
-	StartDate        string
-	EndDate          string
+	StartDate string
+	EndDate   string
+	// SendingDomainIDs are domain IDs (Domain.ID); the name mirrors the API's
+	// sending_domain_ids[] parameter.
 	SendingDomainIDs []int64
 	// Sources narrows the stats to MarketingStatsSourceCampaigns or
 	// MarketingStatsSourceAutomations; omit it, or pass both, for all Email

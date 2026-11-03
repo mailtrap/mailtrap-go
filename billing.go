@@ -12,9 +12,9 @@ type BillingService struct {
 
 // BillingUsage reports plan and usage for each product in the current cycle. A
 // product is nil when the account has no plan for it.
-// Testing holds the Sandbox product; its name mirrors the API's testing field.
 type BillingUsage struct {
-	Billing   *BillingCycle   `json:"billing"`
+	Billing *BillingCycle `json:"billing"`
+	// Testing holds the Sandbox product; its name mirrors the API's testing field.
 	Testing   *BillingProduct `json:"testing,omitempty"`
 	Sending   *BillingProduct `json:"sending,omitempty"`
 	Marketing *BillingProduct `json:"marketing,omitempty"`

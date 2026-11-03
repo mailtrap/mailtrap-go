@@ -3,6 +3,7 @@ package mailtrap_test
 import (
 	"context"
 	"go/ast"
+	"go/doc"
 	"go/parser"
 	"go/token"
 	"net/http"
@@ -167,20 +168,10 @@ var (
 )
 
 func TestSendingDomains_DeprecatedAlias(t *testing.T) {
-	mux, client := setup(t)
-	mux.HandleFunc("GET /api/domains/435", func(w http.ResponseWriter, _ *http.Request) {
-		_, _ = w.Write([]byte(`{"id":435,"domain_name":"mailtrap.io","permissions":{"can_read":true}}`))
-	})
+	_, client := setup(t)
 
 	if client.SendingDomains != client.Domains {
-		t.Fatalf("SendingDomains = %p, want Domains %p", client.SendingDomains, client.Domains)
-	}
-	domain, _, err := client.SendingDomains.Get(context.Background(), 435)
-	if err != nil {
-		t.Fatalf("Get: %v", err)
-	}
-	if domain.ID != 435 || domain.Permissions == nil || !domain.Permissions.CanRead {
-		t.Errorf("domain = %+v", domain)
+		t.Errorf("SendingDomains = %p, want Domains %p", client.SendingDomains, client.Domains)
 	}
 }
 
@@ -188,40 +179,43 @@ func TestSendingDomains_DeprecatedAlias(t *testing.T) {
 // replacement, which is what makes staticcheck (SA1019) and gopls flag callers.
 func TestSendingDomains_DeprecationNotices(t *testing.T) {
 	want := map[string]string{
-		"SendingDomains":           "Deprecated: Use Domains instead.",
+		"Client.SendingDomains":    "Deprecated: Use Domains instead.",
 		"SendingDomainsService":    "Deprecated: Use DomainsService instead.",
 		"SendingDomain":            "Deprecated: Use Domain instead.",
 		"SendingDomainPermissions": "Deprecated: Use DomainPermissions instead.",
 	}
 
-	files, err := filepath.Glob("*.go")
+	paths, err := filepath.Glob("*.go")
 	if err != nil {
 		t.Fatalf("glob: %v", err)
 	}
-	docs := map[string]string{}
-	for _, file := range files {
-		if strings.HasSuffix(file, "_test.go") {
+	fset := token.NewFileSet()
+	var files []*ast.File
+	for _, path := range paths {
+		if strings.HasSuffix(path, "_test.go") {
 			continue
 		}
-		f, err := parser.ParseFile(token.NewFileSet(), file, nil, parser.ParseComments)
+		f, err := parser.ParseFile(fset, path, nil, parser.ParseComments)
 		if err != nil {
-			t.Fatalf("parse %s: %v", file, err)
+			t.Fatalf("parse %s: %v", path, err)
 		}
-		ast.Inspect(f, func(n ast.Node) bool {
-			switch n := n.(type) {
-			case *ast.GenDecl:
-				for _, spec := range n.Specs {
-					if ts, ok := spec.(*ast.TypeSpec); ok {
-						docs[ts.Name.Name] = n.Doc.Text() + ts.Doc.Text()
-					}
-				}
-			case *ast.Field:
-				for _, name := range n.Names {
-					docs[name.Name] = n.Doc.Text()
+		files = append(files, f)
+	}
+	// go/doc attaches doc comments to declarations the way go doc and gopls do.
+	pkg, err := doc.NewFromFiles(fset, files, "github.com/mailtrap/mailtrap-go")
+	if err != nil {
+		t.Fatalf("doc: %v", err)
+	}
+	docs := map[string]string{}
+	for _, typ := range pkg.Types {
+		docs[typ.Name] = typ.Doc
+		if st, ok := typ.Decl.Specs[0].(*ast.TypeSpec).Type.(*ast.StructType); ok {
+			for _, field := range st.Fields.List {
+				for _, name := range field.Names {
+					docs[typ.Name+"."+name.Name] = field.Doc.Text()
 				}
 			}
-			return true
-		})
+		}
 	}
 
 	for name, notice := range want {
