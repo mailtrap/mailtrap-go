@@ -56,7 +56,7 @@ type DateStats struct {
 type StatsOptions struct {
 	StartDate string
 	EndDate   string
-	// SendingDomainIDs are sending domain IDs (SendingDomain.ID, DomainStats.DomainID).
+	// SendingDomainIDs are domain IDs (Domain.ID, DomainStats.DomainID).
 	// An ID that is unknown or not visible to the token makes the request fail with 400.
 	SendingDomainIDs      []int64
 	SendingStreams        []string

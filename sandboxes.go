@@ -6,13 +6,13 @@ import (
 	"net/http"
 )
 
-// SandboxesService manages sandboxes (testing inboxes) and their actions.
+// SandboxesService manages sandboxes and their actions.
 type SandboxesService struct {
 	client *Client
 }
 
-// Sandbox is a testing inbox that captures emails sent to it instead of
-// delivering them to real recipients.
+// Sandbox captures the emails sent to it instead of delivering them to real
+// recipients.
 type Sandbox struct {
 	ID                      int64        `json:"id"`
 	Name                    string       `json:"name"`

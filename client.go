@@ -1,6 +1,6 @@
 // Package mailtrap is the official Go client library for the Mailtrap email
-// delivery platform: transactional and bulk sending, the email sandbox
-// (testing), and email marketing.
+// delivery platform: transactional and bulk sending, the email sandbox, and
+// email marketing.
 //
 // Construct a client with an API token and optional functional options:
 //
@@ -34,7 +34,7 @@ const (
 	HostSend
 	// HostBulk is the bulk sending API (https://bulk.api.mailtrap.io).
 	HostBulk
-	// HostSandbox is the sandbox (testing) sending API (https://sandbox.api.mailtrap.io).
+	// HostSandbox is the sandbox sending API (https://sandbox.api.mailtrap.io).
 	HostSandbox
 )
 
@@ -62,15 +62,20 @@ type Client struct {
 
 	// Projects manages sandbox projects.
 	Projects *ProjectsService
-	// Sandboxes manages sandboxes (testing inboxes) and their actions.
+	// Sandboxes manages sandboxes and their actions.
 	Sandboxes *SandboxesService
 	// SandboxMessages manages messages captured by a sandbox.
 	SandboxMessages *SandboxMessagesService
 	// SandboxAttachments reads attachments of sandbox messages.
 	SandboxAttachments *SandboxAttachmentsService
 
-	// SendingDomains manages sending domains and their compliance settings.
-	SendingDomains *SendingDomainsService
+	// Domains manages domains and their compliance settings.
+	Domains *DomainsService
+	// SendingDomains is the former name of Domains and holds the same service.
+	//
+	// Deprecated: Use Domains instead. SendingDomains will be removed in a
+	// future major release.
+	SendingDomains *DomainsService
 	// Suppressions manages the account's do-not-send list.
 	Suppressions *SuppressionsService
 	// Stats reads aggregated email sending statistics.
@@ -165,7 +170,8 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 	c.Sandboxes = &SandboxesService{client: c}
 	c.SandboxMessages = &SandboxMessagesService{client: c}
 	c.SandboxAttachments = &SandboxAttachmentsService{client: c}
-	c.SendingDomains = &SendingDomainsService{client: c}
+	c.Domains = &DomainsService{client: c}
+	c.SendingDomains = c.Domains
 	c.Suppressions = &SuppressionsService{client: c}
 	c.Stats = &StatsService{client: c}
 	c.EmailLogs = &EmailLogsService{client: c}

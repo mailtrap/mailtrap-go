@@ -12,6 +12,7 @@ type BillingService struct {
 
 // BillingUsage reports plan and usage for each product in the current cycle. A
 // product is nil when the account has no plan for it.
+// Testing holds the Sandbox product; its name mirrors the API's testing field.
 type BillingUsage struct {
 	Billing   *BillingCycle   `json:"billing"`
 	Testing   *BillingProduct `json:"testing,omitempty"`
@@ -37,7 +38,7 @@ type BillingPlan struct {
 }
 
 // BillingUsageMetrics counts messages used against the plan limit.
-// ForwardedMessagesCount is only set for the Sandbox (testing) product.
+// ForwardedMessagesCount is only set for the Sandbox product.
 type BillingUsageMetrics struct {
 	SentMessagesCount      *BillingCounter `json:"sent_messages_count,omitempty"`
 	ForwardedMessagesCount *BillingCounter `json:"forwarded_messages_count,omitempty"`

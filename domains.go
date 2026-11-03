@@ -6,8 +6,8 @@ import (
 	"net/http"
 )
 
-// SendingDomainsService manages sending domains and their compliance settings.
-type SendingDomainsService struct {
+// DomainsService manages domains and their compliance settings.
+type DomainsService struct {
 	client *Client
 }
 
@@ -21,31 +21,49 @@ type DNSRecord struct {
 	Value  string `json:"value"`
 }
 
-// SendingDomainPermissions describes the caller's permissions on a domain.
-type SendingDomainPermissions struct {
+// DomainPermissions describes the caller's permissions on a domain.
+type DomainPermissions struct {
 	CanRead    bool `json:"can_read"`
 	CanUpdate  bool `json:"can_update"`
 	CanDestroy bool `json:"can_destroy"`
 }
 
-// SendingDomain is a domain used for email authentication and sending.
-type SendingDomain struct {
-	ID                          int64                     `json:"id"`
-	DomainName                  string                    `json:"domain_name"`
-	Demo                        bool                      `json:"demo"`
-	ComplianceStatus            string                    `json:"compliance_status"`
-	DNSVerified                 bool                      `json:"dns_verified"`
-	DNSVerifiedAt               string                    `json:"dns_verified_at"`
-	DNSRecords                  []DNSRecord               `json:"dns_records"`
-	OpenTrackingEnabled         bool                      `json:"open_tracking_enabled"`
-	ClickTrackingEnabled        bool                      `json:"click_tracking_enabled"`
-	AutoUnsubscribeLinkEnabled  bool                      `json:"auto_unsubscribe_link_enabled"`
-	CustomDomainTrackingEnabled bool                      `json:"custom_domain_tracking_enabled"`
-	HealthAlertsEnabled         bool                      `json:"health_alerts_enabled"`
-	CriticalAlertsEnabled       bool                      `json:"critical_alerts_enabled"`
-	AlertRecipientEmail         string                    `json:"alert_recipient_email"`
-	Permissions                 *SendingDomainPermissions `json:"permissions,omitempty"`
+// Domain is a domain used for email authentication and sending.
+type Domain struct {
+	ID                          int64              `json:"id"`
+	DomainName                  string             `json:"domain_name"`
+	Demo                        bool               `json:"demo"`
+	ComplianceStatus            string             `json:"compliance_status"`
+	DNSVerified                 bool               `json:"dns_verified"`
+	DNSVerifiedAt               string             `json:"dns_verified_at"`
+	DNSRecords                  []DNSRecord        `json:"dns_records"`
+	OpenTrackingEnabled         bool               `json:"open_tracking_enabled"`
+	ClickTrackingEnabled        bool               `json:"click_tracking_enabled"`
+	AutoUnsubscribeLinkEnabled  bool               `json:"auto_unsubscribe_link_enabled"`
+	CustomDomainTrackingEnabled bool               `json:"custom_domain_tracking_enabled"`
+	HealthAlertsEnabled         bool               `json:"health_alerts_enabled"`
+	CriticalAlertsEnabled       bool               `json:"critical_alerts_enabled"`
+	AlertRecipientEmail         string             `json:"alert_recipient_email"`
+	Permissions                 *DomainPermissions `json:"permissions,omitempty"`
 }
+
+// SendingDomainsService is the former name of DomainsService.
+//
+// Deprecated: Use DomainsService instead. SendingDomainsService will be
+// removed in a future major release.
+type SendingDomainsService = DomainsService
+
+// SendingDomain is the former name of Domain.
+//
+// Deprecated: Use Domain instead. SendingDomain will be removed in a future
+// major release.
+type SendingDomain = Domain
+
+// SendingDomainPermissions is the former name of DomainPermissions.
+//
+// Deprecated: Use DomainPermissions instead. SendingDomainPermissions will be
+// removed in a future major release.
+type SendingDomainPermissions = DomainPermissions
 
 // UpdateDomainRequest changes a domain's tracking settings. Only the non-nil
 // fields are sent, so leave a field nil to keep its current value.
@@ -93,70 +111,70 @@ const (
 	InfoLevelIndividual = "individual"
 )
 
-// List returns all sending domains and their verification status.
-func (s *SendingDomainsService) List(ctx context.Context) ([]*SendingDomain, *Response, error) {
+// List returns all domains and their verification status.
+func (s *DomainsService) List(ctx context.Context) ([]*Domain, *Response, error) {
 	var wrapper struct {
-		Data []*SendingDomain `json:"data"`
+		Data []*Domain `json:"data"`
 	}
 	resp, err := s.client.do(ctx, HostGeneral, http.MethodGet, "/api/domains", nil, nil, &wrapper)
 	return wrapper.Data, resp, err
 }
 
-// Get returns a sending domain by ID.
-func (s *SendingDomainsService) Get(ctx context.Context, domainID int64) (*SendingDomain, *Response, error) {
+// Get returns a domain by ID.
+func (s *DomainsService) Get(ctx context.Context, domainID int64) (*Domain, *Response, error) {
 	path := fmt.Sprintf("/api/domains/%d", domainID)
-	domain := new(SendingDomain)
+	domain := new(Domain)
 	resp, err := s.client.do(ctx, HostGeneral, http.MethodGet, path, nil, nil, domain)
 	return domain, resp, err
 }
 
-// Create adds a sending domain. After creation, publish the returned DNS records
+// Create adds a domain. After creation, publish the returned DNS records
 // and verify them before sending in production.
-func (s *SendingDomainsService) Create(ctx context.Context, domainName string) (*SendingDomain, *Response, error) {
+func (s *DomainsService) Create(ctx context.Context, domainName string) (*Domain, *Response, error) {
 	body := map[string]any{"domain": map[string]string{"domain_name": domainName}}
-	domain := new(SendingDomain)
+	domain := new(Domain)
 	resp, err := s.client.do(ctx, HostGeneral, http.MethodPost, "/api/domains", nil, body, domain)
 	return domain, resp, err
 }
 
 // Update changes a domain's tracking settings.
-func (s *SendingDomainsService) Update(ctx context.Context, domainID int64, req *UpdateDomainRequest) (*SendingDomain, *Response, error) {
+func (s *DomainsService) Update(ctx context.Context, domainID int64, req *UpdateDomainRequest) (*Domain, *Response, error) {
 	path := fmt.Sprintf("/api/domains/%d", domainID)
 	body := map[string]any{"domain": req}
-	domain := new(SendingDomain)
+	domain := new(Domain)
 	resp, err := s.client.do(ctx, HostGeneral, http.MethodPatch, path, nil, body, domain)
 	return domain, resp, err
 }
 
-// Delete removes a sending domain by ID.
-func (s *SendingDomainsService) Delete(ctx context.Context, domainID int64) (*Response, error) {
+// Delete removes a domain by ID.
+func (s *DomainsService) Delete(ctx context.Context, domainID int64) (*Response, error) {
 	path := fmt.Sprintf("/api/domains/%d", domainID)
 	return s.client.do(ctx, HostGeneral, http.MethodDelete, path, nil, nil, nil)
 }
 
 // SendSetupInstructions emails the domain's DNS setup instructions to an address.
-func (s *SendingDomainsService) SendSetupInstructions(ctx context.Context, domainID int64, email string) (*Response, error) {
+func (s *DomainsService) SendSetupInstructions(ctx context.Context, domainID int64, email string) (*Response, error) {
 	path := fmt.Sprintf("/api/domains/%d/send_setup_instructions", domainID)
 	body := map[string]string{"email": email}
 	return s.client.do(ctx, HostGeneral, http.MethodPost, path, nil, body, nil)
 }
 
 // CompanyInfo returns the company information attached to a domain.
-func (s *SendingDomainsService) CompanyInfo(ctx context.Context, domainID int64) (*CompanyInfo, *Response, error) {
+func (s *DomainsService) CompanyInfo(ctx context.Context, domainID int64) (*CompanyInfo, *Response, error) {
 	return s.companyInfo(ctx, http.MethodGet, domainID, nil)
 }
 
 // CreateCompanyInfo sets the company information for a domain.
-func (s *SendingDomainsService) CreateCompanyInfo(ctx context.Context, domainID int64, req *CompanyInfoRequest) (*CompanyInfo, *Response, error) {
+func (s *DomainsService) CreateCompanyInfo(ctx context.Context, domainID int64, req *CompanyInfoRequest) (*CompanyInfo, *Response, error) {
 	return s.companyInfo(ctx, http.MethodPost, domainID, req)
 }
 
 // UpdateCompanyInfo changes the set fields of a domain's company information.
-func (s *SendingDomainsService) UpdateCompanyInfo(ctx context.Context, domainID int64, req *CompanyInfoRequest) (*CompanyInfo, *Response, error) {
+func (s *DomainsService) UpdateCompanyInfo(ctx context.Context, domainID int64, req *CompanyInfoRequest) (*CompanyInfo, *Response, error) {
 	return s.companyInfo(ctx, http.MethodPatch, domainID, req)
 }
 
-func (s *SendingDomainsService) companyInfo(ctx context.Context, method string, domainID int64, req *CompanyInfoRequest) (*CompanyInfo, *Response, error) {
+func (s *DomainsService) companyInfo(ctx context.Context, method string, domainID int64, req *CompanyInfoRequest) (*CompanyInfo, *Response, error) {
 	path := fmt.Sprintf("/api/domains/%d/company_info", domainID)
 	var body any
 	if req != nil {

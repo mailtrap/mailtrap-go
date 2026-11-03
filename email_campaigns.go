@@ -20,8 +20,8 @@ type EmailCampaignsService struct {
 // endpoint omits them.
 type EmailCampaign struct {
 	ID int64 `json:"id"`
-	// DomainID is the ID of the sending domain used for the campaign, as
-	// returned by the Sending Domains endpoints.
+	// DomainID is the ID of the domain used for the campaign, as returned by
+	// the Domains endpoints.
 	DomainID        int64                 `json:"domain_id"`
 	DomainName      string                `json:"domain_name"`
 	Name            string                `json:"name"`
@@ -137,8 +137,8 @@ type EmailCampaignTemplate struct {
 // scheduling and starting are separate actions.
 type CreateEmailCampaignRequest struct {
 	Name string `json:"name"`
-	// DomainID is the ID of the verified sending domain to use, as returned by
-	// the Sending Domains endpoints.
+	// DomainID is the ID of the verified domain to use, as returned by the
+	// Domains endpoints.
 	DomainID           int64                            `json:"domain_id"`
 	FromDisplayName    string                           `json:"from_display_name,omitempty"`
 	FromLocalPart      string                           `json:"from_local_part"`
@@ -158,8 +158,8 @@ type CreateEmailCampaignRequest struct {
 // optional; only the set fields change.
 type UpdateEmailCampaignRequest struct {
 	Name string `json:"name,omitempty"`
-	// DomainID is the ID of the verified sending domain to use, as returned by
-	// the Sending Domains endpoints.
+	// DomainID is the ID of the verified domain to use, as returned by the
+	// Domains endpoints.
 	DomainID           int64                            `json:"domain_id,omitempty"`
 	FromDisplayName    string                           `json:"from_display_name,omitempty"`
 	FromLocalPart      string                           `json:"from_local_part,omitempty"`

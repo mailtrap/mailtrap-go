@@ -22,7 +22,7 @@ func main() {
 
 	ctx := context.Background()
 
-	// Create a draft campaign on a verified sending domain.
+	// Create a draft campaign on a verified domain.
 	campaign, _, err := client.EmailCampaigns.Create(ctx, &mailtrap.CreateEmailCampaignRequest{
 		Name:            "Spring Sale",
 		DomainID:        domainID,

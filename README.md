@@ -4,7 +4,7 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/mailtrap/mailtrap-go.svg)](https://pkg.go.dev/github.com/mailtrap/mailtrap-go)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-The official Go client library for the [Mailtrap](https://mailtrap.io) email delivery platform — transactional and bulk sending, email sandbox (testing), and email marketing.
+The official Go client library for the [Mailtrap](https://mailtrap.io) email delivery platform — transactional and bulk sending, email sandbox, and email marketing.
 
 ## Prerequisites
 
@@ -66,7 +66,7 @@ Email API (sending):
 
 Email API (management):
 
-- Sending domain management — DNS setup instructions & company info — [`examples/sending-domains`](examples/sending-domains)
+- Domain management — DNS setup instructions & company info — [`examples/domains`](examples/domains)
 - Suppression management — the do-not-send list of bounces, complaints & unsubscribes — [`examples/suppressions`](examples/suppressions)
 - Sending stats — aggregated, or grouped by domain, category, ESP & date — [`examples/stats`](examples/stats)
 - Email logs — filter & cursor-paginate sent messages, inspect delivery events — [`examples/email-logs`](examples/email-logs)
@@ -74,11 +74,11 @@ Email API (management):
 - Template management (experimental) — create, list (paginated), update & delete templates — [`examples/templates`](examples/templates)
 - Email template management — create, list, update & delete templates — [`examples/email-templates`](examples/email-templates)
 
-Email Sandbox (Testing):
+Email Sandbox:
 
 - Sandbox sending — single & batch — [`examples/sandbox-sending`](examples/sandbox-sending)
 - Project management — [`examples/projects`](examples/projects)
-- Sandbox (inbox) management & actions — [`examples/sandboxes`](examples/sandboxes)
+- Sandbox management & actions — [`examples/sandboxes`](examples/sandboxes)
 - Message management & inspection — spam report, HTML analysis, headers, raw bodies — [`examples/messages`](examples/messages)
 - Attachment operations — [`examples/attachments`](examples/attachments)
 
@@ -103,7 +103,20 @@ Contact management:
 Email marketing:
 
 - Email campaigns — create, list, update & delete campaigns, schedule/start lifecycle & stats — [`examples/email-campaigns`](examples/email-campaigns)
-- Marketing stats — aggregated across campaigns & automations, filtered by sending domain, source & ESP — [`examples/marketing-stats`](examples/marketing-stats)
+- Marketing stats — aggregated across campaigns & automations, filtered by domain, source & ESP — [`examples/marketing-stats`](examples/marketing-stats)
+
+## Renamed APIs
+
+Mailtrap now calls sending domains *domains*. The old names still work as aliases of the new ones, but they are deprecated and will be removed in a future major release, so staticcheck (SA1019) and gopls flag each remaining use:
+
+| Old | New |
+|-----|-----|
+| `client.SendingDomains` | `client.Domains` |
+| `SendingDomainsService` | `DomainsService` |
+| `SendingDomain` | `Domain` |
+| `SendingDomainPermissions` | `DomainPermissions` |
+
+`StatsOptions.SendingDomainIDs` and `MarketingStatsOptions.SendingDomainIDs` keep their names because they mirror the API's `sending_domain_ids[]` parameter.
 
 ## Errors
 
