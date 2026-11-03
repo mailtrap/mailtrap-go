@@ -1,0 +1,49 @@
+stats.go
+  s_c881883901a2a6::t_0a551a37985fa8 59
+email_campaigns.go
+  s_c881883901a2a6::t_0bc8c09c879767 23-24,140-141,161-162
+examples/email-campaigns/main.go
+  s_c881883901a2a6::t_0a551a37985fa8 25
+billing.go
+  s_c881883901a2a6::t_b9ad2bf5dce3f1 15
+  s_c881883901a2a6::t_0a551a37985fa8 41
+examples/domains/main.go
+  s_c881883901a2a6::t_7cd81eba023d9a 1-66
+README.md
+  s_c881883901a2a6::t_cc1e71ccfaaf73 7,69,77,81,106-119
+client.go
+  s_c881883901a2a6::t_74a82eca7521a2 173-174
+  s_c881883901a2a6::t_0a551a37985fa8 2-3,37,65
+  s_c881883901a2a6::t_2875f5b22de663 72-78
+sandboxes.go
+  s_c881883901a2a6::t_0bc8c09c879767 14-15
+  s_c881883901a2a6::t_0a551a37985fa8 9
+domains.go
+  s_c881883901a2a6::t_3d6731cba8d344 9,114,123,131,149
+  s_c881883901a2a6::t_0bc8c09c879767 33-46
+  s_c881883901a2a6::t_7cd81eba023d9a 1-8,10-32,47-49,68-113,115-122,124-130,132-148,150-188
+  s_c881883901a2a6::t_815a777bd0186b 50-57,59-67
+  s_c881883901a2a6::t_84860ea34188f0 58
+domains_test.go
+  s_c881883901a2a6::t_7cd81eba023d9a 1-4,8,11-157,232-233
+  s_c881883901a2a6::t_feca4308fa5bfc 9
+  s_c881883901a2a6::t_0db040a80dae55 228-230
+  s_c881883901a2a6::t_3d209f4a62507d 187,197-200,202-205
+  s_c881883901a2a6::t_79b8ef53e73274 5-7,10,158-186,188-196,201,206-227,231
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2323680bff7f1811600ab67471cc86eb2629e6b8",
+  "prompts": {},
+  "sessions": {
+    "s_c881883901a2a6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5aaf6175-44de-428a-96ae-0d9f99d74bf8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
