@@ -1,0 +1,27 @@
+billing.go
+  s_b00023eee883e0::t_af81bb85a3557a 16-17
+marketing_stats.go
+  s_b00023eee883e0::t_bd5ba86e1cd71c 46-49
+domains_test.go
+  s_b00023eee883e0::t_e96549bd614093 6
+  s_b00023eee883e0::t_d643392899069a 171,174
+  s_b00023eee883e0::t_82c9e7ce3f32bb 188,192-195,198,200,202-215
+  s_b00023eee883e0::t_710e37bbe708c9 182
+  s_b00023eee883e0::t_3e403683937024 218
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2c9979cbcdb0c793df63e63e747486ccc83413b6",
+  "prompts": {},
+  "sessions": {
+    "s_b00023eee883e0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "07952f44-8c12-4940-9ecd-61f6ecceec81",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
