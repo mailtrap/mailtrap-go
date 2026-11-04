@@ -19,16 +19,17 @@ type EmailLogsService struct {
 type EmailLogMessage struct {
 	MessageID string `json:"message_id"`
 	// Status is the delivery status of the message.
-	Status            string         `json:"status"`
-	Subject           string         `json:"subject"`
-	From              string         `json:"from"`
-	To                string         `json:"to"`
-	SentAt            string         `json:"sent_at"`
-	ClientIP          string         `json:"client_ip"`
-	Category          string         `json:"category"`
-	CustomVariables   map[string]any `json:"custom_variables"`
-	SendingStream     string         `json:"sending_stream"`
-	DomainID          int64          `json:"domain_id"`
+	Status          string         `json:"status"`
+	Subject         string         `json:"subject"`
+	From            string         `json:"from"`
+	To              string         `json:"to"`
+	SentAt          string         `json:"sent_at"`
+	ClientIP        string         `json:"client_ip"`
+	Category        string         `json:"category"`
+	CustomVariables map[string]any `json:"custom_variables"`
+	SendingStream   string         `json:"sending_stream"`
+	// DomainID is the sending domain's ID (SendingDomain.ID).
+	DomainID          int64          `json:"sending_domain_id"`
 	TemplateID        *int64         `json:"template_id"`
 	TemplateVariables map[string]any `json:"template_variables"`
 	OpensCount        int64          `json:"opens_count"`

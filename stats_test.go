@@ -45,7 +45,7 @@ func TestStats_ByDomain(t *testing.T) {
 		if got := r.URL.Query()["sending_domain_ids[]"]; !reflect.DeepEqual(got, []string{"3938"}) {
 			t.Errorf("sending_domain_ids[] = %v", got)
 		}
-		_, _ = w.Write([]byte(`[{"domain_id":3938,"stats":{"delivery_count":100}}]`))
+		_, _ = w.Write([]byte(`[{"sending_domain_id":3938,"stats":{"delivery_count":100}}]`))
 	})
 
 	byDomain, _, err := client.Stats.ByDomain(context.Background(), &mailtrap.StatsOptions{
