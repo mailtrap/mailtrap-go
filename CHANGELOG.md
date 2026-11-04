@@ -1,3 +1,11 @@
+## [0.5.1] - 2026-11-04
+
+## What's Changed
+* Read the sending domain ID from sending_domain_id by @Rabsztok in https://github.com/mailtrap/mailtrap-go/pull/38
+
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-go/compare/v0.5.0...v0.5.1
+
 ## [0.5.0] - 2026-10-29
 
 ## What's Changed
