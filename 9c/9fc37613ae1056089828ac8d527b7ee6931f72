@@ -1,0 +1,29 @@
+stats_test.go
+  s_5a48365b135e4f::t_d9055f597232e6 48
+email_logs.go
+  s_5a48365b135e4f::t_3367ed8c327d72 22-30
+  s_5a48365b135e4f::t_59ea6562da1fb1 31
+  s_5a48365b135e4f::t_e5ca5e727be7d4 32
+stats.go
+  s_5a48365b135e4f::t_59ea6562da1fb1 32
+  s_5a48365b135e4f::t_e5ca5e727be7d4 33
+  s_5a48365b135e4f::t_d9055f597232e6 30
+email_logs_test.go
+  s_5a48365b135e4f::t_3367ed8c327d72 28,47-49,80,90-92
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9c9fc37613ae1056089828ac8d527b7ee6931f72",
+  "prompts": {},
+  "sessions": {
+    "s_5a48365b135e4f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7fb0c9a5-1b56-495a-ad13-8330a3ba63f3",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
