@@ -11,9 +11,10 @@ import (
 // created without WithOrganizationID.
 var errNoOrganizationID = errors.New("mailtrap: WithOrganizationID is required for sub-account operations")
 
-// SubAccountsService lists and creates the sub-accounts of an organization.
-// These endpoints require an organization token with sub-account management
-// permission.
+// SubAccountsService lists, creates and deletes the sub-accounts of an
+// organization. List and Create require an organization token with
+// sub-account management permission; Delete requires organization admin
+// permissions.
 type SubAccountsService struct {
 	client *Client
 }
