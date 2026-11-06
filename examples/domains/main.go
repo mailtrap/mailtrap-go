@@ -17,7 +17,7 @@ func main() {
 
 	ctx := context.Background()
 
-	domain, _, err := client.SendingDomains.Create(ctx, "example.com")
+	domain, _, err := client.Domains.Create(ctx, "example.com")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -27,13 +27,13 @@ func main() {
 		fmt.Printf("  %s %s %q -> %q (%s)\n", rec.Key, rec.Type, rec.Name, rec.Value, rec.Status)
 	}
 
-	domains, _, err := client.SendingDomains.List(ctx)
+	domains, _, err := client.Domains.List(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("account has %d domain(s)\n", len(domains))
 
-	_, _, err = client.SendingDomains.Update(ctx, domain.ID, &mailtrap.UpdateDomainRequest{
+	_, _, err = client.Domains.Update(ctx, domain.ID, &mailtrap.UpdateDomainRequest{
 		OpenTrackingEnabled:  mailtrap.Ptr(true),
 		ClickTrackingEnabled: mailtrap.Ptr(false),
 	})
@@ -41,12 +41,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	_, err = client.SendingDomains.SendSetupInstructions(ctx, domain.ID, "devops@example.com")
+	_, err = client.Domains.SendSetupInstructions(ctx, domain.ID, "devops@example.com")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	_, _, err = client.SendingDomains.CreateCompanyInfo(ctx, domain.ID, &mailtrap.CompanyInfoRequest{
+	_, _, err = client.Domains.CreateCompanyInfo(ctx, domain.ID, &mailtrap.CompanyInfoRequest{
 		Name:       "Example Inc",
 		Address:    "123 Main St",
 		City:       "San Francisco",
@@ -59,7 +59,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if _, err = client.SendingDomains.Delete(ctx, domain.ID); err != nil {
+	if _, err = client.Domains.Delete(ctx, domain.ID); err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("deleted domain")
