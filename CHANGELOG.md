@@ -1,3 +1,13 @@
+## [0.6.0] - 2026-11-09
+
+## What's Changed
+* Read the sending domain ID from sending_domain_id by @Rabsztok in https://github.com/mailtrap/mailtrap-go/pull/38
+* fix the permission note for deleting a sub-account by @oshchyhol in https://github.com/mailtrap/mailtrap-go/pull/41
+* Add Client.Domains and Domain types; deprecate the SendingDomain names by @Rabsztok in https://github.com/mailtrap/mailtrap-go/pull/39
+
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-go/compare/v0.5.0...v0.6.0
+
 ## [0.5.0] - 2026-10-29
 
 ## What's Changed
