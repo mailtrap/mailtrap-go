@@ -109,8 +109,10 @@ jobs:
           target: ${{ github.sha }}
 
       # The proxy fetches a version on first request; asking now makes it available right away
-      # instead of on the first user's `go get`.
+      # instead of on the first user's `go get`. The release is already out by now, so a slow proxy
+      # only warns: a failed run couldn't be re-run (the release is no longer a draft).
       - name: Fetch the new version through the Go module proxy
+        continue-on-error: true
         env:
           TAG: ${{ needs.detect.outputs.tag }}
         run: |
