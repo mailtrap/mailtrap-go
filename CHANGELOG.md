@@ -1,3 +1,13 @@
+## [0.6.1] - 2026-11-12
+
+## What's Changed
+* Add release workflow by @IgorDobryn in https://github.com/mailtrap/mailtrap-go/pull/43
+
+## New Contributors
+* @IgorDobryn made their first contribution in https://github.com/mailtrap/mailtrap-go/pull/43
+
+**Full Changelog**: https://github.com/mailtrap/mailtrap-go/compare/v0.6.0...v0.6.1
+
 ## [0.6.0] - 2026-11-09
 
 ## What's Changed
