@@ -1,0 +1,69 @@
+suppressions.go
+  s_1ac9c793125519::t_d92162e4e43555 36-38,52,73-74,76,96-97
+  s_1ac9c793125519::t_580e18b1d398b0 47-51,75
+  s_1ac9c793125519::t_272b82ce40900f 98
+README.md
+  s_1ac9c793125519::t_2b987358719f13 107
+subscription_topics.go
+  s_1ac9c793125519::t_a13a32707382ba 1-114
+contacts_test.go
+  s_1ac9c793125519::t_4042e3affbf109 5,7,16-17,19-21,28-30,38-69,75-76,86-88,101-102,128-173
+  s_1ac9c793125519::t_8c70f291f5a7aa 174
+webhooks.go
+  s_1ac9c793125519::t_d92162e4e43555 59-62
+suppressions_test.go
+  s_1ac9c793125519::t_4042e3affbf109 17-20,30-57
+subscription_topics_test.go
+  s_1ac9c793125519::t_40b62fdc956987 1-224
+examples/contacts/main.go
+  s_1ac9c793125519::t_2b987358719f13 5,38-54,71-101
+  s_1ac9c793125519::t_87050443b7c3aa 102
+email_campaigns.go
+  s_1ac9c793125519::t_2a137837954a9f 158,162
+  s_1ac9c793125519::t_5f1273801e95ee 50-52
+  s_1ac9c793125519::t_ecc7fd9bf55baa 159-161
+  s_1ac9c793125519::t_9bc137b414171f 187-190
+contacts.go
+  s_1ac9c793125519::t_fbb110f2eadd18 33-51,59-62,74-78,90-93,114-117
+examples/email-campaigns/main.go
+  s_1ac9c793125519::t_2b987358719f13 5,26-28,37,43-45,133-150
+  s_1ac9c793125519::t_24a43de92435d1 151
+examples/subscription-topics/main.go
+  s_1ac9c793125519::t_6f927a203f4c39 1-57
+contact_imports.go
+  s_1ac9c793125519::t_d92162e4e43555 41
+  s_1ac9c793125519::t_fbb110f2eadd18 39-40,42
+client.go
+  s_1ac9c793125519::t_596d43f6af2f99 125-127,198
+email_logs.go
+  s_1ac9c793125519::t_d92162e4e43555 70-74,90
+email_campaigns_test.go
+  s_1ac9c793125519::t_4042e3affbf109 29-30,146-163,180-181,204-206,215,227-228,230,234-237,243,252-253
+  s_1ac9c793125519::t_fa91b7b2b7db93 202-203
+email_logs_test.go
+  s_1ac9c793125519::t_4042e3affbf109 97-128
+examples/email-logs/main.go
+  s_1ac9c793125519::t_2b987358719f13 53-56
+webhooks_test.go
+  s_1ac9c793125519::t_4042e3affbf109 29,36-56
+examples/suppressions/main.go
+  s_1ac9c793125519::t_2b987358719f13 42-56
+contact_imports_test.go
+  s_1ac9c793125519::t_4042e3affbf109 14-17,24-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d93dcf55d5df6ef43b5d9a1a72670d61750d7fb2",
+  "prompts": {},
+  "sessions": {
+    "s_1ac9c793125519": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4b024b01-66f7-48f6-9777-492bba38be79",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
