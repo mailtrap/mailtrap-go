@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -22,7 +23,9 @@ func main() {
 
 	ctx := context.Background()
 
-	// Create a draft campaign on a verified domain.
+	// Create a draft campaign on a verified domain, under a subscription topic
+	// that covers the domain (if there is one), so recipients can opt out of
+	// this kind of campaign alone.
 	campaign, _, err := client.EmailCampaigns.Create(ctx, &mailtrap.CreateEmailCampaignRequest{
 		Name:            "Spring Sale",
 		DomainID:        domainID,
@@ -31,11 +34,15 @@ func main() {
 		TemplateAttributes: &mailtrap.EmailCampaignTemplateAttributes{
 			Subject: "Spring is here — 30% off",
 		},
+		SubscriptionTopicID: topicCovering(ctx, client, domainID),
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("created campaign %d (%s), state %s\n", campaign.ID, campaign.Name, campaign.CurrentState)
+	if campaign.SubscriptionTopicID != nil {
+		fmt.Printf("sent under subscription topic %d\n", *campaign.SubscriptionTopicID)
+	}
 
 	// Add the design and the audience, and throttle delivery.
 	campaign, _, err = client.EmailCampaigns.Update(ctx, campaign.ID, &mailtrap.UpdateEmailCampaignRequest{
@@ -122,4 +129,23 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println("campaign deleted")
+}
+
+// topicCovering returns the ID of the first subscription topic that covers
+// the domain, or 0 (no topic) when there is none or the account has no
+// subscription topics.
+func topicCovering(ctx context.Context, client *mailtrap.Client, domainID int64) int64 {
+	for t, err := range client.SubscriptionTopics.All(ctx, nil) {
+		var forbidden *mailtrap.ForbiddenError
+		if errors.As(err, &forbidden) {
+			return 0
+		}
+		if err != nil {
+			log.Fatal(err)
+		}
+		if t.DomainID == nil || *t.DomainID == domainID {
+			return t.ID
+		}
+	}
+	return 0
 }

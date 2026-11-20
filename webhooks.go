@@ -56,6 +56,10 @@ const (
 	WebhookEventSpamComplaint = "spam_complaint"
 	WebhookEventClick         = "click"
 	WebhookEventReject        = "reject"
+	// WebhookEventSubscriptionPreferencesUpdate reports a recipient changing
+	// their subscription topic preferences. It applies only to campaigns
+	// webhooks and email_sending webhooks of the bulk stream.
+	WebhookEventSubscriptionPreferencesUpdate = "subscription_preferences_update"
 )
 
 // CreateWebhookRequest is the payload for creating a webhook. URL and

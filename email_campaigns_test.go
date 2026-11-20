@@ -26,7 +26,8 @@ const campaignJSON = `{
 	"contact_segment_ids": [12],
 	"delivery_mode": "rapid",
 	"delivery_options": {"emails_per_hour": null},
-	"template": {"id": 789, "subject": "Spring is here", "merge_tags": ["first_name"], "body_html": "<html></html>", "body_text": null}
+	"template": {"id": 789, "subject": "Spring is here", "merge_tags": ["first_name"], "body_html": "<html></html>", "body_text": null},
+	"subscription_topic_id": 12
 }`
 
 func TestEmailCampaigns_List(t *testing.T) {
@@ -142,6 +143,24 @@ func TestEmailCampaigns_Get(t *testing.T) {
 	if c.Template.BodyText != nil {
 		t.Errorf("BodyText = %v, want nil", *c.Template.BodyText)
 	}
+	if c.SubscriptionTopicID == nil || *c.SubscriptionTopicID != 12 {
+		t.Errorf("SubscriptionTopicID = %v, want 12", c.SubscriptionTopicID)
+	}
+}
+
+func TestEmailCampaigns_GetWithoutSubscriptionTopic(t *testing.T) {
+	mux, client := setup(t)
+	mux.HandleFunc("GET /api/email_campaigns/4568", func(w http.ResponseWriter, _ *http.Request) {
+		_, _ = w.Write([]byte(`{"data": {"id": 4568, "name": "No topic", "subscription_topic_id": null}}`))
+	})
+
+	c, _, err := client.EmailCampaigns.Get(context.Background(), 4568)
+	if err != nil {
+		t.Fatalf("Get: %v", err)
+	}
+	if c.SubscriptionTopicID != nil {
+		t.Errorf("SubscriptionTopicID = %v, want nil", *c.SubscriptionTopicID)
+	}
 }
 
 func TestEmailCampaigns_Create(t *testing.T) {
@@ -158,7 +177,8 @@ func TestEmailCampaigns_Create(t *testing.T) {
 			"delivery_mode": "gradual",
 			"delivery_options": {"emails_per_hour": 1000},
 			"contact_list_ids": [55, 56],
-			"contact_segment_ids": [12]
+			"contact_segment_ids": [12],
+			"subscription_topic_id": 12
 		}`)
 		w.WriteHeader(http.StatusCreated)
 		_, _ = w.Write([]byte(`{"data": ` + campaignJSON + `}`))
@@ -179,10 +199,11 @@ func TestEmailCampaigns_Create(t *testing.T) {
 			BodyHTML:  "<html></html>",
 			MergeTags: []string{"first_name"},
 		},
-		DeliveryMode:      mailtrap.EmailCampaignDeliveryModeGradual,
-		DeliveryOptions:   &mailtrap.EmailCampaignDeliveryOptions{EmailsPerHour: mailtrap.Ptr(1000)},
-		ContactListIDs:    []int64{55, 56},
-		ContactSegmentIDs: []int64{12},
+		DeliveryMode:        mailtrap.EmailCampaignDeliveryModeGradual,
+		DeliveryOptions:     &mailtrap.EmailCampaignDeliveryOptions{EmailsPerHour: mailtrap.Ptr(1000)},
+		ContactListIDs:      []int64{55, 56},
+		ContactSegmentIDs:   []int64{12},
+		SubscriptionTopicID: 12,
 	}
 	c, resp, err := client.EmailCampaigns.Create(context.Background(), req)
 	if err != nil {
@@ -191,7 +212,7 @@ func TestEmailCampaigns_Create(t *testing.T) {
 	if resp.StatusCode != http.StatusCreated {
 		t.Errorf("status = %d", resp.StatusCode)
 	}
-	if c.ID != 4567 {
+	if c.ID != 4567 || c.SubscriptionTopicID == nil || *c.SubscriptionTopicID != 12 {
 		t.Errorf("campaign = %+v", c)
 	}
 }
@@ -203,21 +224,23 @@ func TestEmailCampaigns_Update(t *testing.T) {
 		wantJSONBody(t, r, `{
 			"name": "Spring Sale (updated)",
 			"template_attributes": {"subject": "New subject"},
-			"contact_list_ids": [55]
+			"contact_list_ids": [55],
+			"subscription_topic_id": 13
 		}`)
-		_, _ = w.Write([]byte(`{"data": ` + campaignJSON + `}`))
+		_, _ = w.Write([]byte(`{"data": {"id": 4567, "subscription_topic_id": 13}}`))
 	})
 
 	req := &mailtrap.UpdateEmailCampaignRequest{
-		Name:               "Spring Sale (updated)",
-		TemplateAttributes: &mailtrap.EmailCampaignTemplateAttributes{Subject: "New subject"},
-		ContactListIDs:     &[]int64{55},
+		Name:                "Spring Sale (updated)",
+		TemplateAttributes:  &mailtrap.EmailCampaignTemplateAttributes{Subject: "New subject"},
+		ContactListIDs:      &[]int64{55},
+		SubscriptionTopicID: 13,
 	}
 	c, _, err := client.EmailCampaigns.Update(context.Background(), 4567, req)
 	if err != nil {
 		t.Fatalf("Update: %v", err)
 	}
-	if c.ID != 4567 {
+	if c.ID != 4567 || c.SubscriptionTopicID == nil || *c.SubscriptionTopicID != 13 {
 		t.Errorf("campaign = %+v", c)
 	}
 }
@@ -226,7 +249,8 @@ func TestEmailCampaigns_UpdateClearAudience(t *testing.T) {
 	mux, client := setup(t)
 	mux.HandleFunc("PATCH /api/email_campaigns/4567", func(w http.ResponseWriter, r *http.Request) {
 		// An explicit empty slice must be serialized to clear all lists, while
-		// the nil ContactSegmentIDs must be omitted to leave segments unchanged.
+		// the nil ContactSegmentIDs must be omitted to leave segments unchanged,
+		// and the unset SubscriptionTopicID to leave the topic unchanged.
 		wantJSONBody(t, r, `{"contact_list_ids": []}`)
 		_, _ = w.Write([]byte(`{"data": ` + campaignJSON + `}`))
 	})

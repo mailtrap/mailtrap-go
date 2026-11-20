@@ -26,14 +26,34 @@ func TestWebhooks_List(t *testing.T) {
 func TestWebhooks_Get(t *testing.T) {
 	mux, client := setup(t)
 	mux.HandleFunc("GET /api/webhooks/1", func(w http.ResponseWriter, _ *http.Request) {
-		_, _ = w.Write([]byte(`{"data":{"id":1,"url":"https://example.com/hook","event_types":["delivery","bounce"]}}`))
+		_, _ = w.Write([]byte(`{"data":{"id":1,"url":"https://example.com/hook","event_types":["delivery","bounce","subscription_preferences_update"]}}`))
 	})
 
 	webhook, _, err := client.Webhooks.Get(context.Background(), 1)
 	if err != nil {
 		t.Fatalf("Get: %v", err)
 	}
-	if webhook.ID != 1 || len(webhook.EventTypes) != 2 {
+	if webhook.ID != 1 || len(webhook.EventTypes) != 3 || webhook.EventTypes[2] != mailtrap.WebhookEventSubscriptionPreferencesUpdate {
+		t.Errorf("webhook = %+v", webhook)
+	}
+}
+
+func TestWebhooks_Create_campaigns(t *testing.T) {
+	mux, client := setup(t)
+	mux.HandleFunc("POST /api/webhooks", func(w http.ResponseWriter, r *http.Request) {
+		wantJSONBody(t, r, `{"webhook":{"url":"https://example.com/hook","webhook_type":"campaigns","event_types":["open","subscription_preferences_update"]}}`)
+		_, _ = w.Write([]byte(`{"data":{"id":8,"webhook_type":"campaigns","event_types":["open","subscription_preferences_update"]}}`))
+	})
+
+	webhook, _, err := client.Webhooks.Create(context.Background(), &mailtrap.CreateWebhookRequest{
+		URL:         "https://example.com/hook",
+		WebhookType: mailtrap.WebhookTypeCampaigns,
+		EventTypes:  []string{mailtrap.WebhookEventOpen, mailtrap.WebhookEventSubscriptionPreferencesUpdate},
+	})
+	if err != nil {
+		t.Fatalf("Create: %v", err)
+	}
+	if webhook.ID != 8 || webhook.WebhookType != mailtrap.WebhookTypeCampaigns {
 		t.Errorf("webhook = %+v", webhook)
 	}
 }

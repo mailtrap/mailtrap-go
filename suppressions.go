@@ -33,6 +33,9 @@ type Suppression struct {
 	MessageRecipientMXName string `json:"message_recipient_mx_name"`
 	MessageSenderEmail     string `json:"message_sender_email"`
 	MessageSubject         string `json:"message_subject"`
+	// SubscriptionTopicID is the ID of the subscription topic the recipient
+	// unsubscribed from, set on a SuppressionTypeTopicUnsubscription row.
+	SubscriptionTopicID *int64 `json:"subscription_topic_id"`
 }
 
 // Suppression reasons for Suppression.Type.
@@ -41,6 +44,12 @@ const (
 	SuppressionTypeUnsubscription = "unsubscription"
 	SuppressionTypeSpamComplaint  = "spam complaint"
 	SuppressionTypeManualImport   = "manual import"
+	// SuppressionTypeTopicUnsubscription is a recipient's unsubscribe from one
+	// subscription topic (SubscriptionTopicID) on one domain (DomainName). It
+	// is response-only: List returns it with
+	// SuppressionListOptions.IncludeTopicUnsubscriptions, and it can be neither
+	// created nor deleted.
+	SuppressionTypeTopicUnsubscription = "topic unsubscription"
 )
 
 // Sending streams. Create accepts transactional or bulk; "any" is response-only.
@@ -61,6 +70,10 @@ type SuppressionListOptions struct {
 	EndTime   string
 	// LastID returns suppressions after this one, for cursor-based pagination.
 	LastID string
+	// IncludeTopicUnsubscriptions also returns the recipients' unsubscribes
+	// from single subscription topics, as SuppressionTypeTopicUnsubscription
+	// rows. They are returned only when the token can read contacts.
+	IncludeTopicUnsubscriptions bool
 }
 
 func (o *SuppressionListOptions) values() url.Values {
@@ -79,6 +92,9 @@ func (o *SuppressionListOptions) values() url.Values {
 	}
 	if o.LastID != "" {
 		v.Set("last_id", o.LastID)
+	}
+	if o.IncludeTopicUnsubscriptions {
+		v.Set("include_topic_unsubscriptions", "true")
 	}
 	return v
 }

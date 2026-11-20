@@ -47,6 +47,9 @@ type EmailCampaign struct {
 	DeliveryMode    string                        `json:"delivery_mode"`
 	DeliveryOptions *EmailCampaignDeliveryOptions `json:"delivery_options"`
 	Template        *EmailCampaignTemplate        `json:"template"`
+	// SubscriptionTopicID is the ID of the campaign's subscription topic (see
+	// SubscriptionTopicsService), or nil when the campaign has none.
+	SubscriptionTopicID *int64 `json:"subscription_topic_id"`
 }
 
 // Email campaign states for EmailCampaign.CurrentState.
@@ -152,6 +155,11 @@ type CreateEmailCampaignRequest struct {
 	ContactListIDs []int64 `json:"contact_list_ids,omitempty"`
 	// ContactSegmentIDs is the full set of contact segments to send to.
 	ContactSegmentIDs []int64 `json:"contact_segment_ids,omitempty"`
+	// SubscriptionTopicID is the ID of the subscription topic to send the
+	// campaign under, as returned by SubscriptionTopicsService; zero creates
+	// the campaign without one. The topic must cover the campaign's domain. On
+	// an account without subscription topics it is ignored.
+	SubscriptionTopicID int64 `json:"subscription_topic_id,omitempty"`
 }
 
 // UpdateEmailCampaignRequest changes a draft campaign. All fields are
@@ -176,6 +184,10 @@ type UpdateEmailCampaignRequest struct {
 	// leaves the segments unchanged; a pointer to an empty slice removes them
 	// all.
 	ContactSegmentIDs *[]int64 `json:"contact_segment_ids,omitempty"`
+	// SubscriptionTopicID changes the campaign's subscription topic; zero
+	// leaves it unchanged. A campaign's topic can be changed but not removed.
+	// On an account without subscription topics it is ignored.
+	SubscriptionTopicID int64 `json:"subscription_topic_id,omitempty"`
 }
 
 // EmailCampaignListOptions paginates and filters a campaign listing.

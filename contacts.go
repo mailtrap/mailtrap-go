@@ -30,6 +30,25 @@ type Contact struct {
 	// CreatedAt and UpdatedAt are Unix timestamps in milliseconds.
 	CreatedAt int64 `json:"created_at,omitempty"`
 	UpdatedAt int64 `json:"updated_at,omitempty"`
+	// SubscriptionTopics is the contact's status for each subscription topic
+	// on each domain. Get, Create and Update return it on an account with
+	// subscription topics. It is nil when the API leaves it out (an account
+	// without subscription topics) and when the preferences could not be read
+	// at the moment (null; retry later).
+	SubscriptionTopics []ContactSubscriptionTopic `json:"subscription_topics,omitempty"`
+}
+
+// ContactSubscriptionTopic is a contact's status for one subscription topic
+// on one domain.
+type ContactSubscriptionTopic struct {
+	// SubscriptionTopicID is the topic's ID, as returned by
+	// SubscriptionTopicsService.
+	SubscriptionTopicID int64 `json:"subscription_topic_id"`
+	// DomainID is the ID of the domain the status applies to, as returned by
+	// the Domains endpoints.
+	DomainID int64 `json:"domain_id"`
+	// Status is ContactStatusSubscribed or ContactStatusUnsubscribed.
+	Status string `json:"status"`
 }
 
 // CreateContactRequest is the payload for creating a contact. Email is required.
@@ -37,6 +56,10 @@ type CreateContactRequest struct {
 	Email   string         `json:"email"`
 	Fields  map[string]any `json:"fields,omitempty"`
 	ListIDs []int64        `json:"list_ids,omitempty"`
+	// SubscriptionTopics sets the contact's status for these subscription
+	// topics on these domains. On an account without subscription topics,
+	// setting it fails with a ValidationError.
+	SubscriptionTopics []ContactSubscriptionTopic `json:"subscription_topics,omitempty"`
 }
 
 // UpdateContactRequest is the payload for updating (upserting) a contact. Email
@@ -48,6 +71,11 @@ type UpdateContactRequest struct {
 	ListIDsIncluded []int64        `json:"list_ids_included,omitempty"`
 	ListIDsExcluded []int64        `json:"list_ids_excluded,omitempty"`
 	Unsubscribed    *bool          `json:"unsubscribed,omitempty"`
+	// SubscriptionTopics sets the contact's status for these subscription
+	// topics on these domains; the topic and domain pairs left out keep their
+	// status. On an account without subscription topics, setting it fails with
+	// a ValidationError.
+	SubscriptionTopics []ContactSubscriptionTopic `json:"subscription_topics,omitempty"`
 }
 
 // ContactUpsert is the result of Update: the contact plus whether it was
@@ -59,6 +87,10 @@ type ContactUpsert struct {
 }
 
 // Create adds a contact.
+//
+// When the contact is saved but its SubscriptionTopics are not, Create fails
+// with an *Error of status 503 whose message names the contact's ID: send the
+// topics again with Update.
 func (s *ContactsService) Create(ctx context.Context, req *CreateContactRequest) (*Contact, *Response, error) {
 	var wrapper struct {
 		Data *Contact `json:"data"`
@@ -79,6 +111,10 @@ func (s *ContactsService) Get(ctx context.Context, identifier string) (*Contact,
 
 // Update creates or updates (upserts) the contact identified by UUID or email,
 // reporting which action was taken.
+//
+// When the contact is saved but its SubscriptionTopics are not, Update fails
+// with an *Error of status 503 whose message names the contact's ID: send the
+// topics again in an Update of that ID.
 func (s *ContactsService) Update(ctx context.Context, identifier string, req *UpdateContactRequest) (*ContactUpsert, *Response, error) {
 	upsert := new(ContactUpsert)
 	body := map[string]any{"contact": req}

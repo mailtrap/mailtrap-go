@@ -36,6 +36,10 @@ type ImportContact struct {
 	Fields          map[string]any `json:"fields,omitempty"`
 	ListIDsIncluded []int64        `json:"list_ids_included,omitempty"`
 	ListIDsExcluded []int64        `json:"list_ids_excluded,omitempty"`
+	// SubscriptionTopics sets the contact's status for these subscription
+	// topics on these domains. On an account without subscription topics,
+	// setting it makes Create fail with a ValidationError.
+	SubscriptionTopics []ContactSubscriptionTopic `json:"subscription_topics,omitempty"`
 }
 
 // Create starts an asynchronous import of the given contacts. Poll Get with the

@@ -122,6 +122,9 @@ type Client struct {
 	EmailCampaigns *EmailCampaignsService
 	// MarketingStats reads Email Marketing stats across campaigns and automations.
 	MarketingStats *MarketingStatsService
+	// SubscriptionTopics reads the subscription topics recipients can opt out
+	// of one by one.
+	SubscriptionTopics *SubscriptionTopicsService
 }
 
 // Ptr returns a pointer to v, for setting optional pointer request fields such
@@ -192,6 +195,7 @@ func NewClient(token string, opts ...Option) (*Client, error) {
 	c.ContactExports = &ContactExportsService{client: c}
 	c.EmailCampaigns = &EmailCampaignsService{client: c}
 	c.MarketingStats = &MarketingStatsService{client: c}
+	c.SubscriptionTopics = &SubscriptionTopicsService{client: c}
 
 	return c, nil
 }

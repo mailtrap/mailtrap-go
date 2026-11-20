@@ -104,6 +104,7 @@ Email marketing:
 
 - Email campaigns — create, list, update & delete campaigns, schedule/start lifecycle & stats — [`examples/email-campaigns`](examples/email-campaigns)
 - Marketing stats — aggregated across campaigns & automations, filtered by domain, source & ESP — [`examples/marketing-stats`](examples/marketing-stats)
+- Subscription topics — list & get the topics recipients can opt out of one by one, set on campaigns & contacts — [`examples/subscription-topics`](examples/subscription-topics)
 
 ## Renamed APIs
 

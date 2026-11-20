@@ -14,7 +14,10 @@ func TestSuppressions_List(t *testing.T) {
 		if got := r.URL.Query().Get("email"); got != "user@example.com" {
 			t.Errorf("email query = %q", got)
 		}
-		_, _ = w.Write([]byte(`[{"id":"64d71bf3-1276-417b-86e1-8e66f138acfe","email":"user@example.com","type":"hard bounce","sending_stream":"transactional"}]`))
+		if r.URL.Query().Has("include_topic_unsubscriptions") {
+			t.Errorf("include_topic_unsubscriptions sent by default")
+		}
+		_, _ = w.Write([]byte(`[{"id":"64d71bf3-1276-417b-86e1-8e66f138acfe","email":"user@example.com","type":"hard bounce","sending_stream":"transactional","subscription_topic_id":null}]`))
 	})
 
 	suppressions, _, err := client.Suppressions.List(context.Background(), &mailtrap.SuppressionListOptions{Email: "user@example.com"})
@@ -23,6 +26,34 @@ func TestSuppressions_List(t *testing.T) {
 	}
 	if len(suppressions) != 1 || suppressions[0].ID != "64d71bf3-1276-417b-86e1-8e66f138acfe" || suppressions[0].Type != "hard bounce" {
 		t.Fatalf("suppressions = %+v", suppressions)
+	}
+	if suppressions[0].SubscriptionTopicID != nil {
+		t.Errorf("SubscriptionTopicID = %v, want nil", *suppressions[0].SubscriptionTopicID)
+	}
+}
+
+func TestSuppressions_List_topicUnsubscriptions(t *testing.T) {
+	mux, client := setup(t)
+	mux.HandleFunc("GET /api/suppressions", func(w http.ResponseWriter, r *http.Request) {
+		if got := r.URL.RawQuery; got != "include_topic_unsubscriptions=true" {
+			t.Errorf("query = %q, want include_topic_unsubscriptions=true", got)
+		}
+		_, _ = w.Write([]byte(`[{"id":"9f1c","email":"user@example.com","type":"topic unsubscription","sending_stream":"bulk","domain_name":"acme.com","subscription_topic_id":12}]`))
+	})
+
+	suppressions, _, err := client.Suppressions.List(context.Background(), &mailtrap.SuppressionListOptions{IncludeTopicUnsubscriptions: true})
+	if err != nil {
+		t.Fatalf("List: %v", err)
+	}
+	if len(suppressions) != 1 {
+		t.Fatalf("suppressions = %+v", suppressions)
+	}
+	s := suppressions[0]
+	if s.Type != mailtrap.SuppressionTypeTopicUnsubscription || s.DomainName != "acme.com" {
+		t.Errorf("suppression = %+v", s)
+	}
+	if s.SubscriptionTopicID == nil || *s.SubscriptionTopicID != 12 {
+		t.Errorf("SubscriptionTopicID = %v, want 12", s.SubscriptionTopicID)
 	}
 }
 
