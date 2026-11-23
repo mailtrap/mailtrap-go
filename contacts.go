@@ -31,10 +31,11 @@ type Contact struct {
 	CreatedAt int64 `json:"created_at,omitempty"`
 	UpdatedAt int64 `json:"updated_at,omitempty"`
 	// SubscriptionTopics is the contact's status for each subscription topic
-	// on each domain. Get, Create and Update return it on an account with
-	// subscription topics. It is nil when the API leaves it out (an account
-	// without subscription topics) and when the preferences could not be read
-	// at the moment (null; retry later).
+	// on each domain. Get, Create and Update return it once contact topic
+	// preferences are enabled for the account, which can be later than
+	// subscription topics themselves. It is nil when the API leaves it out
+	// (preferences not enabled) and when the preferences could not be read at
+	// the moment (null; retry later).
 	SubscriptionTopics []ContactSubscriptionTopic `json:"subscription_topics,omitempty"`
 }
 
@@ -57,8 +58,8 @@ type CreateContactRequest struct {
 	Fields  map[string]any `json:"fields,omitempty"`
 	ListIDs []int64        `json:"list_ids,omitempty"`
 	// SubscriptionTopics sets the contact's status for these subscription
-	// topics on these domains. On an account without subscription topics,
-	// setting it fails with a ValidationError.
+	// topics on these domains. Until contact topic preferences are enabled for
+	// the account, setting it fails with a ValidationError.
 	SubscriptionTopics []ContactSubscriptionTopic `json:"subscription_topics,omitempty"`
 }
 
@@ -73,8 +74,8 @@ type UpdateContactRequest struct {
 	Unsubscribed    *bool          `json:"unsubscribed,omitempty"`
 	// SubscriptionTopics sets the contact's status for these subscription
 	// topics on these domains; the topic and domain pairs left out keep their
-	// status. On an account without subscription topics, setting it fails with
-	// a ValidationError.
+	// status. Until contact topic preferences are enabled for the account,
+	// setting it fails with a ValidationError.
 	SubscriptionTopics []ContactSubscriptionTopic `json:"subscription_topics,omitempty"`
 }
 

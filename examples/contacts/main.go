@@ -44,11 +44,17 @@ func main() {
 				{SubscriptionTopicID: topicID, DomainID: domainID, Status: mailtrap.ContactStatusUnsubscribed},
 			},
 		})
-		if err != nil {
+		var validation *mailtrap.ValidationError
+		switch {
+		case errors.As(err, &validation) && len(validation.Fields["subscription_topics"]) > 0:
+			// An account can have topics before it can set them on contacts.
+			fmt.Println("contact topic preferences are not available for this account")
+		case err != nil:
 			log.Fatal(err)
-		}
-		for _, t := range upsert.Contact.SubscriptionTopics {
-			fmt.Printf("topic %d on domain %d: %s\n", t.SubscriptionTopicID, t.DomainID, t.Status)
+		default:
+			for _, t := range upsert.Contact.SubscriptionTopics {
+				fmt.Printf("topic %d on domain %d: %s\n", t.SubscriptionTopicID, t.DomainID, t.Status)
+			}
 		}
 	}
 

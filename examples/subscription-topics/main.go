@@ -23,13 +23,17 @@ func main() {
 	page, _, err := client.SubscriptionTopics.List(ctx, &mailtrap.SubscriptionTopicListOptions{PerPage: 10})
 	var forbidden *mailtrap.ForbiddenError
 	if errors.As(err, &forbidden) {
-		fmt.Println("subscription topics are not available for this account")
+		// Either the account has no subscription topics or the token can't read them.
+		fmt.Println("subscription topics are not available for this account or token:", err)
 		return
 	}
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("page has %d topic(s); next token: %v\n", len(page.Data), page.Pagination.NextToken)
+	fmt.Printf("page has %d topic(s)\n", len(page.Data))
+	if next := page.Pagination.NextToken; next != nil {
+		fmt.Printf("next page token: %d\n", *next)
+	}
 
 	// Or iterate every topic across pages. Deleted topics are left out.
 	for t, err := range client.SubscriptionTopics.All(ctx, nil) {
