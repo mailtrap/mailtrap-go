@@ -1,0 +1,19 @@
+subscription_topics.go
+  s_1ac9c793125519::t_4044ad2d724a48 31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fb6de128210224822349394305b07ba1c9aa514c",
+  "prompts": {},
+  "sessions": {
+    "s_1ac9c793125519": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4b024b01-66f7-48f6-9777-492bba38be79",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
