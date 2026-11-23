@@ -39,9 +39,13 @@ func main() {
 	}
 	fmt.Printf("found %d suppression(s)\n", len(suppressions))
 
-	// Also list recipients' unsubscribes from single subscription topics. They
-	// can't be deleted, so the cleanup below removes only the suppression
-	// created above.
+	if _, _, err = client.Suppressions.Delete(ctx, suppression.ID); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("removed suppression")
+
+	// Also list recipients' unsubscribes from single subscription topics, which
+	// can be neither created nor deleted.
 	suppressions, _, err = client.Suppressions.List(ctx, &mailtrap.SuppressionListOptions{
 		IncludeTopicUnsubscriptions: true,
 	})
@@ -53,9 +57,4 @@ func main() {
 			fmt.Printf("%s unsubscribed from topic %d on %s\n", s.Email, *s.SubscriptionTopicID, s.DomainName)
 		}
 	}
-
-	if _, _, err = client.Suppressions.Delete(ctx, suppression.ID); err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("removed suppression")
 }
