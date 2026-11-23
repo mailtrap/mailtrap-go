@@ -1,0 +1,19 @@
+examples/suppressions/main.go
+  s_ead41ff6dc08cf::t_e5a2ae69877381 42-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d5329a2ec3a8a5e481721fb3a6063ca8b79b6f91",
+  "prompts": {},
+  "sessions": {
+    "s_ead41ff6dc08cf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c54f2cc3-d851-4ad4-898d-4cdaac8ac207",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
