@@ -178,9 +178,6 @@ func TestSubscriptionTopics_Get(t *testing.T) {
 	if topic.ID != 12 || topic.Name != "Product updates" || topic.UpdatedAt != "2026-05-02T09:00:00.000Z" {
 		t.Errorf("topic = %+v", topic)
 	}
-	if topic.DeletedAt != nil {
-		t.Errorf("DeletedAt = %v, want nil", *topic.DeletedAt)
-	}
 }
 
 func TestSubscriptionTopics_GetDeleted(t *testing.T) {

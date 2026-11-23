@@ -28,8 +28,7 @@ type SubscriptionTopic struct {
 	// DomainID is the ID of the domain the topic belongs to, as returned by
 	// the Domains endpoints, or nil when the topic covers every domain.
 	DomainID *int64 `json:"domain_id"`
-	// DeletedAt is set on a deleted topic, which only Get returns: a campaign
-	// keeps the topic it was given after the topic is deleted.
+	// DeletedAt is set on a deleted topic, which only Get returns.
 	DeletedAt *string `json:"deleted_at"`
 	CreatedAt string  `json:"created_at"`
 	UpdatedAt string  `json:"updated_at"`
