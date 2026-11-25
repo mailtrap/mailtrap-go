@@ -1,0 +1,20 @@
+examples/contacts/main.go
+  s_56a77fb3387d32::t_0a1e11741e22be 52
+  s_56a77fb3387d32::t_51fa30c27fca1e 9,50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a02358088fb534707609d4c520b150f25797cc94",
+  "prompts": {},
+  "sessions": {
+    "s_56a77fb3387d32": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4351760-59d5-48d3-875f-5a066e8b9357",
+        "model": "unknown"
+      },
+      "human_author": "Maciej Walusiak <maciej.walusiak@railsware.com>"
+    }
+  }
+}
