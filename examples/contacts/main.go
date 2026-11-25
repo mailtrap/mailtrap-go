@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"slices"
 
 	"github.com/mailtrap/mailtrap-go"
 )
@@ -46,8 +47,9 @@ func main() {
 		})
 		var validation *mailtrap.ValidationError
 		switch {
-		case errors.As(err, &validation) && len(validation.Fields["subscription_topics"]) > 0:
+		case errors.As(err, &validation) && slices.Contains(validation.Fields["subscription_topics"], "are not available for this account"):
 			// An account can have topics before it can set them on contacts.
+			// Other subscription_topics errors are real problems with the request.
 			fmt.Println("contact topic preferences are not available for this account")
 		case err != nil:
 			log.Fatal(err)
