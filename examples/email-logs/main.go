@@ -50,5 +50,9 @@ func main() {
 	fmt.Printf("message %s has %d event(s)\n", msg.MessageID, len(msg.Events))
 	for _, e := range msg.Events {
 		fmt.Printf("  %s at %s\n", e.EventType, e.CreatedAt)
+		// topic_unsubscribe and topic_resubscribe name the subscription topic.
+		if e.Details.SubscriptionTopicID != nil {
+			fmt.Printf("    subscription topic %d\n", *e.Details.SubscriptionTopicID)
+		}
 	}
 }

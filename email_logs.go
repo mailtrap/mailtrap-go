@@ -67,6 +67,11 @@ const (
 	MessageEventTypeUnsubscribe = "unsubscribe"
 	MessageEventTypeSuspension  = "suspension"
 	MessageEventTypeReject      = "reject"
+	// MessageEventTypeTopicUnsubscribe and MessageEventTypeTopicResubscribe
+	// record the recipient leaving and rejoining one subscription topic;
+	// Details.SubscriptionTopicID names it.
+	MessageEventTypeTopicUnsubscribe = "topic_unsubscribe"
+	MessageEventTypeTopicResubscribe = "topic_resubscribe"
 )
 
 // MessageEventDetails is the union of every event's detail fields; only those
@@ -82,6 +87,7 @@ type MessageEventDetails struct {
 	ClickURL                     string `json:"click_url,omitempty"`
 	SpamFeedbackType             string `json:"spam_feedback_type,omitempty"`
 	RejectReason                 string `json:"reject_reason,omitempty"`
+	SubscriptionTopicID          *int64 `json:"subscription_topic_id,omitempty"`
 }
 
 // EmailLogsList is a page of email logs. NextPageCursor is empty on the last page.

@@ -94,3 +94,35 @@ func TestEmailLogs_Get(t *testing.T) {
 		t.Errorf("event = %+v", msg.Events[0])
 	}
 }
+
+func TestEmailLogs_Get_topicEvents(t *testing.T) {
+	mux, client := setup(t)
+	mux.HandleFunc("GET /api/email_logs/a1", func(w http.ResponseWriter, _ *http.Request) {
+		_, _ = w.Write([]byte(`{"message_id":"a1","events":[` +
+			`{"event_type":"topic_unsubscribe","created_at":"2025-01-15T10:35:00Z","details":{"web_ip_address":"198.51.100.7","subscription_topic_id":12}},` +
+			`{"event_type":"topic_resubscribe","created_at":"2025-01-16T10:35:00Z","details":{"web_ip_address":null,"subscription_topic_id":12}},` +
+			`{"event_type":"future_event","created_at":"2025-01-17T10:35:00Z","details":{"something_new":{"nested":true},"click_url":"https://example.com/c"}}]}`))
+	})
+
+	msg, _, err := client.EmailLogs.Get(context.Background(), "a1")
+	if err != nil {
+		t.Fatalf("Get: %v", err)
+	}
+	if len(msg.Events) != 3 {
+		t.Fatalf("events = %+v", msg.Events)
+	}
+	unsub, resub, unknown := msg.Events[0], msg.Events[1], msg.Events[2]
+	if unsub.EventType != mailtrap.MessageEventTypeTopicUnsubscribe || unsub.Details.WebIPAddress != "198.51.100.7" ||
+		unsub.Details.SubscriptionTopicID == nil || *unsub.Details.SubscriptionTopicID != 12 {
+		t.Errorf("topic_unsubscribe = %+v", unsub)
+	}
+	if resub.EventType != mailtrap.MessageEventTypeTopicResubscribe || resub.Details.WebIPAddress != "" ||
+		resub.Details.SubscriptionTopicID == nil || *resub.Details.SubscriptionTopicID != 12 {
+		t.Errorf("topic_resubscribe = %+v", resub)
+	}
+	// An event type this version doesn't know decodes with its raw type and
+	// whatever details it shares with the known events.
+	if unknown.EventType != "future_event" || unknown.Details.ClickURL != "https://example.com/c" || unknown.Details.SubscriptionTopicID != nil {
+		t.Errorf("unknown event = %+v", unknown)
+	}
+}
